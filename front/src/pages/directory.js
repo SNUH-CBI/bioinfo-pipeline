@@ -1,12 +1,19 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 
 export default class Directory extends React.Component {
-  render(){
+  isCookie = () => {
+    if (this.props.cookie.biopipe !== 'pw') {
+      alert("wrong pw for this page")
+      return <Redirect to={this.props.match.params.path + '/auth'} />
+    }
+    else return <h2>Directory Listing Here</h2>
+  }
+  render() {
+    console.log(this.props)
     return (
       <div>
-        <h2>
-          { this.props.match.params.path }
-        </h2>
+        <this.isCookie />
       </div>
     );
   }
