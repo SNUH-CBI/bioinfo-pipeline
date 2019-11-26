@@ -6,6 +6,7 @@ import axios from 'axios';
 export default class Authorization extends React.Component {
   state = { success: false }
   handleCreate = (data) => {
+    axios.defaults.withCredentials = true
     axios({
       method: 'post',
       url: 'http://localhost:4000/auth/' + this.props.match.params.path,

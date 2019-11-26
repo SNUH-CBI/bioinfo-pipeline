@@ -64,6 +64,7 @@ export default class Directory extends React.Component {
 
 
   render() {
+    axios.defaults.withCredentials = true
     axios({
       method: 'post',
       url: 'http://localhost:4000/path/asd',
