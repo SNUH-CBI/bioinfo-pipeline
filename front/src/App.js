@@ -1,16 +1,16 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
-import { Route } from 'react-router-dom';
-import { useCookies } from 'react-cookie';
-
-import Directory from './pages/directory.js';
+import { Link, Route } from 'react-router-dom';
 import Authorization from './pages/authorization.js';
+import Directory from './pages/directory.js';
+
 
 function App() {
-  const [cookies, setCookie] = useCookies(['biopipe']);
   return (
       <div className="App">
-        <Route exact path="/:path" render={(props) => <Directory {...props} cookie={cookies} />} />
-        <Route path="/:path/auth" render={(props) => <Authorization {...props} setCookie={setCookie} />} />
+        <Route exact path="/" render={(props) => <div><Link to="/asd">go /asd</Link><br/><Link to="/asd/auth">go /asd/auth</Link></div>} />
+        <Route exact path="/:path" render={(props) => <Directory {...props} />} />
+        <Route path="/:path/auth" render={(props) => <Authorization {...props} />} />
       </div>
   );
 }
