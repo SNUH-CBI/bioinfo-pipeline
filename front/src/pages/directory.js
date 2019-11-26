@@ -1,6 +1,7 @@
 import React from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import CheckboxTree from 'react-checkbox-tree';
+import axios from 'axios';
 import 'react-checkbox-tree/lib/react-checkbox-tree.css'
 import { Row, Col, ResponsiveEmbed } from 'react-bootstrap'
 import Iframe from 'react-iframe'
@@ -25,36 +26,6 @@ const icons = {
   parentOpen: <MdFolderOpen />,
   leaf: <MdInsertDriveFile />
 };
-
-const nodesample = [{
-  type: "directory",
-  label: "dep1",
-  value: "/dep1",
-  children: [
-    {
-      type: "directory",
-      label: "dep2-1",
-      value: "/dep1/dep2-1",
-      children: [
-        {
-          type: "file",
-          label: "logo512.jpg",
-          value: "logo512.png"
-        }
-      ]
-    },
-    {
-      type: "directory",
-      label: "dep2-2",
-      value: "/dep1/dep2-2",
-      children: []
-    }
-  ]
-},
-{
-  type: 'file',
-  label: 'sample.pdf',
-  value: 'sample.pdf' }]
 
 const nodeparse = (node) => {
   return node.map((index) => {
@@ -92,22 +63,14 @@ export default class Directory extends React.Component {
   }
 
 
-  componentDidMount = () => {
-    this.setState({ node: nodeparse(nodesample) });
-  }
-
-
-  isCookie = () => {
-    if (this.props.cookie.biopipe !== 'pw') {
-      alert("wrong pw for this page")
-      return <Redirect to={this.props.match.params.path + '/auth'} />
-    }
-    else return <br />;
-  }
   render() {
+    axios({
+      method: 'post',
+      url: 'http://localhost:4000/path/asd',
+    })
+    console.log(this.props.match)
     return (
       <div>
-        <this.isCookie />
         <Row>
           <Col md="auto">
             <CheckboxTree
