@@ -1,6 +1,5 @@
 import React from 'react';
 import Password from '../component/password';
-import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios';
 
 export default class Authorization extends React.Component {
@@ -16,12 +15,11 @@ export default class Authorization extends React.Component {
     })
       .then((response) => {
         if (response.data.success) {
-          console.log(response);
           alert("session created");
           this.setState({success:true})
+          this.props.history.push("/"+this.props.match.params.path)
         }
         else {
-          console.log(response)
           alert("wrong password");
         }
       })
@@ -31,21 +29,11 @@ export default class Authorization extends React.Component {
       })
   }
 
-  isSuccess = () => {
-    if (this.state.success) {
-      alert("go to " + this.props.match.params.path)
-      return <Redirect to={"../" + this.props.match.params.path} />
-    }
-    else return <br />;
-  }
-
   render() {
     return (
       <div>
         <h2>AUTHORIZATION</h2>
-        <this.isSuccess />
         <Password onCreate={this.handleCreate} />
-        <Link to="/asd">go /asd</Link>
       </div>
     );
   }

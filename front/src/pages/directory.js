@@ -1,5 +1,4 @@
 import React from 'react';
-import { Redirect, Link } from 'react-router-dom';
 import CheckboxTree from 'react-checkbox-tree';
 import axios from 'axios';
 import 'react-checkbox-tree/lib/react-checkbox-tree.css'
@@ -38,7 +37,6 @@ const nodeparse = (node) => {
 }
 
 const iconconfrim = (index) => {
-  console.log(index)
   if (index.type === 'directory') return <MdFolder />
   switch (index.label.slice(-4)) {
     case '.jpg':
@@ -59,17 +57,34 @@ export default class Directory extends React.Component {
     expanded: [],
     clicked: [],
     path: '',
-    node: []
+    node: [],
+    success: false
   }
 
-
-  render() {
+  checkPermission = () => {
     axios.defaults.withCredentials = true
     axios({
       method: 'post',
-      url: 'http://localhost:4000/path/asd',
+      url: 'http://localhost:4000/path/' + this.props.match.params.path
     })
-    console.log(this.props.match)
+      .then((response) => {
+        if (response.data.success) {
+          this.setState({ success: true })
+          this.setState({ node: nodeparse(response.data.result) })
+        }
+        else {
+          alert("wrong password");
+          this.props.history.push(this.props.match.params.path + '/auth')
+        }
+      })
+      .catch((error) => {
+        console.log(error)
+        alert("error occured. check console log");
+      })
+  }
+
+  render() {
+    if (!this.state.success) this.checkPermission()
     return (
       <div>
         <Row>
@@ -78,7 +93,7 @@ export default class Directory extends React.Component {
               nodes={this.state.node}
               expanded={this.state.expanded}
               onExpand={expanded => this.setState({ expanded })}
-              onClick={clicked => { if (clicked.children === undefined) { this.setState({ path: clicked.value }); } }}//post func
+              onClick={clicked => { if (clicked.children === undefined) { this.setState({ path: clicked.value }); } }}
               icons={icons}
               expandOnClick={true}
             />
@@ -91,8 +106,6 @@ export default class Directory extends React.Component {
             </div>
           </Col>
         </Row>
-        <br />
-        <Link to={this.props.match.params.path + '/auth'}>go auth page</Link>
       </div>
     );
   }
