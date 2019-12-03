@@ -8,7 +8,7 @@ router.post('/:path*',
   function(req, res){
     if (req.session.user === req.params.path){
       // TODO: search directory
-      res.json({sucesss: true, result: json})
+      res.json({success: true, result: json})
     }
     else
       res.json({success: false})
