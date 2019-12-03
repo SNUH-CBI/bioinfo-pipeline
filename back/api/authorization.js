@@ -13,7 +13,9 @@ router.post('/:path',
     if (check(req.params.path, req.body.password)){
       // TODO: req session uuid 
       req.session.user = req.params.path
-      { res.json( {success: true} )}
+      req.session.save(() => {
+        res.json( {success: true} )
+      })
     }
     else { res.json( {success: false} )}
   } 
