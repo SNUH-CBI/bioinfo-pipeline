@@ -2,7 +2,7 @@ import React from 'react';
 import CheckboxTree from 'react-checkbox-tree';
 import axios from 'axios';
 import 'react-checkbox-tree/lib/react-checkbox-tree.css'
-import { Row, Col, ResponsiveEmbed } from 'react-bootstrap'
+import { Rnd } from 'react-rnd'
 import Iframe from 'react-iframe'
 import {
   MdChevronRight,
@@ -25,6 +25,11 @@ const icons = {
   parentOpen: <MdFolderOpen />,
   leaf: <MdInsertDriveFile />
 };
+
+const onlyLeft = {
+  top: false, right: false, bottom: false, left: true,
+  topRight: false, bottomRight: false, bottomLeft: false, topLeft: false
+}
 
 const nodeparse = (node) => {
   return node.map((index) => {
@@ -58,7 +63,9 @@ export default class Directory extends React.Component {
     clicked: [],
     path: '',
     node: [],
-    success: false
+    success: false,
+    width: window.innerWidth - 140,
+    pageX: 140
   }
 
   checkPermission = () => {
@@ -83,29 +90,50 @@ export default class Directory extends React.Component {
       })
   }
 
+  componentDidMount = () => {
+    this.updateWindowDimensions();
+    window.addEventListener('resize', this.updateWindowDimensions);
+  }
+
+  componentWillUnmount = () => {
+    window.removeEventListener('resize', this.updateWindowDimensions);
+  }
+
+  updateWindowDimensions = () => {
+    this.setState({ width: (window.innerWidth - this.state.pageX) });
+  }
+
   render() {
     if (!this.state.success) this.checkPermission()
     return (
       <div>
-        <Row>
-          <Col md="auto">
-            <CheckboxTree
-              nodes={this.state.node}
-              expanded={this.state.expanded}
-              onExpand={expanded => this.setState({ expanded })}
-              onClick={clicked => { if (clicked.children === undefined) { this.setState({ path: clicked.value }); } }}
-              icons={icons}
-              expandOnClick={true}
-            />
-          </Col>
-          <Col>
-            <div style={{ width: 'auto', height: 'auto' }}>
-              <ResponsiveEmbed aspectRatio="16by9">
-                <Iframe src={this.state.path} />
-              </ResponsiveEmbed>
-            </div>
-          </Col>
-        </Row>
+        <CheckboxTree
+          nodes={this.state.node}
+          expanded={this.state.expanded}
+          onExpand={expanded => this.setState({ expanded })}
+          onClick={clicked => {
+            if (clicked.children === undefined) {
+              this.setState({ path: clicked.value })
+            }
+          }}
+          icons={icons}
+          expandOnClick={true}
+        />
+        <Rnd
+          default={{ x: 140, y: 0 }}
+          style={{ borderLeft: '1px double grey', background: 'whitesmoke' }}
+          bounds="window"
+          disableDragging="true"
+          size={{ width: this.state.width, height: '100%' }}
+          enableResizing={onlyLeft}
+          onResizeStop={(e, direction, ref, delta, position) => {
+            this.setState({ width: Math.min(window.innerWidth, window.innerWidth - e.pageX) })
+            this.setState({ pageX: Math.max(0, e.pageX) })
+          }}
+        >
+          <Iframe src={this.state.path} width="100%" height="100%" />
+        </Rnd>
+
       </div>
     );
   }

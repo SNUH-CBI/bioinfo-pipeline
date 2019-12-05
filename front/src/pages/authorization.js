@@ -1,39 +1,59 @@
 import React from 'react';
-import Password from '../component/password';
 import axios from 'axios';
+import Form from 'react-bootstrap/Form'
+import Button from 'react-bootstrap/Button'
 
 export default class Authorization extends React.Component {
-  state = { success: false }
-  handleCreate = (data) => {
+
+  state = { success: false, password: '' }
+
+  handleChange = (e) => {
+    e.preventDefault();
+    this.setState({ password: e.target.value })
+  }
+
+  handleClick = (e) => {
+    e.preventDefault();
     axios.defaults.withCredentials = true
     axios({
       method: 'post',
       url: 'http://localhost:4000/auth/' + this.props.match.params.path,
       data: {
-        password: data.password
+        password: this.state.password
       }
     })
       .then((response) => {
         if (response.data.success) {
           alert("session created");
-          this.setState({success:true})
-          this.props.history.push("/"+this.props.match.params.path)
+          this.setState({ success: true })
+          this.props.history.push("/" + this.props.match.params.path)
         }
         else {
           alert("wrong password");
+          this.setState({password: ''})
         }
       })
       .catch((error) => {
         console.log(error);
         alert("error");
+        this.setState({password: ''})
       })
   }
 
+
+
   render() {
     return (
-      <div>
-        <h2>AUTHORIZATION</h2>
-        <Password onCreate={this.handleCreate} />
+      <div className="authDiv">
+        <Form className="AUTHORIZATION">
+          <Form.Group controlId="formBasicPassword">
+            <Form.Label>Authorization<br/>Go to {this.props.match.params.path}</Form.Label>
+            <Form.Control type="password" placeholder="Password" onChange={this.handleChange} value={this.state.password} />
+          </Form.Group>
+          <Button variant="primary" type="submit" onClick={this.handleClick}>
+            Submit
+          </Button>
+        </Form>
       </div>
     );
   }
