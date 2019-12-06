@@ -63,8 +63,7 @@ export default class Directory extends React.Component {
     clicked: [],
     path: '',
     node: [],
-    success: false,
-    width: window.innerWidth - 140,
+    width: window.innerWidth,
     pageX: 140
   }
 
@@ -76,7 +75,6 @@ export default class Directory extends React.Component {
     })
       .then((response) => {
         if (response.data.success) {
-          this.setState({ success: true })
           this.setState({ node: nodeparse(response.data.result) })
         }
         else {
@@ -93,6 +91,7 @@ export default class Directory extends React.Component {
   componentDidMount = () => {
     this.updateWindowDimensions();
     window.addEventListener('resize', this.updateWindowDimensions);
+    this.checkPermission()
   }
 
   componentWillUnmount = () => {
@@ -104,7 +103,6 @@ export default class Directory extends React.Component {
   }
 
   render() {
-    if (!this.state.success) this.checkPermission()
     return (
       <div>
         <CheckboxTree
