@@ -8,7 +8,7 @@ import Directory from './pages/directory.js';
 function App() {
   return (
       <div className="App">
-        <Route exact path="/" render={(props) => <div><Link to="/asd">go /asd</Link><br/><Link to="/asd/auth">go /asd/auth</Link></div>} />
+        <Route exact path="/" render={(props) => <div><Link to="/asdf">go /asdf</Link><br/><Link to="/asdf/auth">go /asdf/auth</Link></div>} />
         <Route exact path="/:path" render={(props) => <Directory {...props} />} />
         <Route path="/:path/auth" render={(props) => <Authorization {...props} />} />
       </div>

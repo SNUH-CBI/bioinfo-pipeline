@@ -4,6 +4,7 @@ import axios from 'axios';
 import 'react-checkbox-tree/lib/react-checkbox-tree.css'
 import { Rnd } from 'react-rnd'
 import Iframe from 'react-iframe'
+import { ButtonGroup, Button } from 'react-bootstrap'
 import {
   MdChevronRight,
   MdKeyboardArrowDown,
@@ -43,7 +44,7 @@ const nodeparse = (node) => {
 
 const iconconfrim = (index) => {
   if (index.type === 'directory') return <MdFolder />
-  switch (index.label.slice(-4)) {
+  switch (index) {
     case '.jpg':
       return <AiOutlineFileJpg />
     case '.pdf':
@@ -61,21 +62,23 @@ export default class Directory extends React.Component {
   state = {
     expanded: [],
     clicked: [],
-    path: '',
+    frameData: '',
     node: [],
-    width: window.innerWidth,
-    pageX: 140
+    width: window.innerWidth - 140,
+    permissionOK: false,
+    clickedMenu: ''
   }
 
   checkPermission = () => {
     axios.defaults.withCredentials = true
     axios({
       method: 'post',
-      url: 'http://localhost:4000/path/' + this.props.match.params.path
+      url: 'http://210.117.211.208:36002/path/' + this.props.match.params.path
     })
       .then((response) => {
         if (response.data.success) {
-          this.setState({ node: nodeparse(response.data.result) })
+          this.setState({ node: nodeparse([response.data.result]) })
+          this.setState({ permissionOK: true })
         }
         else {
           alert("wrong password");
@@ -88,10 +91,50 @@ export default class Directory extends React.Component {
       })
   }
 
+  getStaticFile = (value) => {
+    const { frameData } = this.state
+    const url = 'http://210.117.211.208:36002/static/' + value
+    this.setState({ frameData: url }, () => console.log(this.state.frameData))
+  }
+
+  getRndButtonLayout = () => {
+    switch (this.state.clickedMenu) {
+      case 'Raw_fastQC':
+      case 'Filtered_fastQC':
+      case 'Qualimap_UCSC':
+        return <span></span>
+
+      case 'Sample_Correlation':
+        return <ButtonGroup>
+          <Button>Correlation Matrix</Button>
+          <Button>Correlation Heatmap</Button>
+          <Button>PCA</Button>
+        </ButtonGroup>
+
+      case 'DEG':
+        return <ButtonGroup>
+          <Button>Count</Button>
+          <Button>FPKM</Button>
+          <Button>TPM</Button>
+        </ButtonGroup>
+
+      case 'GSA':
+        return <ButtonGroup>
+          <Button>GO_BP</Button>
+          <Button>GO_CC</Button>
+          <Button>GO_MF</Button>
+          <Button>KEGG</Button>
+        </ButtonGroup>
+
+      default:
+        return <span></span>
+    }
+  }
+
   componentDidMount = () => {
     this.updateWindowDimensions();
+    if (!this.state.permissionOK) this.checkPermission()
     window.addEventListener('resize', this.updateWindowDimensions);
-    this.checkPermission()
   }
 
   componentWillUnmount = () => {
@@ -102,36 +145,53 @@ export default class Directory extends React.Component {
     this.setState({ width: (window.innerWidth - this.state.pageX) });
   }
 
+  handleOnClick = (e, v) => {
+    console.log(v)
+    this.setState({ clickedMenu: v })
+  }
+
   render() {
     return (
-      <div>
-        <CheckboxTree
-          nodes={this.state.node}
-          expanded={this.state.expanded}
-          onExpand={expanded => this.setState({ expanded })}
-          onClick={clicked => {
-            if (clicked.children === undefined) {
-              this.setState({ path: clicked.value })
-            }
-          }}
-          icons={icons}
-          expandOnClick={true}
-        />
-        <Rnd
-          default={{ x: 140, y: 0 }}
-          style={{ borderLeft: '1px double grey', background: 'whitesmoke' }}
-          bounds="window"
-          disableDragging="true"
-          size={{ width: this.state.width, height: '100%' }}
-          enableResizing={onlyLeft}
-          onResizeStop={(e, direction, ref, delta, position) => {
-            this.setState({ width: Math.min(window.innerWidth, window.innerWidth - e.pageX) })
-            this.setState({ pageX: Math.max(0, e.pageX) })
-          }}
-        >
-          <Iframe src={this.state.path} width="100%" height="100%" />
-        </Rnd>
-
+      <div className="d-flex flex-column flex-cont">
+        <ButtonGroup>
+          <Button onClick={e => this.handleOnClick(e, 'Home')}>Home</Button>
+          <Button onClick={e => this.handleOnClick(e, 'Raw_fastQC')}>Raw_fastQC</Button>
+          <Button onClick={e => this.handleOnClick(e, 'Filtered_fastQC')}>Filtered_fastQC</Button>
+          <Button onClick={e => this.handleOnClick(e, 'RSEM_UCSC')}>RSEM_UCSC</Button>
+          <Button onClick={e => this.handleOnClick(e, 'Sample_Correlation')}>Sample_Correlation</Button>
+          <Button onClick={e => this.handleOnClick(e, 'DEG')}>DEG</Button>
+          <Button onClick={e => this.handleOnClick(e, 'GSA')}>GSA</Button>
+        </ButtonGroup>
+        <div>
+          <CheckboxTree
+            nodes={this.state.node}
+            expanded={this.state.expanded}
+            onExpand={expanded => this.setState({ expanded })}
+            onClick={clicked => {
+              if (clicked.children === undefined) {
+                this.getStaticFile(clicked.value)
+              }
+            }}
+            icons={icons}
+            expandOnClick={true}
+          />
+          <Rnd
+            className="d-flex flex-column"
+            ref={c => { this.rnd = c }}
+            default={{ x: 140, y: 0 }}
+            style={{ borderLeft: '3px double grey', background: 'whitesmoke' }}
+            bounds="window"
+            disableDragging="true"
+            size={{ width: this.state.width, height: '90%' }}
+            enableResizing={onlyLeft}
+            onResizeStop={(e, direction, ref, delta, position) => {
+              this.setState({ width: Math.min(window.innerWidth, window.innerWidth - e.pageX) })
+            }}
+          >
+            <this.getRndButtonLayout/>
+            <Iframe src={this.state.frameData} width="100%" height="100%" />
+          </Rnd>
+        </div>
       </div>
     );
   }
