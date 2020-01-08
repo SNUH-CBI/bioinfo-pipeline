@@ -1,0 +1,36 @@
+[
+  {
+    "type": "directory",
+    "label": "sample33",
+    "value": "",
+    "children": [
+      {
+        "type": "button",
+        "label": "no1",
+        "value": "해당 파일 경로"
+      },
+      {
+        "type": "button",
+        "label": "no2",
+        "value": "해당 파일 경로"
+      }
+    ]
+  },
+  {
+    "type": "directory",
+    "label": "sample34",
+    "value": "",
+    "children": [
+      {
+        "type": "button",
+        "label": "no1",
+        "value": "해당 파일 경로"
+      },
+      {
+        "type": "button",
+        "label": "no2",
+        "value": "해당 파일 경로"
+      }
+    ]
+  }
+]

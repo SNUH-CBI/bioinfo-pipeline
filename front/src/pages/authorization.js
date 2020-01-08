@@ -17,7 +17,7 @@ export default class Authorization extends React.Component {
     axios.defaults.withCredentials = true
     axios({
       method: 'post',
-      url: 'http://localhost:4000/auth/' + this.props.match.params.path,
+      url: 'http://210.117.211.208:36002/auth/' + this.props.match.params.path,
       data: {
         password: this.state.password
       }
@@ -48,7 +48,11 @@ export default class Authorization extends React.Component {
         <Form className="AUTHORIZATION">
           <Form.Group controlId="formBasicPassword">
             <Form.Label>Authorization<br/>Go to {this.props.match.params.path}</Form.Label>
-            <Form.Control type="password" placeholder="Password" onChange={this.handleChange} value={this.state.password} />
+            <Form.Control
+              type="password"
+              placeholder="Password"
+              onChange={this.handleChange}
+              value={this.state.password} />
           </Form.Group>
           <Button variant="primary" type="submit" onClick={this.handleClick}>
             Submit

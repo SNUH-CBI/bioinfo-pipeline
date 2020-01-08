@@ -1,0 +1,192 @@
+[
+  {
+    "type": "category",
+    "label": "DAVID",
+    "value": "",
+    "children": []
+  },
+  {
+    "type": "directory",
+    "label": "edgeR",
+    "value": "",
+    "children": [
+      {
+        "type": "button",
+        "label": "GO_BP",
+        "value": "해당 파일 경로"
+      },
+      {
+        "type": "button",
+        "label": "GO_CC",
+        "value": "해당 파일 경로"
+      },
+      {
+        "type": "button",
+        "label": "GO_MF",
+        "value": "해당 파일 경로"
+      },
+      {
+        "type": "button",
+        "label": "KEGG",
+        "value": "해당 파일 경로"
+      }
+    ]
+  },
+  {
+    "type": "directory",
+    "label": "DESeq2",
+    "value": "",
+    "children": [
+      {
+        "type": "button",
+        "label": "GO_BP",
+        "value": "해당 파일 경로"
+      },
+      {
+        "type": "button",
+        "label": "GO_CC",
+        "value": "해당 파일 경로"
+      },
+      {
+        "type": "button",
+        "label": "GO_MF",
+        "value": "해당 파일 경로"
+      },
+      {
+        "type": "button",
+        "label": "KEGG",
+        "value": "해당 파일 경로"
+      }
+    ]
+  },
+  {
+    "type": "category",
+    "label": "enrichR",
+    "value": "",
+    "children": []
+  },
+  {
+    "type": "directory",
+    "label": "edgeR",
+    "value": "",
+    "children": [
+      {
+        "type": "button",
+        "label": "GO_BP",
+        "value": "해당 파일 경로"
+      },
+      {
+        "type": "button",
+        "label": "GO_CC",
+        "value": "해당 파일 경로"
+      },
+      {
+        "type": "button",
+        "label": "GO_MF",
+        "value": "해당 파일 경로"
+      },
+      {
+        "type": "button",
+        "label": "KEGG",
+        "value": "해당 파일 경로"
+      },
+      {
+        "type": "button",
+        "label": "Reactome",
+        "value": "해당 파일 경로"
+      },
+      {
+        "type": "button",
+        "label": "Wikipath",
+        "value": "해당 파일 경로"
+      }
+    ]
+  },
+  {
+    "type": "directory",
+    "label": "DESeq2",
+    "value": "",
+    "children": [
+      {
+        "type": "button",
+        "label": "GO_BP",
+        "value": "해당 파일 경로"
+      },
+      {
+        "type": "button",
+        "label": "GO_CC",
+        "value": "해당 파일 경로"
+      },
+      {
+        "type": "button",
+        "label": "GO_MF",
+        "value": "해당 파일 경로"
+      },
+      {
+        "type": "button",
+        "label": "KEGG",
+        "value": "해당 파일 경로"
+      },
+      {
+        "type": "button",
+        "label": "Reactome",
+        "value": "해당 파일 경로"
+      },
+      {
+        "type": "button",
+        "label": "Wikipath",
+        "value": "해당 파일 경로"
+      }
+    ]
+  },
+  {
+    "type": "category",
+    "label": "GESA",
+    "value": "",
+    "children": []
+  },
+  {
+    "type": "directory",
+    "label": "edgeR",
+    "value": "",
+    "children": [
+      {
+        "type": "button",
+        "label": "MsigDB_C2",
+        "value": "해당 파일 경로"
+      },
+      {
+        "type": "button",
+        "label": "MsigDB_C3",
+        "value": "해당 파일 경로"
+      },
+      {
+        "type": "button",
+        "label": "MsigDB_C5",
+        "value": "해당 파일 경로"
+      }
+    ]
+  },
+  {
+    "type": "directory",
+    "label": "DESeq2",
+    "value": "",
+    "children": [
+      {
+        "type": "button",
+        "label": "MsigDB_C2",
+        "value": "해당 파일 경로"
+      },
+      {
+        "type": "button",
+        "label": "MsigDB_C3",
+        "value": "해당 파일 경로"
+      },
+      {
+        "type": "button",
+        "label": "MsigDB_C5",
+        "value": "해당 파일 경로"
+      }
+    ]
+  }
+]
