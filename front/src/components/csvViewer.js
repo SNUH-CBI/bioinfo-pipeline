@@ -2,6 +2,7 @@ import React from 'react';
 import Papa from 'papaparse'
 import styled from 'styled-components'
 import { useTable, usePagination, useSortBy } from 'react-table'
+import { Button } from 'react-bootstrap'
 
 
 class CsvViewer extends React.Component {
@@ -100,8 +101,8 @@ class CsvViewer extends React.Component {
                       {/* Add a sort direction indicator */}
                         {column.isSorted
                           ? column.isSortedDesc
-                            ? ' 🔽'
-                            : ' 🔼'
+                            ? '🔽'
+                            : '🔼'
                           : ''}</span>
                     </th>
                   ))}
@@ -135,18 +136,18 @@ class CsvViewer extends React.Component {
         */}
         </div>
         <div className="pagination">
-          <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
+          <Button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
             {'<<'}
-          </button>{' '}
-          <button onClick={() => previousPage()} disabled={!canPreviousPage}>
+          </Button>{' '}
+          <Button onClick={() => previousPage()} disabled={!canPreviousPage}>
             {'<'}
-          </button>{' '}
-          <button onClick={() => nextPage()} disabled={!canNextPage}>
+          </Button>{' '}
+          <Button onClick={() => nextPage()} disabled={!canNextPage}>
             {'>'}
-          </button>{' '}
-          <button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
+          </Button>{' '}
+          <Button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
             {'>>'}
-          </button>{' '}
+          </Button>{' '}
           <span>
             Page{' '}
             <strong>

@@ -19,4 +19,4 @@ export default class Navbar extends React.Component {
   }
 }
 
-const mainButtonList = ["Home", "Raw_fastQC", "Filtered_fastQC", "RSEM_UCSC", "Sample_Correlation", "DEG", "GSA"]
+const mainButtonList = ["Home", "Raw_fastQC", "Filtered_fastQC", "RSEM_UCSC", "Qualimap_UCSC", "Sample_Correlation", "DEG", "GSA", "etc"]

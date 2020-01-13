@@ -1,14 +1,11 @@
 import React from 'react';
 import axios from 'axios';
 import Iframe from 'react-iframe'
-import CsvViewer from './../components/csvViewer'
-import Navbar from './../components/navbar'
-import Sidebar from './../components/sidebar'
-import Home from './../components/home'
+import { CsvViewer, Navbar, Sidebar, Home, Download } from './../components'
 
 export default class Directory extends React.Component {
   state = {
-    clickedNav: 'GSA',
+    clickedNav: 'Home',
     frameData: '',
     frameDataType: '',
     frameDataURL: '',
@@ -63,21 +60,28 @@ export default class Directory extends React.Component {
     if (frameDataType === 'text/csv') {
       return <CsvViewer file={frameData} />
     }
-    if (frameDataType === 'image/png' || frameDataType === 'text/html') {
+    if (frameDataType === 'text/html') {
       return <Iframe src={this.state.address} width="100%" height="100%" />
+    }
+    if (frameDataType === 'image/png') {
+      return (
+        <div width="100%" height="100%">
+          <img src='./logo192.png' style={{ maxWidth: '100%', maxHeight: '100%' }} />
+        </div>
+      )
     }
     return <Iframe src={frameDataURL} width="100%" height="100%" />
   }
 
   render() {
-    const home = (
+    const home_etc = (
       <div className='homeCover'>
-        <Home />
+        {this.state.clickedNav === 'Home' ? <Home /> : <Download /> }
       </div>)
 
     const others = (
       <div className="mainwindow" >
-        <div style={{ overflowY: 'auto', maxHeight: '95vh' }}>
+        <div style={{ overflowY: 'auto', maxHeight: '95vh', height: '95vh' }}>
           <Sidebar clickedNav={this.state.clickedNav} getStaticFile={this.getStaticFile} />
         </div>
         <div className="fileView" >
@@ -91,7 +95,7 @@ export default class Directory extends React.Component {
     return (
       <div className="directory">
         <Navbar handleOnClick={this.handleNavbarClick} />
-        {this.state.clickedNav === 'Home' ? home : others}
+        {(this.state.clickedNav === 'Home' || this.state.clickedNav === 'etc') ? home_etc : others}
       </div>
     );
   }

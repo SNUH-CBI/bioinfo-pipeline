@@ -1,9 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import { Link, Route } from 'react-router-dom';
-import Authorization from './pages/authorization.js';
-import Directory from './pages/directory.js';
-
+import { Directory, Authorization } from './pages'
 
 function App() {
   return (
