@@ -36,6 +36,7 @@ class CsvViewer extends React.Component {
   handleFileChange = file => {
     Papa.parse(file, {
       header: true,
+      delimiter: this.props.delimiter,
       dynamicTyping: true,
       complete: this.handleDataChange
     })

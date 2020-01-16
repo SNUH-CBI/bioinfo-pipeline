@@ -57,8 +57,8 @@ export default class Directory extends React.Component {
     const frameDataType = this.state.frameDataType
     const frameDataURL = this.state.frameDataURL
 
-    if (frameDataType === 'text/csv') {
-      return <CsvViewer file={frameData} />
+    if (frameDataType === 'text/csv' || frameDataType === 'text/plain') {
+      return <CsvViewer file={frameData} delimiter={ frameDataType === 'text/plain' ? String.fromCharCode(9) : String.fromCharCode(44) } />
     }
     if (frameDataType === 'text/html') {
       return <Iframe src={this.state.address} width="100%" height="100%" />

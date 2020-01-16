@@ -110,19 +110,3 @@ export default class Sidebar extends React.Component {
     )
   }
 }
-
-/**
- * 
- * 
- * const AccordionHeader = (
-      <Accordion.Toggle style={{textAlign: 'center'}} as={Card.Header} eventKey={key}>
-      sample {key}
-    </Accordion.Toggle>
-    )
-    const AccordionHeaderDisabled = (
-      <Accordion.Toggle style={{textAlign: 'center'}} as={Card.Header} eventKey={key} disabled>
-      sample {key}
-    </Accordion.Toggle>
-    )
- * 
- */
