@@ -1,17 +1,14 @@
 // api/directory.js
 var express  = require('express');
 var router   = express.Router();
-var json     = require('./example.json');
 
 // Show
-router.post('/:path*',
+router.get('/*',
   function(req, res){
-    if (req.session.user === req.params.path){
-      // TODO: search directory
-      res.json({success: true, result: json})
-    }
-    else
-      res.json({success: false})
+    res.json({success: true, result: {
+      "project": req.query.project,
+      "menu": req.query.menu
+    }})
   } 
 );
 
