@@ -1,76 +1,27 @@
 import React from 'react';
-import CheckboxTree from 'react-checkbox-tree';
 import axios from 'axios';
-import 'react-checkbox-tree/lib/react-checkbox-tree.css'
-import { Row, Col, ResponsiveEmbed } from 'react-bootstrap'
 import Iframe from 'react-iframe'
-import {
-  MdChevronRight,
-  MdKeyboardArrowDown,
-  MdFolder,
-  MdFolderOpen,
-  MdInsertDriveFile,
-  MdPictureAsPdf
-} from "react-icons/md";
-import {
-  AiOutlineFileJpg,
-  AiOutlineHtml5
-} from "react-icons/ai";
-import { FiFileText } from "react-icons/fi"
-
-const icons = {
-  expandClose: <MdChevronRight />,
-  expandOpen: <MdKeyboardArrowDown />,
-  parentClose: <MdFolder />,
-  parentOpen: <MdFolderOpen />,
-  leaf: <MdInsertDriveFile />
-};
-
-const nodeparse = (node) => {
-  return node.map((index) => {
-    if (index.children === undefined || index.children.length === 0)
-      return {
-        ...index, showCheckbox: false, icon: iconconfrim(index)
-      };
-    else return { ...index, children: nodeparse(index.children), showCheckbox: false };
-  });
-}
-
-const iconconfrim = (index) => {
-  if (index.type === 'directory') return <MdFolder />
-  switch (index.label.slice(-4)) {
-    case '.jpg':
-      return <AiOutlineFileJpg />
-    case '.pdf':
-      return <MdPictureAsPdf />
-    case '.txt':
-      return <FiFileText />
-    case 'html':
-      return <AiOutlineHtml5 />
-    default:
-      return <MdInsertDriveFile />
-  }
-}
+import { CsvViewer, Navbar, Sidebar, Home, Download } from './../components'
 
 export default class Directory extends React.Component {
   state = {
-    expanded: [],
-    clicked: [],
-    path: '',
-    node: [],
-    success: false
+    clickedNav: 'Home',
+    frameData: '',
+    frameDataType: '',
+    frameDataURL: '',
+    address: '',
+    permissionOK: false
   }
 
   checkPermission = () => {
     axios.defaults.withCredentials = true
     axios({
       method: 'post',
-      url: 'http://localhost:4000/path/' + this.props.match.params.path
+      url: 'http://210.117.211.208:36002/path/' + this.props.match.params.path
     })
       .then((response) => {
         if (response.data.success) {
-          this.setState({ success: true })
-          this.setState({ node: nodeparse(response.data.result) })
+          this.setState({ permissionOK: true })
         }
         else {
           alert("wrong password");
@@ -83,29 +34,68 @@ export default class Directory extends React.Component {
       })
   }
 
+  getStaticFile = (address) => {
+    fetch(address)
+      .then((response) => response.clone().blob())
+      .then(blob => {
+        this.setState({
+          address: address,
+          frameDataType: blob.type,
+          frameData: blob,
+          frameDataURL: URL.createObjectURL(blob)
+        })
+      })
+      .catch((error) => { console.log(error) })
+  }
+
+  handleNavbarClick = (e) => {
+    this.setState({ clickedNav: e })
+  }
+
+  screen = () => {
+    const frameData = this.state.frameData
+    const frameDataType = this.state.frameDataType
+    const frameDataURL = this.state.frameDataURL
+
+    if (frameDataType === 'text/csv' || frameDataType === 'text/plain') {
+      return <CsvViewer file={frameData} delimiter={ frameDataType === 'text/plain' ? String.fromCharCode(9) : String.fromCharCode(44) } />
+    }
+    if (frameDataType === 'text/html') {
+      return <Iframe src={this.state.address} width="100%" height="100%" />
+    }
+    if (frameDataType === 'image/png') {
+      return (
+        <div width="100%" height="100%">
+          <img src={frameDataURL} style={{ maxWidth: '100%', maxHeight: '100%' }} />
+        </div>
+      )
+    }
+    return <Iframe src={frameDataURL} width="100%" height="100%" />
+  }
+
   render() {
-    if (!this.state.success) this.checkPermission()
+    const home_etc = (
+      <div style={{marginTop: '5vh'}}>
+        {this.state.clickedNav === 'Home' ? <Home  className='homeCover' /> : <Download /> }
+      </div>)
+
+    const others = (
+      <div className="mainwindow" >
+        <div style={{ overflowY: 'auto', maxHeight: '95vh', height: '95vh' }}>
+          <Sidebar clickedNav={this.state.clickedNav} getStaticFile={this.getStaticFile} />
+        </div>
+        <div className="fileView" >
+          <div className="fileViewDetail" >
+            <this.screen />
+          </div>
+        </div>
+      </div>
+    )
+
     return (
-      <div>
-        <Row>
-          <Col md="auto">
-            <CheckboxTree
-              nodes={this.state.node}
-              expanded={this.state.expanded}
-              onExpand={expanded => this.setState({ expanded })}
-              onClick={clicked => { if (clicked.children === undefined) { this.setState({ path: clicked.value }); } }}
-              icons={icons}
-              expandOnClick={true}
-            />
-          </Col>
-          <Col>
-            <div style={{ width: 'auto', height: 'auto' }}>
-              <ResponsiveEmbed aspectRatio="16by9">
-                <Iframe src={this.state.path} />
-              </ResponsiveEmbed>
-            </div>
-          </Col>
-        </Row>
+      <div className="directory">
+        <Navbar handleOnClick={this.handleNavbarClick} />
+        {(this.state.clickedNav === 'Home' || this.state.clickedNav === 'etc') ? home_etc : others}
       </div>
     );
   }

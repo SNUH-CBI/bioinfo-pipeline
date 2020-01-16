@@ -1,0 +1,192 @@
+[
+  {
+    "type": "category",
+    "label": "DAVID",
+    "value": "",
+    "children": []
+  },
+  {
+    "type": "directory",
+    "label": "edgeR",
+    "value": "",
+    "children": [
+      {
+        "type": "button",
+        "label": "GO_BP",
+        "value": "tempPath"
+      },
+      {
+        "type": "button",
+        "label": "GO_CC",
+        "value": "tempPath"
+      },
+      {
+        "type": "button",
+        "label": "GO_MF",
+        "value": "/09_DAVID/edgeR/sig_count_edgeR_DAVID_GOMF.txt"
+      },
+      {
+        "type": "button",
+        "label": "KEGG",
+        "value": "tempPath"
+      }
+    ]
+  },
+  {
+    "type": "directory",
+    "label": "DESeq2",
+    "value": "",
+    "children": [
+      {
+        "type": "button",
+        "label": "GO_BP",
+        "value": "tempPath"
+      },
+      {
+        "type": "button",
+        "label": "GO_CC",
+        "value": "/09_DAVID/DESeq2/sig_count_DESeq2_DAVID_GOCC.txt"
+      },
+      {
+        "type": "button",
+        "label": "GO_MF",
+        "value": "tempPath"
+      },
+      {
+        "type": "button",
+        "label": "KEGG",
+        "value": "tempPath"
+      }
+    ]
+  },
+  {
+    "type": "category",
+    "label": "enrichR",
+    "value": "",
+    "children": []
+  },
+  {
+    "type": "directory",
+    "label": "edgeR",
+    "value": "",
+    "children": [
+      {
+        "type": "button",
+        "label": "GO_BP",
+        "value": "tempPath"
+      },
+      {
+        "type": "button",
+        "label": "GO_CC",
+        "value": "/09_enrichR/edgeR/enrichR_gocc.csv"
+      },
+      {
+        "type": "button",
+        "label": "GO_MF",
+        "value": "tempPath"
+      },
+      {
+        "type": "button",
+        "label": "KEGG",
+        "value": "tempPath"
+      },
+      {
+        "type": "button",
+        "label": "Reactome",
+        "value": "tempPath"
+      },
+      {
+        "type": "button",
+        "label": "Wikipath",
+        "value": "tempPath"
+      }
+    ]
+  },
+  {
+    "type": "directory",
+    "label": "DESeq2",
+    "value": "",
+    "children": [
+      {
+        "type": "button",
+        "label": "GO_BP",
+        "value": "tempPath"
+      },
+      {
+        "type": "button",
+        "label": "GO_CC",
+        "value": "tempPath"
+      },
+      {
+        "type": "button",
+        "label": "GO_MF",
+        "value": "tempPath"
+      },
+      {
+        "type": "button",
+        "label": "KEGG",
+        "value": "tempPath"
+      },
+      {
+        "type": "button",
+        "label": "Reactome",
+        "value": "tempPath"
+      },
+      {
+        "type": "button",
+        "label": "Wikipath",
+        "value": "/09_enrichR/DESeq2/enrichR_wikipath.csv"
+      }
+    ]
+  },
+  {
+    "type": "category",
+    "label": "GESA",
+    "value": "",
+    "children": []
+  },
+  {
+    "type": "directory",
+    "label": "edgeR",
+    "value": "",
+    "children": [
+      {
+        "type": "button",
+        "label": "MsigDB_C2",
+        "value": "tempPath"
+      },
+      {
+        "type": "button",
+        "label": "MsigDB_C3",
+        "value": "tempPath"
+      },
+      {
+        "type": "button",
+        "label": "MsigDB_C5",
+        "value": "tempPath"
+      }
+    ]
+  },
+  {
+    "type": "directory",
+    "label": "DESeq2",
+    "value": "",
+    "children": [
+      {
+        "type": "button",
+        "label": "MsigDB_C2",
+        "value": "tempPath"
+      },
+      {
+        "type": "button",
+        "label": "MsigDB_C3",
+        "value": "tempPath"
+      },
+      {
+        "type": "button",
+        "label": "MsigDB_C5",
+        "value": "tempPath"
+      }
+    ]
+  }
+]

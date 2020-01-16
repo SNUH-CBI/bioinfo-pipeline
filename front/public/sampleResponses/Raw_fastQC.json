@@ -1,0 +1,631 @@
+[
+  {
+    "type": "directory",
+    "label": "13-169_S5",
+    "value": "",
+    "children": [
+      {
+        "type": "button",
+        "label": "result1",
+        "value": "/01_raw_fastqc/13-169_S5_1_fastqc.html"
+      },
+      {
+        "type": "button",
+        "label": "result2",
+        "value": "/01_raw_fastqc/13-169_S5_2_fastqc.html"
+      }
+    ]
+  },
+  {
+    "type": "directory",
+    "label": "sample2",
+    "value": "",
+    "children": [
+      {
+        "type": "button",
+        "label": "no1",
+        "value": "tempPath"
+      },
+      {
+        "type": "button",
+        "label": "no2",
+        "value": "tempPath"
+      }
+    ]
+  },
+  {
+    "type": "directory",
+    "label": "sample3",
+    "value": "",
+    "children": [
+      {
+        "type": "button",
+        "label": "no1",
+        "value": "tempPath"
+      },
+      {
+        "type": "button",
+        "label": "no2",
+        "value": "tempPath"
+      }
+    ]
+  },
+  {
+    "type": "directory",
+    "label": "sample4",
+    "value": "",
+    "children": [
+      {
+        "type": "button",
+        "label": "no1",
+        "value": "tempPath"
+      },
+      {
+        "type": "button",
+        "label": "no2",
+        "value": "tempPath"
+      }
+    ]
+  },
+  {
+    "type": "directory",
+    "label": "sample5",
+    "value": "",
+    "children": [
+      {
+        "type": "button",
+        "label": "no1",
+        "value": "tempPath"
+      },
+      {
+        "type": "button",
+        "label": "no2",
+        "value": "tempPath"
+      }
+    ]
+  },
+  {
+    "type": "directory",
+    "label": "sample2",
+    "value": "",
+    "children": [
+      {
+        "type": "button",
+        "label": "no1",
+        "value": "tempPath"
+      },
+      {
+        "type": "button",
+        "label": "no2",
+        "value": "tempPath"
+      }
+    ]
+  },
+  {
+    "type": "directory",
+    "label": "sample2",
+    "value": "",
+    "children": [
+      {
+        "type": "button",
+        "label": "no1",
+        "value": "tempPath"
+      },
+      {
+        "type": "button",
+        "label": "no2",
+        "value": "tempPath"
+      }
+    ]
+  },
+  {
+    "type": "directory",
+    "label": "sample2",
+    "value": "",
+    "children": [
+      {
+        "type": "button",
+        "label": "no1",
+        "value": "tempPath"
+      },
+      {
+        "type": "button",
+        "label": "no2",
+        "value": "tempPath"
+      }
+    ]
+  },
+  {
+    "type": "directory",
+    "label": "sample2",
+    "value": "",
+    "children": [
+      {
+        "type": "button",
+        "label": "no1",
+        "value": "tempPath"
+      },
+      {
+        "type": "button",
+        "label": "no2",
+        "value": "tempPath"
+      }
+    ]
+  },
+  {
+    "type": "directory",
+    "label": "sample2",
+    "value": "",
+    "children": [
+      {
+        "type": "button",
+        "label": "no1",
+        "value": "tempPath"
+      },
+      {
+        "type": "button",
+        "label": "no2",
+        "value": "tempPath"
+      }
+    ]
+  },
+  {
+    "type": "directory",
+    "label": "sample2",
+    "value": "",
+    "children": [
+      {
+        "type": "button",
+        "label": "no1",
+        "value": "tempPath"
+      },
+      {
+        "type": "button",
+        "label": "no2",
+        "value": "tempPath"
+      }
+    ]
+  },
+  {
+    "type": "directory",
+    "label": "sample2",
+    "value": "",
+    "children": [
+      {
+        "type": "button",
+        "label": "no1",
+        "value": "tempPath"
+      },
+      {
+        "type": "button",
+        "label": "no2",
+        "value": "tempPath"
+      }
+    ]
+  },
+  {
+    "type": "directory",
+    "label": "sample2",
+    "value": "",
+    "children": [
+      {
+        "type": "button",
+        "label": "no1",
+        "value": "tempPath"
+      },
+      {
+        "type": "button",
+        "label": "no2",
+        "value": "tempPath"
+      }
+    ]
+  },
+  {
+    "type": "directory",
+    "label": "sample2",
+    "value": "",
+    "children": [
+      {
+        "type": "button",
+        "label": "no1",
+        "value": "tempPath"
+      },
+      {
+        "type": "button",
+        "label": "no2",
+        "value": "tempPath"
+      }
+    ]
+  },
+  {
+    "type": "directory",
+    "label": "sample2",
+    "value": "",
+    "children": [
+      {
+        "type": "button",
+        "label": "no1",
+        "value": "tempPath"
+      },
+      {
+        "type": "button",
+        "label": "no2",
+        "value": "tempPath"
+      }
+    ]
+  },
+  {
+    "type": "directory",
+    "label": "sample2",
+    "value": "",
+    "children": [
+      {
+        "type": "button",
+        "label": "no1",
+        "value": "tempPath"
+      },
+      {
+        "type": "button",
+        "label": "no2",
+        "value": "tempPath"
+      }
+    ]
+  },
+  {
+    "type": "directory",
+    "label": "sample2",
+    "value": "",
+    "children": [
+      {
+        "type": "button",
+        "label": "no1",
+        "value": "tempPath"
+      },
+      {
+        "type": "button",
+        "label": "no2",
+        "value": "tempPath"
+      }
+    ]
+  },
+  {
+    "type": "directory",
+    "label": "sample2",
+    "value": "",
+    "children": [
+      {
+        "type": "button",
+        "label": "no1",
+        "value": "tempPath"
+      },
+      {
+        "type": "button",
+        "label": "no2",
+        "value": "tempPath"
+      }
+    ]
+  },
+  {
+    "type": "directory",
+    "label": "sample2",
+    "value": "",
+    "children": [
+      {
+        "type": "button",
+        "label": "no1",
+        "value": "tempPath"
+      },
+      {
+        "type": "button",
+        "label": "no2",
+        "value": "tempPath"
+      }
+    ]
+  },
+  {
+    "type": "directory",
+    "label": "sample2",
+    "value": "",
+    "children": [
+      {
+        "type": "button",
+        "label": "no1",
+        "value": "tempPath"
+      },
+      {
+        "type": "button",
+        "label": "no2",
+        "value": "tempPath"
+      }
+    ]
+  },
+  {
+    "type": "directory",
+    "label": "sample2",
+    "value": "",
+    "children": [
+      {
+        "type": "button",
+        "label": "no1",
+        "value": "tempPath"
+      },
+      {
+        "type": "button",
+        "label": "no2",
+        "value": "tempPath"
+      }
+    ]
+  },
+  {
+    "type": "directory",
+    "label": "sample2",
+    "value": "",
+    "children": [
+      {
+        "type": "button",
+        "label": "no1",
+        "value": "tempPath"
+      },
+      {
+        "type": "button",
+        "label": "no2",
+        "value": "tempPath"
+      }
+    ]
+  },
+  {
+    "type": "directory",
+    "label": "sample2",
+    "value": "",
+    "children": [
+      {
+        "type": "button",
+        "label": "no1",
+        "value": "tempPath"
+      },
+      {
+        "type": "button",
+        "label": "no2",
+        "value": "tempPath"
+      }
+    ]
+  },
+  {
+    "type": "directory",
+    "label": "sample2",
+    "value": "",
+    "children": [
+      {
+        "type": "button",
+        "label": "no1",
+        "value": "tempPath"
+      },
+      {
+        "type": "button",
+        "label": "no2",
+        "value": "tempPath"
+      }
+    ]
+  },
+  {
+    "type": "directory",
+    "label": "sample2",
+    "value": "",
+    "children": [
+      {
+        "type": "button",
+        "label": "no1",
+        "value": "tempPath"
+      },
+      {
+        "type": "button",
+        "label": "no2",
+        "value": "tempPath"
+      }
+    ]
+  },
+  {
+    "type": "directory",
+    "label": "sample2",
+    "value": "",
+    "children": [
+      {
+        "type": "button",
+        "label": "no1",
+        "value": "tempPath"
+      },
+      {
+        "type": "button",
+        "label": "no2",
+        "value": "tempPath"
+      }
+    ]
+  },
+  {
+    "type": "directory",
+    "label": "sample2",
+    "value": "",
+    "children": [
+      {
+        "type": "button",
+        "label": "no1",
+        "value": "tempPath"
+      },
+      {
+        "type": "button",
+        "label": "no2",
+        "value": "tempPath"
+      }
+    ]
+  },
+  {
+    "type": "directory",
+    "label": "sample2",
+    "value": "",
+    "children": [
+      {
+        "type": "button",
+        "label": "no1",
+        "value": "tempPath"
+      },
+      {
+        "type": "button",
+        "label": "no2",
+        "value": "tempPath"
+      }
+    ]
+  },
+  {
+    "type": "directory",
+    "label": "sample2",
+    "value": "",
+    "children": [
+      {
+        "type": "button",
+        "label": "no1",
+        "value": "tempPath"
+      },
+      {
+        "type": "button",
+        "label": "no2",
+        "value": "tempPath"
+      }
+    ]
+  },
+  {
+    "type": "directory",
+    "label": "sample2",
+    "value": "",
+    "children": [
+      {
+        "type": "button",
+        "label": "no1",
+        "value": "tempPath"
+      },
+      {
+        "type": "button",
+        "label": "no2",
+        "value": "tempPath"
+      }
+    ]
+  },
+  {
+    "type": "directory",
+    "label": "sample2",
+    "value": "",
+    "children": [
+      {
+        "type": "button",
+        "label": "no1",
+        "value": "tempPath"
+      },
+      {
+        "type": "button",
+        "label": "no2",
+        "value": "tempPath"
+      }
+    ]
+  },
+  {
+    "type": "directory",
+    "label": "sample2",
+    "value": "",
+    "children": [
+      {
+        "type": "button",
+        "label": "no1",
+        "value": "tempPath"
+      },
+      {
+        "type": "button",
+        "label": "no2",
+        "value": "tempPath"
+      }
+    ]
+  },
+  {
+    "type": "directory",
+    "label": "sample2",
+    "value": "",
+    "children": [
+      {
+        "type": "button",
+        "label": "no1",
+        "value": "tempPath"
+      },
+      {
+        "type": "button",
+        "label": "no2",
+        "value": "tempPath"
+      }
+    ]
+  },
+  {
+    "type": "directory",
+    "label": "sample2",
+    "value": "",
+    "children": [
+      {
+        "type": "button",
+        "label": "no1",
+        "value": "tempPath"
+      },
+      {
+        "type": "button",
+        "label": "no2",
+        "value": "tempPath"
+      }
+    ]
+  },
+  {
+    "type": "directory",
+    "label": "sample2",
+    "value": "",
+    "children": [
+      {
+        "type": "button",
+        "label": "no1",
+        "value": "tempPath"
+      },
+      {
+        "type": "button",
+        "label": "no2",
+        "value": "tempPath"
+      }
+    ]
+  },
+  {
+    "type": "directory",
+    "label": "sample2",
+    "value": "",
+    "children": [
+      {
+        "type": "button",
+        "label": "no1",
+        "value": "tempPath"
+      },
+      {
+        "type": "button",
+        "label": "no2",
+        "value": "tempPath"
+      }
+    ]
+  },
+  {
+    "type": "directory",
+    "label": "lastaaa",
+    "value": "",
+    "children": [
+      {
+        "type": "button",
+        "label": "no1",
+        "value": "tempPath"
+      },
+      {
+        "type": "button",
+        "label": "no2",
+        "value": "tempPath"
+      }
+    ]
+  }
+]
