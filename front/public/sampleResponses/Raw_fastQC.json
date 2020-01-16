@@ -1,24 +1,18 @@
 [
   {
     "type": "directory",
-    "label": "sample1",
-    "value": "",
-    "children": []
-  },
-  {
-    "type": "directory",
-    "label": "sample2",
+    "label": "13-169_S5",
     "value": "",
     "children": [
       {
         "type": "button",
-        "label": "no1",
-        "value": "해당 파일 경로"
+        "label": "result1",
+        "value": "/01_raw_fastqc/13-169_S5_1_fastqc.html"
       },
       {
         "type": "button",
-        "label": "no2",
-        "value": "해당 파일 경로"
+        "label": "result2",
+        "value": "/01_raw_fastqc/13-169_S5_2_fastqc.html"
       }
     ]
   },
@@ -30,12 +24,63 @@
       {
         "type": "button",
         "label": "no1",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       },
       {
         "type": "button",
         "label": "no2",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
+      }
+    ]
+  },
+  {
+    "type": "directory",
+    "label": "sample3",
+    "value": "",
+    "children": [
+      {
+        "type": "button",
+        "label": "no1",
+        "value": "tempPath"
+      },
+      {
+        "type": "button",
+        "label": "no2",
+        "value": "tempPath"
+      }
+    ]
+  },
+  {
+    "type": "directory",
+    "label": "sample4",
+    "value": "",
+    "children": [
+      {
+        "type": "button",
+        "label": "no1",
+        "value": "tempPath"
+      },
+      {
+        "type": "button",
+        "label": "no2",
+        "value": "tempPath"
+      }
+    ]
+  },
+  {
+    "type": "directory",
+    "label": "sample5",
+    "value": "",
+    "children": [
+      {
+        "type": "button",
+        "label": "no1",
+        "value": "tempPath"
+      },
+      {
+        "type": "button",
+        "label": "no2",
+        "value": "tempPath"
       }
     ]
   },
@@ -47,12 +92,12 @@
       {
         "type": "button",
         "label": "no1",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       },
       {
         "type": "button",
         "label": "no2",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       }
     ]
   },
@@ -64,12 +109,12 @@
       {
         "type": "button",
         "label": "no1",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       },
       {
         "type": "button",
         "label": "no2",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       }
     ]
   },
@@ -81,12 +126,12 @@
       {
         "type": "button",
         "label": "no1",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       },
       {
         "type": "button",
         "label": "no2",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       }
     ]
   },
@@ -98,12 +143,12 @@
       {
         "type": "button",
         "label": "no1",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       },
       {
         "type": "button",
         "label": "no2",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       }
     ]
   },
@@ -115,12 +160,12 @@
       {
         "type": "button",
         "label": "no1",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       },
       {
         "type": "button",
         "label": "no2",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       }
     ]
   },
@@ -132,12 +177,12 @@
       {
         "type": "button",
         "label": "no1",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       },
       {
         "type": "button",
         "label": "no2",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       }
     ]
   },
@@ -149,12 +194,12 @@
       {
         "type": "button",
         "label": "no1",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       },
       {
         "type": "button",
         "label": "no2",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       }
     ]
   },
@@ -166,12 +211,12 @@
       {
         "type": "button",
         "label": "no1",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       },
       {
         "type": "button",
         "label": "no2",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       }
     ]
   },
@@ -183,12 +228,12 @@
       {
         "type": "button",
         "label": "no1",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       },
       {
         "type": "button",
         "label": "no2",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       }
     ]
   },
@@ -200,12 +245,12 @@
       {
         "type": "button",
         "label": "no1",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       },
       {
         "type": "button",
         "label": "no2",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       }
     ]
   },
@@ -217,12 +262,12 @@
       {
         "type": "button",
         "label": "no1",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       },
       {
         "type": "button",
         "label": "no2",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       }
     ]
   },
@@ -234,12 +279,12 @@
       {
         "type": "button",
         "label": "no1",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       },
       {
         "type": "button",
         "label": "no2",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       }
     ]
   },
@@ -251,12 +296,12 @@
       {
         "type": "button",
         "label": "no1",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       },
       {
         "type": "button",
         "label": "no2",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       }
     ]
   },
@@ -268,12 +313,12 @@
       {
         "type": "button",
         "label": "no1",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       },
       {
         "type": "button",
         "label": "no2",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       }
     ]
   },
@@ -285,12 +330,12 @@
       {
         "type": "button",
         "label": "no1",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       },
       {
         "type": "button",
         "label": "no2",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       }
     ]
   },
@@ -302,12 +347,12 @@
       {
         "type": "button",
         "label": "no1",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       },
       {
         "type": "button",
         "label": "no2",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       }
     ]
   },
@@ -319,12 +364,12 @@
       {
         "type": "button",
         "label": "no1",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       },
       {
         "type": "button",
         "label": "no2",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       }
     ]
   },
@@ -336,12 +381,12 @@
       {
         "type": "button",
         "label": "no1",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       },
       {
         "type": "button",
         "label": "no2",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       }
     ]
   },
@@ -353,12 +398,12 @@
       {
         "type": "button",
         "label": "no1",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       },
       {
         "type": "button",
         "label": "no2",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       }
     ]
   },
@@ -370,12 +415,12 @@
       {
         "type": "button",
         "label": "no1",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       },
       {
         "type": "button",
         "label": "no2",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       }
     ]
   },
@@ -387,12 +432,12 @@
       {
         "type": "button",
         "label": "no1",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       },
       {
         "type": "button",
         "label": "no2",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       }
     ]
   },
@@ -404,12 +449,12 @@
       {
         "type": "button",
         "label": "no1",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       },
       {
         "type": "button",
         "label": "no2",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       }
     ]
   },
@@ -421,12 +466,12 @@
       {
         "type": "button",
         "label": "no1",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       },
       {
         "type": "button",
         "label": "no2",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       }
     ]
   },
@@ -438,12 +483,12 @@
       {
         "type": "button",
         "label": "no1",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       },
       {
         "type": "button",
         "label": "no2",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       }
     ]
   },
@@ -455,12 +500,12 @@
       {
         "type": "button",
         "label": "no1",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       },
       {
         "type": "button",
         "label": "no2",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       }
     ]
   },
@@ -472,12 +517,12 @@
       {
         "type": "button",
         "label": "no1",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       },
       {
         "type": "button",
         "label": "no2",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       }
     ]
   },
@@ -489,12 +534,12 @@
       {
         "type": "button",
         "label": "no1",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       },
       {
         "type": "button",
         "label": "no2",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       }
     ]
   },
@@ -506,12 +551,12 @@
       {
         "type": "button",
         "label": "no1",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       },
       {
         "type": "button",
         "label": "no2",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       }
     ]
   },
@@ -523,12 +568,12 @@
       {
         "type": "button",
         "label": "no1",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       },
       {
         "type": "button",
         "label": "no2",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       }
     ]
   },
@@ -540,12 +585,12 @@
       {
         "type": "button",
         "label": "no1",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       },
       {
         "type": "button",
         "label": "no2",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       }
     ]
   },
@@ -557,63 +602,12 @@
       {
         "type": "button",
         "label": "no1",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       },
       {
         "type": "button",
         "label": "no2",
-        "value": "해당 파일 경로"
-      }
-    ]
-  },
-  {
-    "type": "directory",
-    "label": "sample2",
-    "value": "",
-    "children": [
-      {
-        "type": "button",
-        "label": "no1",
-        "value": "해당 파일 경로"
-      },
-      {
-        "type": "button",
-        "label": "no2",
-        "value": "해당 파일 경로"
-      }
-    ]
-  },
-  {
-    "type": "directory",
-    "label": "sample2",
-    "value": "",
-    "children": [
-      {
-        "type": "button",
-        "label": "no1",
-        "value": "해당 파일 경로"
-      },
-      {
-        "type": "button",
-        "label": "no2",
-        "value": "해당 파일 경로"
-      }
-    ]
-  },
-  {
-    "type": "directory",
-    "label": "sample2",
-    "value": "",
-    "children": [
-      {
-        "type": "button",
-        "label": "no1",
-        "value": "해당 파일 경로"
-      },
-      {
-        "type": "button",
-        "label": "no2",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       }
     ]
   },
@@ -625,12 +619,12 @@
       {
         "type": "button",
         "label": "no1",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       },
       {
         "type": "button",
         "label": "no2",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       }
     ]
   }

@@ -7,17 +7,17 @@
       {
         "type": "button",
         "label": "Correlataon Matrix",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       },
       {
         "type": "button",
         "label": "Correlation Heatmap",
-        "value": "해당 파일 경로"
+        "value": "/07_correlation/count.correlation_color_heatmap.png"
       },
       {
         "type": "button",
         "label": "PCA",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       }
     ]
   },
@@ -29,17 +29,17 @@
       {
         "type": "button",
         "label": "Correlataon Matrix",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       },
       {
         "type": "button",
         "label": "Correlation Heatmap",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       },
       {
         "type": "button",
         "label": "PCA",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       }
     ]
   },
@@ -51,17 +51,17 @@
       {
         "type": "button",
         "label": "Correlataon Matrix",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       },
       {
         "type": "button",
         "label": "Correlation Heatmap",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       },
       {
         "type": "button",
         "label": "PCA",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       }
     ]
   }

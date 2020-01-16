@@ -13,22 +13,22 @@
       {
         "type": "button",
         "label": "GO_BP",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       },
       {
         "type": "button",
         "label": "GO_CC",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       },
       {
         "type": "button",
         "label": "GO_MF",
-        "value": "해당 파일 경로"
+        "value": "/09_DAVID/edgeR/sig_count_edgeR_DAVID_GOMF.txt"
       },
       {
         "type": "button",
         "label": "KEGG",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       }
     ]
   },
@@ -40,22 +40,22 @@
       {
         "type": "button",
         "label": "GO_BP",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       },
       {
         "type": "button",
         "label": "GO_CC",
-        "value": "해당 파일 경로"
+        "value": "/09_DAVID/DESeq2/sig_count_DESeq2_DAVID_GOCC.txt"
       },
       {
         "type": "button",
         "label": "GO_MF",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       },
       {
         "type": "button",
         "label": "KEGG",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       }
     ]
   },
@@ -73,32 +73,32 @@
       {
         "type": "button",
         "label": "GO_BP",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       },
       {
         "type": "button",
         "label": "GO_CC",
-        "value": "해당 파일 경로"
+        "value": "/09_enrichR/edgeR/enrichR_gocc.csv"
       },
       {
         "type": "button",
         "label": "GO_MF",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       },
       {
         "type": "button",
         "label": "KEGG",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       },
       {
         "type": "button",
         "label": "Reactome",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       },
       {
         "type": "button",
         "label": "Wikipath",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       }
     ]
   },
@@ -110,32 +110,32 @@
       {
         "type": "button",
         "label": "GO_BP",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       },
       {
         "type": "button",
         "label": "GO_CC",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       },
       {
         "type": "button",
         "label": "GO_MF",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       },
       {
         "type": "button",
         "label": "KEGG",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       },
       {
         "type": "button",
         "label": "Reactome",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       },
       {
         "type": "button",
         "label": "Wikipath",
-        "value": "해당 파일 경로"
+        "value": "/09_enrichR/DESeq2/enrichR_wikipath.csv"
       }
     ]
   },
@@ -153,17 +153,17 @@
       {
         "type": "button",
         "label": "MsigDB_C2",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       },
       {
         "type": "button",
         "label": "MsigDB_C3",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       },
       {
         "type": "button",
         "label": "MsigDB_C5",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       }
     ]
   },
@@ -175,17 +175,17 @@
       {
         "type": "button",
         "label": "MsigDB_C2",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       },
       {
         "type": "button",
         "label": "MsigDB_C3",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       },
       {
         "type": "button",
         "label": "MsigDB_C5",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       }
     ]
   }

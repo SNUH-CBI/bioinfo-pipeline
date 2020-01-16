@@ -52,7 +52,7 @@ export default class Directory extends React.Component {
     this.setState({ clickedNav: e })
   }
 
-  fileView = () => {
+  screen = () => {
     const frameData = this.state.frameData
     const frameDataType = this.state.frameDataType
     const frameDataURL = this.state.frameDataURL
@@ -66,7 +66,7 @@ export default class Directory extends React.Component {
     if (frameDataType === 'image/png') {
       return (
         <div width="100%" height="100%">
-          <img src='./logo192.png' style={{ maxWidth: '100%', maxHeight: '100%' }} />
+          <img src={frameDataURL} style={{ maxWidth: '100%', maxHeight: '100%' }} />
         </div>
       )
     }
@@ -75,8 +75,8 @@ export default class Directory extends React.Component {
 
   render() {
     const home_etc = (
-      <div className='homeCover'>
-        {this.state.clickedNav === 'Home' ? <Home /> : <Download /> }
+      <div style={{marginTop: '5vh'}}>
+        {this.state.clickedNav === 'Home' ? <Home  className='homeCover' /> : <Download /> }
       </div>)
 
     const others = (
@@ -86,7 +86,7 @@ export default class Directory extends React.Component {
         </div>
         <div className="fileView" >
           <div className="fileViewDetail" >
-            <this.fileView />
+            <this.screen />
           </div>
         </div>
       </div>

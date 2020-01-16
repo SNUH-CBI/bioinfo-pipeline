@@ -1,20 +1,9 @@
 [
   {
-    "type": "directory",
-    "label": "QUALIMAPUCSCsample1",
-    "value": "",
-    "children": [
-      {
-        "type": "button",
-        "label": "no1",
-        "value": "해당 파일 경로"
-      },
-      {
-        "type": "button",
-        "label": "no2",
-        "value": "해당 파일 경로"
-      }
-    ]
+    "type": "button",
+    "label": "13-169_S5",
+    "value": "/06_qualimap_UCSC/qualimapReport.html",
+    "children": []
   },
   {
     "type": "directory",
@@ -24,12 +13,12 @@
       {
         "type": "button",
         "label": "no1",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       },
       {
         "type": "button",
         "label": "no2",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       }
     ]
   }

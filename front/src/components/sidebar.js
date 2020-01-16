@@ -52,13 +52,10 @@ export default class Sidebar extends React.Component {
   
 
   handleOnClick = (e) => {
-    const clicked = e.target.innerHTML
-
-    if(clicked === 'GO_BP') this.props.getStaticFile('./sample.pdf')
-    if(clicked === 'GO_CC') this.props.getStaticFile('./a.csv')
-    if(clicked === 'GO_MF') this.props.getStaticFile('./logo512.png')
-    if(clicked === 'KEGG') this.props.getStaticFile('./sample.html')
-    if(clicked === 'Reactome') this.props.getStaticFile('./sample.txt')
+    let clicked = './sampleFiles' + e.target.value // 테스트 후 const로 변경
+    //데이터 경로 : /data/bioinfo-pipeline/data/pipeline-test/pipeline/
+    if(e.target.value === "tempPath") clicked = './sampleFiles/logo512.png'
+    this.props.getStaticFile(clicked)
   }
 
   render() {
@@ -77,12 +74,14 @@ export default class Sidebar extends React.Component {
             </Button>
           if (index.type === 'button')
             return <Button
+              onClick={this.handleOnClick}
               style={{ width: '200px' }}
               key={key}
-              variant='light' >
+              variant='link'
+              value={index.value} >
               {index.label}
             </Button>
-          else return (
+          return (
             <Card key={key}>
               <Card.Header>
                 <Accordion.Toggle style={{textAlign: 'center'}} as={Button} eventKey={key} variant='link' disabled={!index.children.length}>
@@ -96,7 +95,8 @@ export default class Sidebar extends React.Component {
                       onClick={this.handleOnClick}
                       style={{ width: '140px', textAlign: 'center'}}
                       key={key}
-                      variant='link'>
+                      variant='link'
+                      value={index.value}>
                         {index.label}
                     </Button>
                   })}

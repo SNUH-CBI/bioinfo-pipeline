@@ -7,17 +7,17 @@
       {
         "type": "button",
         "label": "Count",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       },
       {
         "type": "button",
         "label": "FPKM",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       },
       {
         "type": "button",
         "label": "TPM",
-        "value": "해당 파일 경로"
+        "value": "/08_DESeq2/all_DEGs_tpm_FC_rawp.csv"
       }
     ]
   },
@@ -29,17 +29,17 @@
       {
         "type": "button",
         "label": "Count",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       },
       {
         "type": "button",
         "label": "FPKM",
-        "value": "해당 파일 경로"
+        "value": "/08_edgeR/all_DEGs_fpkm_FC_rawp.csv"
       },
       {
         "type": "button",
         "label": "TPM",
-        "value": "해당 파일 경로"
+        "value": "tempPath"
       }
     ]
   }

@@ -50,6 +50,7 @@ class CsvViewer extends React.Component {
   handleDataChange = file => {
     this.setState({ data: file.data })
     this.setState({ columns: this.makeColumns(file.meta.fields) })
+    console.log(file.meta.delimiter)
   }
 
 
@@ -77,7 +78,7 @@ class CsvViewer extends React.Component {
       {
         columns,
         data,
-        initialState: { pageIndex: 0 },
+        initialState: { pageIndex: 0, sortBy: [{ id: Object.keys(this.state.data[0])[0], inc: true}] },
       },
       useSortBy,
       usePagination,
@@ -114,14 +115,14 @@ class CsvViewer extends React.Component {
                 prepareRow(row)
                 return (
                   <tr {...row.getRowProps()}>
-                    {row.cells.map(cell => {
+                    {row.cells.map((cell, k) => {
                       return (
                         <td
                           {...cell.getCellProps({
                             className: cell.column.collapse ? 'collapse' : '',
                           })}
                         >
-                          {cell.render('Cell')}
+                          {Object.values(cell.row.original)[k]}
                         </td>
                       )
                     })}
