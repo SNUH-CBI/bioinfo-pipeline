@@ -286,7 +286,7 @@ let dirDeg = (directory, dirName) => {
     }
 
     let result = {
-        'type' : 'directory',
+        'type' : 'caption',
         'label' :  dirName.replace('08_', ''),
         'value' : '',
         'children' : resultChildren
@@ -337,7 +337,7 @@ let dirGsa = (directory, dirName) => {
             }
 
             result.push({
-                'type' : 'directory',
+                'type' : 'caption',
                 'label' : folders[i].name,
                 'value' : '',
                 'children' : resultChildren
@@ -371,7 +371,7 @@ let dirGsa = (directory, dirName) => {
             }
 
             result.push({
-                'type' : 'directory',
+                'type' : 'caption',
                 'label' : folders[i].name,
                 'value' : '',
                 'children' : resultChildren
