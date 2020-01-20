@@ -140,7 +140,7 @@ let dirRsemUcsc = (directory, dirName) => {
         result.push({
             'type' : 'file',
             'label' : captionList[i],
-            'value' : `/${dirName}/${captionList[i]}/${captionedResult[captionList[i]][0]}`
+            'value' : `/${dirName}/${captionedResult[captionList[i]][0]}`
         });
 
     }
