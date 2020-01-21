@@ -4,7 +4,7 @@ let config = require('../config');
 let getTree = (directory) => {
 
     return dirTree(directory, {
-        extensions: /\.(html|pdf|txt|csv|png|tiff|tif)$/
+        extensions: /\.(html|pdf|txt|csv|png)$/
     });
 
 };
