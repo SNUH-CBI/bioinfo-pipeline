@@ -1,8 +1,17 @@
-[
-  {
-    "type": "button",
-    "label": "13-169_S5",
-    "value": "/05_RSEM_UCSC/13-169_S5.Quant.pdf",
-    "children": []
-  }
+[ 
+	{ 
+		"type" : "file",
+		"label" : "13-169_S5",
+		"value" : "/05_RSEM_UCSC/13-169_S5.Quant.pdf"
+	},
+	{ 
+		"type" : "file",
+		"label" : "16-022_S3",
+		"value" : "/05_RSEM_UCSC/16-022_S3.Quant.pdf"
+	},
+	{ 
+		"type" : "file",
+		"label" : "16-048_S8",
+		"value" : "/05_RSEM_UCSC/16-048_S8.Quant.pdf"
+	}
 ]

@@ -1,46 +1,27 @@
-[
-  {
-    "type": "directory",
-    "label": "DESeq2",
-    "value": "",
-    "children": [
-      {
-        "type": "button",
-        "label": "Count",
-        "value": "tempPath"
-      },
-      {
-        "type": "button",
-        "label": "FPKM",
-        "value": "tempPath"
-      },
-      {
-        "type": "button",
-        "label": "TPM",
-        "value": "/08_DESeq2/all_DEGs_tpm_FC_rawp.csv"
-      }
-    ]
-  },
-  {
-    "type": "directory",
-    "label": "edgeR",
-    "value": "",
-    "children": [
-      {
-        "type": "button",
-        "label": "Count",
-        "value": "tempPath"
-      },
-      {
-        "type": "button",
-        "label": "FPKM",
-        "value": "/08_edgeR/all_DEGs_fpkm_FC_rawp.csv"
-      },
-      {
-        "type": "button",
-        "label": "TPM",
-        "value": "tempPath"
-      }
-    ]
-  }
+[ 
+	{ 
+		"type":"caption",
+		"label":"DESeq2",
+		"value":"",
+		"children":[ 
+
+			{ 
+				"type":"file",
+				"label":"FPKM Display",
+				"value":"/08_DESeq2/all_DEGs_fpkm_FC_rawp.csv"
+			},
+
+			{ 
+				"type":"file",
+				"label":"TPM Display",
+				"value":"/08_DESeq2/all_DEGs_tpm_FC_rawp.csv"
+			},
+
+			{ 
+				"type":"file",
+				"label":"Count Display",
+				"value":"/08_DESeq2/sig_count_DESeq2.txt"
+			}
+		]
+	}
 ]

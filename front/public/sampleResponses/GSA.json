@@ -1,192 +1,61 @@
-[
-  {
-    "type": "category",
-    "label": "DAVID",
-    "value": "",
-    "children": []
-  },
-  {
-    "type": "directory",
-    "label": "edgeR",
-    "value": "",
-    "children": [
-      {
-        "type": "button",
-        "label": "GO_BP",
-        "value": "tempPath"
-      },
-      {
-        "type": "button",
-        "label": "GO_CC",
-        "value": "tempPath"
-      },
-      {
-        "type": "button",
-        "label": "GO_MF",
-        "value": "/09_DAVID/edgeR/sig_count_edgeR_DAVID_GOMF.txt"
-      },
-      {
-        "type": "button",
-        "label": "KEGG",
-        "value": "tempPath"
-      }
-    ]
-  },
-  {
-    "type": "directory",
-    "label": "DESeq2",
-    "value": "",
-    "children": [
-      {
-        "type": "button",
-        "label": "GO_BP",
-        "value": "tempPath"
-      },
-      {
-        "type": "button",
-        "label": "GO_CC",
-        "value": "/09_DAVID/DESeq2/sig_count_DESeq2_DAVID_GOCC.txt"
-      },
-      {
-        "type": "button",
-        "label": "GO_MF",
-        "value": "tempPath"
-      },
-      {
-        "type": "button",
-        "label": "KEGG",
-        "value": "tempPath"
-      }
-    ]
-  },
-  {
-    "type": "category",
-    "label": "enrichR",
-    "value": "",
-    "children": []
-  },
-  {
-    "type": "directory",
-    "label": "edgeR",
-    "value": "",
-    "children": [
-      {
-        "type": "button",
-        "label": "GO_BP",
-        "value": "tempPath"
-      },
-      {
-        "type": "button",
-        "label": "GO_CC",
-        "value": "/09_enrichR/edgeR/enrichR_gocc.csv"
-      },
-      {
-        "type": "button",
-        "label": "GO_MF",
-        "value": "tempPath"
-      },
-      {
-        "type": "button",
-        "label": "KEGG",
-        "value": "tempPath"
-      },
-      {
-        "type": "button",
-        "label": "Reactome",
-        "value": "tempPath"
-      },
-      {
-        "type": "button",
-        "label": "Wikipath",
-        "value": "tempPath"
-      }
-    ]
-  },
-  {
-    "type": "directory",
-    "label": "DESeq2",
-    "value": "",
-    "children": [
-      {
-        "type": "button",
-        "label": "GO_BP",
-        "value": "tempPath"
-      },
-      {
-        "type": "button",
-        "label": "GO_CC",
-        "value": "tempPath"
-      },
-      {
-        "type": "button",
-        "label": "GO_MF",
-        "value": "tempPath"
-      },
-      {
-        "type": "button",
-        "label": "KEGG",
-        "value": "tempPath"
-      },
-      {
-        "type": "button",
-        "label": "Reactome",
-        "value": "tempPath"
-      },
-      {
-        "type": "button",
-        "label": "Wikipath",
-        "value": "/09_enrichR/DESeq2/enrichR_wikipath.csv"
-      }
-    ]
-  },
-  {
-    "type": "category",
-    "label": "GESA",
-    "value": "",
-    "children": []
-  },
-  {
-    "type": "directory",
-    "label": "edgeR",
-    "value": "",
-    "children": [
-      {
-        "type": "button",
-        "label": "MsigDB_C2",
-        "value": "tempPath"
-      },
-      {
-        "type": "button",
-        "label": "MsigDB_C3",
-        "value": "tempPath"
-      },
-      {
-        "type": "button",
-        "label": "MsigDB_C5",
-        "value": "tempPath"
-      }
-    ]
-  },
-  {
-    "type": "directory",
-    "label": "DESeq2",
-    "value": "",
-    "children": [
-      {
-        "type": "button",
-        "label": "MsigDB_C2",
-        "value": "tempPath"
-      },
-      {
-        "type": "button",
-        "label": "MsigDB_C3",
-        "value": "tempPath"
-      },
-      {
-        "type": "button",
-        "label": "MsigDB_C5",
-        "value": "tempPath"
-      }
-    ]
-  }
+[ 
+	{ 
+		"type":"category",
+		"label":"DAVID",
+		"value":""
+	},
+	{ 
+		"type":"caption",
+		"label":"DESeq2",
+		"value":"",
+		"children":[ 
+			{ 
+				"type":"file",
+				"label":"GOBP",
+				"value":"/09_DAVID/DESeq2/sig_count_DESeq2_DAVID_GOBP.txt"
+			},
+			{ 
+				"type":"file",
+				"label":"GOCC",
+				"value":"/09_DAVID/DESeq2/sig_count_DESeq2_DAVID_GOCC.txt"
+			},
+			{ 
+				"type":"file",
+				"label":"GOMF",
+				"value":"/09_DAVID/DESeq2/sig_count_DESeq2_DAVID_GOMF.txt"
+			},
+			{ 
+				"type":"file",
+				"label":"KEGG",
+				"value":"/09_DAVID/DESeq2/sig_count_DESeq2_DAVID_KEGG.txt"
+			}
+		]
+	},
+	{ 
+		"type":"category",
+		"label":"GSEA",
+		"value":""
+	},
+	{ 
+		"type":"caption",
+		"label":"DESeq2",
+		"value":"",
+		"children":[ 
+			{ 
+				"type":"file",
+				"label":"c2",
+				"value":"/09_GSEA/DESeq2/sig_count_DESeq2_c2.all.v7.0.symbols.gmt.Gsea.1569817047568/index.html"
+			},
+			{ 
+				"type":"file",
+				"label":"c3",
+				"value":"/09_GSEA/DESeq2/sig_count_DESeq2_c3.all.v7.0.symbols.gmt.Gsea.1569817298287/index.html"
+			},
+			{ 
+				"type":"file",
+				"label":"c5",
+				"value":"/09_GSEA/DESeq2/sig_count_DESeq2_c5.all.v7.0.symbols.gmt.Gsea.1569817439584/index.html"
+			}
+		]
+	}
 ]

@@ -1,25 +1,17 @@
-[
-  {
-    "type": "button",
-    "label": "13-169_S5",
-    "value": "/06_qualimap_UCSC/qualimapReport.html",
-    "children": []
-  },
-  {
-    "type": "directory",
-    "label": "sample2",
-    "value": "",
-    "children": [
-      {
-        "type": "button",
-        "label": "no1",
-        "value": "tempPath"
-      },
-      {
-        "type": "button",
-        "label": "no2",
-        "value": "tempPath"
-      }
-    ]
-  }
+[ 
+	{ 
+		"type" : "file",
+		"label" : "13-169_S5",
+		"value" : "/06_qualimap_UCSC/13-169_S5/qualimapReport.html"
+	},
+	{ 
+		"type" : "file",
+		"label" : "16-022_S3",
+		"value" : "/06_qualimap_UCSC/16-022_S3/qualimapReport.html"
+	},
+	{ 
+		"type" : "file",
+		"label" : "16-048_S8",
+		"value" : "/06_qualimap_UCSC/16-048_S8/qualimapReport.html"
+	}
 ]

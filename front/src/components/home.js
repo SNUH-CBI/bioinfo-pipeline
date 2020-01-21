@@ -1,6 +1,24 @@
 import React from 'react';
 
 export default class Home extends React.Component {
+
+  state = {
+    ctrlCase : ''
+  }
+
+
+  ctrlCase = () => {
+    fetch('./sampleFiles/case_ctrl_info.txt')
+      .then(response => response.text())
+      .then(text => text.split(String.fromCharCode('10')))
+      .then((text) => this.setState({ctrlCase: text}))
+      .catch((error) => console.log(error))
+  }
+
+  componentDidMount = () => {
+    this.ctrlCase()
+  }
+
   render() {
     return (
       <table className="type06">
@@ -21,7 +39,7 @@ export default class Home extends React.Component {
           </tr>
           <tr>
             <th scope="row" className='even'>Control case</th>
-            <td className='even'>/home2/kwangsookim_lab/heonyi_lee/data2/cas_ctrl_info.txt</td>
+            <td className="even">Adamatinomatous_CRP/ctrl	Papillary_CRP</td>
           </tr>
         </tbody>
       </table>
