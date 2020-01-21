@@ -1,10 +1,11 @@
 {
   "server": {
-    "port": 4000,
+    "port": 4040,
     "secret_key": "xcp12a!@^xvcx!@#zxc",
     "cors": "http://localhost:3000"
   },
   "path": "/data/bioinfo-pipeline/data/",
+  "directory": "/data/bioinfo-pipeline/data/pipeline-test/pipeline/",
   "project": [
     "pipeline-test/pipeline"
   ],
@@ -15,9 +16,9 @@
     "Raw_fastQC": ["01_raw_fastqc"],
     "Filtered_fastQC": ["03_filtered_fastqc"],
     "RSEM_UCSC": ["05_RSEM_UCSC"],
-    "Qualimap_UCSC": ["06_qualimap_USSC"],
+    "Qualimap_UCSC": ["06_qualimap_UCSC"],
     "Sample_Correlation": ["07_correlation"],
-    "DEG": ["08_DESeq2"],
+    "DEG": ["08_DESeq2", "08_edgeR"],
     "GSA": ["09_DAVID", "09_enrichR", "09_GSEA"]
   },
   "regex": {
