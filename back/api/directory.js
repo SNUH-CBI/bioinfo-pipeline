@@ -2,7 +2,7 @@
 var express  = require('express');
 var router   = express.Router();
 let dirController = require('./directory-controller');
-let config = require('../config');
+let projectConfig = require('../config/project');
 
 // Show
 router.get('/', (req, res) => {
@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
 
     if(project === 'pipeline-test/pipeline') {
 
-        if(config.api[menu] !== undefined) {
+        if(projectConfig.api[menu] !== undefined) {
 
             let result = dirController.pipelineDirectory(menu);
 

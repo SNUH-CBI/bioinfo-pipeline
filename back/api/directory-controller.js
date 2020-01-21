@@ -1,5 +1,6 @@
 let dirTree = require('directory-tree');
-let config = require('../config');
+let serverConfig = require('../config/server');
+let projectConfig = require('../config/project');
 
 let getTree = (directory) => {
 
@@ -11,8 +12,8 @@ let getTree = (directory) => {
 
 let pipelineDirectory = (menu) => {
 
-    let rootDirectory = config.directory;
-    let dirs = config.api[menu];
+    let rootDirectory = serverConfig.path + 'pipeline-test/pipeline/';
+    let dirs = projectConfig.api[menu];
     let result = [];
 
     // match menu with function
@@ -44,7 +45,7 @@ let dirRawFastqc = (directory, dirName) => {
 
     console.log('START Raw_fastQC');
 
-    let regex = new RegExp(config.regex["pipeline-test/pipeline"]);
+    let regex = new RegExp(projectConfig.regex["pipeline-test/pipeline"]);
 
     let tree = getTree(directory);
     let files = tree.children;
@@ -155,6 +156,8 @@ let dirQualimapUcsc = (directory, dirName) => {
 
     console.log('START Qualimap_UCSC');
 
+    let regex = new RegExp(projectConfig.regex["pipeline-test/pipeline"]);
+
     let tree = getTree(directory);
     let folders = tree.children;
 
@@ -163,6 +166,11 @@ let dirQualimapUcsc = (directory, dirName) => {
     for(let i = 0; i < folders.length; i++) {
 
         let label = folders[i].name;
+
+        let regexResult = regex.exec(label);
+
+        // wrong folder name
+        if(regexResult === null) continue;
 
         result.push({
             'type' : 'file',

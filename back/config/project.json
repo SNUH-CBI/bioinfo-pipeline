@@ -1,0 +1,28 @@
+{
+  "project": [
+    "pipeline-test/pipeline"
+  ],
+  "password": {
+    "pipeline-test/pipeline": "pwasdf2"
+  },
+  "api": {
+    "Raw_fastQC": ["01_raw_fastqc"],
+    "Filtered_fastQC": ["03_filtered_fastqc"],
+    "RSEM_UCSC": ["05_RSEM_UCSC"],
+    "Qualimap_UCSC": ["06_qualimap_UCSC"],
+    "Sample_Correlation": ["07_correlation"],
+    "DEG": ["08_DESeq2", "08_edgeR"],
+    "GSA": ["09_DAVID", "09_enrichR", "09_GSEA"]
+  },
+  "regex": {
+    "pipeline-test/pipeline": "(.*?)S[0-9]"
+  },
+  "info": {
+    "pipeline-test/pipeline": {
+      "project": "bioinfo pipeline",
+      "manager": "Kim Yeonjun",
+      "date": "2020-01-17",
+      "casePath": "pipeline-test/pipeline/case_ctrl_info.txt"
+    }
+  }
+}
