@@ -110,7 +110,10 @@ class CsvViewer extends React.Component {
               ))}
             </thead>
             <tbody {...getTableBodyProps()} >
-              {page.map((row, i) => {
+              {page.filter((row)=> {
+                if(Object.values(row.original)[0] === null) return false
+                else return true
+              }).map((row, i) => {
                 prepareRow(row)
                 return (
                   <tr {...row.getRowProps()}>

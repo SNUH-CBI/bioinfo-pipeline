@@ -21,7 +21,11 @@ export default class Sidebar extends React.Component {
       axios.defaults.withCredentials = true
       axios({
         method: 'get',
-        url: './sampleResponses/' + this.props.clickedNav + '.json'
+        url: 'http://210.117.211.208:36002/directory',
+        params: {
+          project: 'pipeline-test/pipeline',
+          menu: this.props.clickedNav
+        }
       })
         .then((response) => {
           this.setState({ response: response.data })
@@ -38,7 +42,11 @@ export default class Sidebar extends React.Component {
     axios.defaults.withCredentials = true
     axios({
       method: 'get',
-      url: './sampleResponses/' + this.props.clickedNav + '.json'
+      url: 'http://210.117.211.208:36002/directory',
+      params: {
+        project: 'pipeline-test/pipeline',
+        menu: this.props.clickedNav
+      }
     })
       .then((response) => {
         this.setState({ response: response.data })
@@ -87,7 +95,7 @@ export default class Sidebar extends React.Component {
                     eventKey={key}
                     variant='link'
                     disabled={!index.children.length}>
-                      {index.label}
+                    {index.label}
                   </Accordion.Toggle>
                 </Card.Header>
                 <Accordion.Collapse eventKey={key}>
