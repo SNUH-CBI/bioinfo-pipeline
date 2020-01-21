@@ -35,6 +35,7 @@ export default class Directory extends React.Component {
   }
 
   getStaticFile = (address) => {
+    console.log(address)
     fetch(address)
       .then((response) => response.clone().blob())
       .then(blob => {
@@ -57,8 +58,8 @@ export default class Directory extends React.Component {
     const frameDataType = this.state.frameDataType
     const frameDataURL = this.state.frameDataURL
 
-    if (frameDataType === 'text/csv' || frameDataType === 'text/plain') {
-      return <CsvViewer file={frameData} delimiter={ frameDataType === 'text/plain' ? String.fromCharCode(9) : String.fromCharCode(44) } />
+    if (frameDataType === 'text/csv' || frameDataType === 'text/plain' || frameDataType === 'application/octet-stream') {
+      return <CsvViewer file={frameData} delimiter={frameDataType === 'text/plain' ? String.fromCharCode(9) : String.fromCharCode(44)} />
     }
     if (frameDataType === 'text/html') {
       return <Iframe src={this.state.address} width="100%" height="100%" />
@@ -66,7 +67,7 @@ export default class Directory extends React.Component {
     if (frameDataType === 'image/png') {
       return (
         <div width="100%" height="100%">
-          <img src={frameDataURL} style={{ maxWidth: '100%', maxHeight: '100%' }} />
+          <img src={frameDataURL} style={{ height: '95vh' }} alt="nothing" />
         </div>
       )
     }
@@ -74,10 +75,6 @@ export default class Directory extends React.Component {
   }
 
   render() {
-    const home_etc = (
-      <div style={{marginTop: '5vh'}}>
-        {this.state.clickedNav === 'Home' ? <Home  className='homeCover' /> : <Download /> }
-      </div>)
 
     const others = (
       <div className="mainwindow" >
@@ -95,7 +92,11 @@ export default class Directory extends React.Component {
     return (
       <div className="directory">
         <Navbar handleOnClick={this.handleNavbarClick} />
-        {(this.state.clickedNav === 'Home' || this.state.clickedNav === 'etc') ? home_etc : others}
+        {(this.state.clickedNav === 'Home' || this.state.clickedNav === 'etc') ?
+          (this.state.clickedNav === 'Home' ?
+            <div style={{ marginTop: '5vh' }}><Home className='homeCover' /></div> :
+            <Download />) :
+          others}
       </div>
     );
   }

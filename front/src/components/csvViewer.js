@@ -21,8 +21,7 @@ class CsvViewer extends React.Component {
   }
 
   componentDidUpdate = (prevProps, prevState) => {
-
-    if(prevProps.file !== this.props.file) {
+    if (prevProps.file !== this.props.file) {
       this.handleFileChange(this.props.file)
     }
 
@@ -51,7 +50,6 @@ class CsvViewer extends React.Component {
   handleDataChange = file => {
     this.setState({ data: file.data })
     this.setState({ columns: this.makeColumns(file.meta.fields) })
-    console.log(file.meta.delimiter)
   }
 
 
@@ -79,7 +77,7 @@ class CsvViewer extends React.Component {
       {
         columns,
         data,
-        initialState: { pageIndex: 0, sortBy: [{ id: Object.keys(this.state.data[0])[0], inc: true}] },
+        initialState: { pageIndex: 0, sortBy: [{ id: Object.keys(this.state.data[0])[0], inc: true }] },
       },
       useSortBy,
       usePagination,
@@ -95,12 +93,12 @@ class CsvViewer extends React.Component {
                 <tr {...headerGroup.getHeaderGroupProps()}>
                   {headerGroup.headers.map(column => (
                     <th
-                      {...column.getHeaderProps(column.getSortByToggleProps(),{
+                      {...column.getHeaderProps(column.getSortByToggleProps(), {
                         className: column.collapse ? 'collapse' : '',
                       })}
                     >
                       <span>{column.render('Header')}
-                      {/* Add a sort direction indicator */}
+                        {/* Add a sort direction indicator */}
                         {column.isSorted
                           ? column.isSortedDesc
                             ? '🔽'
@@ -112,7 +110,10 @@ class CsvViewer extends React.Component {
               ))}
             </thead>
             <tbody {...getTableBodyProps()} >
-              {page.map((row, i) => {
+              {page.filter((row)=> {
+                if(Object.values(row.original)[0] === null) return false
+                else return true
+              }).map((row, i) => {
                 prepareRow(row)
                 return (
                   <tr {...row.getRowProps()}>
@@ -124,6 +125,7 @@ class CsvViewer extends React.Component {
                           })}
                         >
                           {Object.values(cell.row.original)[k]}
+                          {typeof (Object.values(cell.row.original)[k]) === 'boolean' && ((Object.values(cell.row.original)[k] === true) ? 'true' : 'false')}
                         </td>
                       )
                     })}
@@ -168,7 +170,7 @@ class CsvViewer extends React.Component {
               style={{ width: '100px' }}
             />
           </span>{' '}
-          
+
         </div>
       </Styles>
     )
@@ -178,7 +180,7 @@ class CsvViewer extends React.Component {
     return (
       <div>
         {!this.state.loading && (
-            <this.Table columns={this.state.columns} data={this.state.data} />
+          <this.Table columns={this.state.columns} data={this.state.data} />
         )}
       </div>
     );
