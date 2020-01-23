@@ -1,0 +1,6 @@
+{
+  "port": 4040,
+  "secret_key": "xcp12a!@^xvcx!@#zxc",
+  "cors": "http://localhost:3000",
+  "path": "/data/bioinfo-pipeline/data/"
+}
