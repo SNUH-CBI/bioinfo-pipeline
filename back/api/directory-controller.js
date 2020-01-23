@@ -1,6 +1,6 @@
-let dirTree = require('directory-tree');
-let serverConfig = require('../config/server');
-let projectConfig = require('../config/project');
+const dirTree       = require('directory-tree');
+const serverConfig  = require('../config/server');
+const projectConfig = require('../config/project');
 
 let getTree = (directory) => {
 

@@ -1,10 +1,10 @@
-// api/directory.js
-var express  = require('express');
-var router   = express.Router();
-let dirController = require('./directory-controller');
-let projectConfig = require('../config/project');
+const express        = require('express');
+const dirController  = require('./directory-controller');
+const authController = require('./authorization-controller');
+const projectConfig  = require('../config/project');
 
-// Show
+const router = express.Router();
+
 router.get('/', (req, res) => {
 
     let project = req.query.project;
@@ -14,12 +14,12 @@ router.get('/', (req, res) => {
 
     if(project === 'pipeline-test/pipeline') {
 
+        if(!authController.checkAuth(project, req, res)) return;
+
         if(projectConfig.api[menu] !== undefined) {
 
             let result = dirController.pipelineDirectory(menu);
-
-            res.writeHead(200);
-            res.end(JSON.stringify(result));
+            res.json(result);
 
         } else { // menu is wrong
 
