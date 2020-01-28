@@ -17,14 +17,13 @@ router.get('/', (req, res) => {
         if(!authController.checkAuth(project, req, res)) return;
 
         let projectInfo = projectConfig.info[project];
+        let result = Object.assign({}, projectInfo);
 
         let caseFile = serverConfig.path + projectInfo['casePath'];
-        delete projectInfo['casePath'];
+        result['case'] = fs.readFileSync(caseFile, 'utf8');
+        delete result['casePath'];
 
-        let caseText = fs.readFileSync(caseFile, 'utf8');
-        projectInfo['case'] = caseText;
-
-        res.json(projectInfo);
+        res.json(result);
 
     } else { // project is wrong
 
