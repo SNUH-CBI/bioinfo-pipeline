@@ -2,45 +2,59 @@ import React from 'react';
 
 export default class Home extends React.Component {
 
-  state = {
-    ctrlCase : ''
+  static defaultProps = {
+    infoData: {
+      project: '',
+      manager: '',
+      date: '',
+      case: ''
+    }
   }
 
+  state = {
+    case: []
+  }
 
-  ctrlCase = () => {
-    fetch('./sampleFiles/case_ctrl_info.txt')
-      .then(response => response.text())
-      .then(text => text.split(String.fromCharCode('10')))
-      .then((text) => this.setState({ctrlCase: text}))
-      .catch((error) => console.log(error))
+  getInfoData = () => {
+    const acase = this.props.infoData.case
+    this.setState({ case: acase.split(String.fromCharCode(10)).filter(index => index !== '') })
+  }
+
+  componentDidUpdate = (prevProps, prevState) => {
+    if (prevProps.infoData !== this.props.infoData) {
+      this.getInfoData()
+    }
   }
 
   componentDidMount = () => {
-    this.ctrlCase()
+    if(this.props.infoData.case !== undefined) this.getInfoData()
   }
 
   render() {
+    const infoData = this.props.infoData
     return (
       <table className="type06">
         <thead>
           <tr>
-            <th scope="row">프로젝트명</th>
-            <td>Project 1</td>
+            <th scope="row">project</th>
+            <td>{infoData.project}</td>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <th scope="row" className="even">연구자명</th>
-            <td className="even">yecnj</td>
+            <th scope="row" className="even">manager</th>
+            <td className="even">{infoData.manager}</td>
           </tr>
           <tr>
-            <th scope="row">의뢰날짜</th>
-            <td>2020.01.09</td>
+            <th scope="row">date</th>
+            <td>{infoData.date}</td>
           </tr>
           <tr>
-            <th scope="row" className='even'>Control case</th>
-            <td className="even">Adamatinomatous_CRP/ctrl	Papillary_CRP</td>
+            <th scope="row" className='even' rowSpan="4">Control case</th>
           </tr>
+          {this.state.case.map((index, key) => {
+            return <tr key={key}><td className='even'>{index}</td></tr>
+          })}
         </tbody>
       </table>
     )

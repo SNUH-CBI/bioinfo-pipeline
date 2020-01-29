@@ -9,38 +9,41 @@ export default class Directory extends React.Component {
     frameData: '',
     frameDataType: '',
     frameDataURL: '',
-    address: '',
-    permissionOK: false
+    frameAddress: '',
+    permissionOK: true,
+    infoData: {}
   }
 
-  checkPermission = () => {
+  componentDidMount = () => {
     axios.defaults.withCredentials = true
     axios({
-      method: 'post',
-      url: 'http://210.117.211.208:36002/path/' + this.props.match.params.path
+      method: 'GET',
+      url: 'http://210.117.211.208:36002/info',
+      params: {
+        project: 'pipeline-test/pipeline'
+      }
     })
       .then((response) => {
-        if (response.data.success) {
-          this.setState({ permissionOK: true })
-        }
-        else {
-          alert("wrong password");
-          this.props.history.push(this.props.match.params.path + '/auth')
-        }
+        this.setState({ infoData: response.data })
       })
       .catch((error) => {
-        console.log(error)
-        alert("error occured. check console log");
+        if(error.response.status === 401) {
+          alert('No session. Redirect to auth page(401)')
+          this.props.history.push(this.props.match.params.path + '/auth')
+        }
+        else if(error.response.status === 400) {
+          alert('Wrong project name. Redirect to auth page(400)')
+          this.props.history.push(this.props.match.params.path + '/auth')
+        }
       })
   }
 
   getStaticFile = (address) => {
-    console.log(address)
     fetch(address)
       .then((response) => response.clone().blob())
       .then(blob => {
         this.setState({
-          address: address,
+          frameAddress: address,
           frameDataType: blob.type,
           frameData: blob,
           frameDataURL: URL.createObjectURL(blob)
@@ -62,7 +65,7 @@ export default class Directory extends React.Component {
       return <CsvViewer file={frameData} delimiter={frameDataType === 'text/plain' ? String.fromCharCode(9) : String.fromCharCode(44)} />
     }
     if (frameDataType === 'text/html') {
-      return <Iframe src={this.state.address} width="100%" height="100%" />
+      return <Iframe src={this.state.frameAddress} width="100%" height="100%" />
     }
     if (frameDataType === 'image/png') {
       return (
@@ -75,7 +78,6 @@ export default class Directory extends React.Component {
   }
 
   render() {
-
     const others = (
       <div className="mainwindow" >
         <div style={{ overflowY: 'auto', maxHeight: '95vh', height: '95vh' }}>
@@ -88,13 +90,13 @@ export default class Directory extends React.Component {
         </div>
       </div>
     )
-
+    
     return (
       <div className="directory">
         <Navbar handleOnClick={this.handleNavbarClick} />
         {(this.state.clickedNav === 'Home' || this.state.clickedNav === 'etc') ?
           (this.state.clickedNav === 'Home' ?
-            <div style={{ marginTop: '5vh' }}><Home className='homeCover' /></div> :
+            <div><Home infoData={this.state.infoData}/></div> :
             <Download />) :
           others}
       </div>

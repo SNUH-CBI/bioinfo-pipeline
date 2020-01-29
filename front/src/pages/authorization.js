@@ -17,7 +17,10 @@ export default class Authorization extends React.Component {
     axios.defaults.withCredentials = true
     axios({
       method: 'post',
-      url: 'http://210.117.211.208:36002/auth/' + this.props.match.params.path,
+      url: 'http://210.117.211.208:36002/auth/',
+      params: {
+        project: 'pipeline-test/pipeline'
+      },
       data: {
         password: this.state.password
       }

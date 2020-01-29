@@ -60,7 +60,7 @@ export default class Sidebar extends React.Component {
 
 
   handleOnClick = (e) => {
-    let clicked = 'http://210.117.211.208:36002/static/pipeline-test/pipeline' + e.target.value // 테스트 후 const로 변경
+    let clicked = 'http://210.117.211.208:36002/static' + '/pipeline-test/pipeline' + e.target.value
     if (e.target.value === "tempPath") clicked = './sampleFiles/logo512.png'
     this.props.getStaticFile(clicked)
   }
