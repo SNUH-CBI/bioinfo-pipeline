@@ -1,12 +1,12 @@
-const projectConfig  = require('../config/project');
+const projectConfig  = require('../../config/project.json');
 
-let checkPassword = (project, password) => {
+const checkPassword = (project, password) => {
 
     return projectConfig.password[project] === password;
 
 };
 
-let checkAuth = (project, req, res) => {
+const checkAuth = (project, req, res) => {
 
     if(req.session.project === project) {
 
@@ -24,8 +24,6 @@ let checkAuth = (project, req, res) => {
 };
 
 module.exports = {
-
     checkPassword : checkPassword,
     checkAuth : checkAuth
-
 };

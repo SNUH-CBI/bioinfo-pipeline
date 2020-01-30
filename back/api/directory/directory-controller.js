@@ -1,8 +1,9 @@
 const dirTree       = require('directory-tree');
-const serverConfig  = require('../config/server');
-const projectConfig = require('../config/project');
+const utility       = require('../../utility');
+const serverConfig  = require('../../config/server.json');
+const projectConfig = require('../../config/project.json');
 
-let getTree = (directory) => {
+const getTree = (directory) => {
 
     return dirTree(directory, {
         extensions: /\.(html|pdf|txt|csv|png)$/
@@ -10,28 +11,27 @@ let getTree = (directory) => {
 
 };
 
-let pipelineDirectory = (menu) => {
+const pipelineDirectory = (menu) => {
 
-    let rootDirectory = serverConfig.path + 'pipeline-test/pipeline/';
-    let dirs = projectConfig.api[menu];
+    const rootDirectory = serverConfig.path + 'pipeline-test/pipeline/';
+    const dirs = projectConfig.api[menu];
     let result = [];
 
     // match menu with function
-    let dirFunction = {
-        'Raw_fastQC' : dirRawFastqc,
-        'Filtered_fastQC' : dirRawFastqc,
-        'RSEM_UCSC' : dirRsemUcsc,
-        'Qualimap_UCSC' : dirQualimapUcsc,
-        'Sample_Correlation' : dirCorrelation,
-        'DEG' : dirDeg,
-        'GSA' : dirGsa
+    const dirFunction = {
+        'Raw_fastQC' : getFastqc,
+        'Filtered_fastQC' : getFastqc,
+        'RSEM_UCSC' : getRsemUcsc,
+        'Qualimap_UCSC' : getQualimapUcsc,
+        'Sample_Correlation' : getCorrelation,
+        'DEG' : getDeg,
+        'GSA' : getGsa
     };
 
     for(let directory of dirs) {
 
-        let fullDirectory = rootDirectory + directory;
-
-        let dirResult = dirFunction[menu](fullDirectory, directory);
+        const fullDirectory = rootDirectory + directory;
+        const dirResult = dirFunction[menu](fullDirectory, directory);
 
         result = result.concat(dirResult);
 
@@ -41,14 +41,14 @@ let pipelineDirectory = (menu) => {
 
 };
 
-let dirRawFastqc = (directory, dirName) => {
+const getFastqc = (directory, dirName) => {
 
-    console.log('START Raw_fastQC');
+    utility.print('Getting fastQC...');
 
-    let regex = new RegExp(projectConfig.regex["pipeline-test/pipeline"]);
+    const regex = new RegExp(projectConfig.regex["pipeline-test/pipeline"]);
 
-    let tree = getTree(directory);
-    let files = tree.children;
+    const tree = getTree(directory);
+    const files = tree.children;
 
     let result = [];
     let captionedResult = {};
@@ -56,14 +56,14 @@ let dirRawFastqc = (directory, dirName) => {
     // parse file names
     for(let i = 0; i < files.length; i++) {
 
-        let name = files[i].name;
+        const name = files[i].name;
 
-        let regexResult = regex.exec(name);
+        const regexResult = regex.exec(name);
 
         // wrong file name
         if(regexResult === null) continue;
 
-        let caption = regexResult[0];
+        const caption = regexResult[0];
 
         // if this is first file of this caption
         if(captionedResult[caption] === undefined) captionedResult[caption] = [];
@@ -72,14 +72,14 @@ let dirRawFastqc = (directory, dirName) => {
 
     }
 
-    let captionList = Object.keys(captionedResult);
+    const captionList = Object.keys(captionedResult);
 
     // create result json
     for(let i = 0; i < captionList.length; i++) {
 
         let resultChildren = [];
 
-        let fileNames = captionedResult[captionList[i]];
+        const fileNames = captionedResult[captionList[i]];
 
         for(let j = 0; j < fileNames.length; j++) {
 
@@ -100,18 +100,19 @@ let dirRawFastqc = (directory, dirName) => {
 
     }
 
-    console.log(result);
+    utility.print(JSON.stringify(result));
+    utility.print('Finished fastQC');
 
     return result;
 
 };
 
-let dirRsemUcsc = (directory, dirName) => {
+const getRsemUcsc = (directory, dirName) => {
 
-    console.log('START RSEM_UCSC');
+    utility.print('Getting RSEM_UCSC...');
 
-    let tree = getTree(directory);
-    let files = tree.children;
+    const tree = getTree(directory);
+    const files = tree.children;
 
     let result = [];
     let captionedResult = {};
@@ -119,12 +120,12 @@ let dirRsemUcsc = (directory, dirName) => {
     // parse file names
     for(let i = 0; i < files.length; i++) {
 
-        let name = files[i].name;
+        const name = files[i].name;
 
         // only pdf files
         if(!name.endsWith('.pdf')) continue;
 
-        let caption = name.substring(0, name.indexOf('.'));
+        const caption = name.substring(0, name.indexOf('.'));
 
         // if this is first file of this caption
         if(captionedResult[caption] === undefined) captionedResult[caption] = [];
@@ -133,7 +134,7 @@ let dirRsemUcsc = (directory, dirName) => {
 
     }
 
-    let captionList = Object.keys(captionedResult);
+    const captionList = Object.keys(captionedResult);
 
     // create result json
     for(let i = 0; i < captionList.length; i++) {
@@ -146,31 +147,30 @@ let dirRsemUcsc = (directory, dirName) => {
 
     }
 
-    console.log(result);
+    utility.print(JSON.stringify(result));
+    utility.print('Finished RSEM_UCSC');
 
     return result;
 
 };
 
-let dirQualimapUcsc = (directory, dirName) => {
+const getQualimapUcsc = (directory, dirName) => {
 
-    console.log('START Qualimap_UCSC');
+    utility.print('Getting Qualimap_UCSC...');
 
-    let regex = new RegExp(projectConfig.regex["pipeline-test/pipeline"]);
+    const regex = new RegExp(projectConfig.regex["pipeline-test/pipeline"]);
 
-    let tree = getTree(directory);
-    let folders = tree.children;
+    const tree = getTree(directory);
+    const folders = tree.children;
 
     let result = [];
 
     for(let i = 0; i < folders.length; i++) {
 
-        let label = folders[i].name;
+        const label = folders[i].name;
 
-        let regexResult = regex.exec(label);
-
-        // wrong folder name
-        if(regexResult === null) continue;
+        // check wrong folder name
+        if(regex.exec(label) === null) continue;
 
         result.push({
             'type' : 'file',
@@ -180,18 +180,19 @@ let dirQualimapUcsc = (directory, dirName) => {
 
     }
 
-    console.log(result);
+    utility.print(JSON.stringify(result));
+    utility.print('Finished Qualimap_UCSC');
 
     return result;
 
 };
 
-let dirCorrelation = (directory, dirName) => {
+const getCorrelation = (directory, dirName) => {
 
-    console.log('START Sample_Correlation');
+    utility.print('Getting Sample_Correlation...');
 
-    let tree = getTree(directory);
-    let files = tree.children;
+    const tree = getTree(directory);
+    const files = tree.children;
 
     let result = [];
     let captionedResult = {};
@@ -199,9 +200,9 @@ let dirCorrelation = (directory, dirName) => {
     // parse file names
     for(let i = 0; i < files.length; i++) {
 
-        let name = files[i].name;
+        const name = files[i].name;
 
-        let caption = name.substring(0, name.indexOf('.'));
+        const caption = name.substring(0, name.indexOf('.'));
 
         // if this is first file of this caption
         if(captionedResult[caption] === undefined) captionedResult[caption] = [];
@@ -210,14 +211,14 @@ let dirCorrelation = (directory, dirName) => {
 
     }
 
-    let captionList = Object.keys(captionedResult);
+    const captionList = Object.keys(captionedResult);
 
     // create result json
     for(let i = 0; i < captionList.length; i++) {
 
         let resultChildren = [];
 
-        let fileNames = captionedResult[captionList[i]];
+        const fileNames = captionedResult[captionList[i]];
 
         for(let j = 0; j < fileNames.length; j++) {
 
@@ -244,24 +245,25 @@ let dirCorrelation = (directory, dirName) => {
 
     }
 
-    console.log(result);
+    utility.print(JSON.stringify(result));
+    utility.print('Finished Sample_Correlation');
 
     return result;
 
 };
 
-let dirDeg = (directory, dirName) => {
+const getDeg = (directory, dirName) => {
 
-    console.log('START DEG');
+    utility.print('Getting DEG...');
 
-    let tree = getTree(directory);
-    let files = tree.children;
+    const tree = getTree(directory);
+    const files = tree.children;
 
     let resultChildren = [];
 
     for(let i = 0; i < files.length; i++) {
 
-        let name = files[i].name;
+        const name = files[i].name;
 
         // only all & rawp & csv files
         if(!(name.startsWith('all_DEGs_') && name.endsWith('.csv')) && !((name.includes('all') || name.includes('sig')) && name.endsWith('.txt'))) continue;
@@ -293,27 +295,28 @@ let dirDeg = (directory, dirName) => {
 
     }
 
-    let result = {
+    const result = {
         'type' : 'caption',
         'label' :  dirName.replace('08_', ''),
         'value' : '',
         'children' : resultChildren
     };
 
-    console.log(result);
+    utility.print(JSON.stringify(result));
+    utility.print('Finished DEG');
 
     return result;
 
 };
 
-let dirGsa = (directory, dirName) => {
+const getGsa = (directory, dirName) => {
 
-    console.log('START GSA');
+    utility.print('Getting GSA...');
 
-    let tree = getTree(directory);
-    let folders = tree.children;
+    const tree = getTree(directory);
+    const folders = tree.children;
 
-    let resultCategory = {
+    const resultCategory = {
         'type' : 'category',
         'label' : dirName.replace('09_', ''),
         'value' : ''
@@ -326,15 +329,15 @@ let dirGsa = (directory, dirName) => {
 
         for(let i = 0; i < folders.length; i++) {
 
-            let files = folders[i].children;
+            const files = folders[i].children;
 
             let resultChildren = [];
 
             for(let j = 0; j < files.length; j++) {
 
-                let name = files[j].name;
+                const name = files[j].name;
 
-                let label = name.substring(name.lastIndexOf('_')+1, name.lastIndexOf('.'));
+                const label = name.substring(name.lastIndexOf('_')+1, name.lastIndexOf('.'));
 
                 resultChildren.push({
                     'type' : 'file',
@@ -360,15 +363,15 @@ let dirGsa = (directory, dirName) => {
             // only folders
             if(folders[i].children === undefined) continue;
 
-            let innerFolders = folders[i].children;
+            const innerFolders = folders[i].children;
 
             let resultChildren = [];
 
             for(let j = 0; j < innerFolders.length; j++) {
 
-                let name = innerFolders[j].name;
+                const name = innerFolders[j].name;
 
-                let label = name.substring(name.lastIndexOf('_')+1, name.indexOf('.'));
+                const label = name.substring(name.lastIndexOf('_')+1, name.indexOf('.'));
 
                 resultChildren.push({
                     'type' : 'file',
@@ -389,14 +392,13 @@ let dirGsa = (directory, dirName) => {
 
     }
 
-    console.log(result);
+    console.log(JSON.stringify(result));
+    utility.print('Finished GSA');
 
     return result;
 
 };
 
 module.exports = {
-
     pipelineDirectory : pipelineDirectory
-
 };
