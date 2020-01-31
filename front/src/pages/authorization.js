@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
+import config from './../config/config.json'
 
 export default class Authorization extends React.Component {
 
@@ -17,7 +18,7 @@ export default class Authorization extends React.Component {
     axios.defaults.withCredentials = true
     axios({
       method: 'post',
-      url: 'http://210.117.211.208:36002/auth/',
+      url: config.backend + '/auth',
       params: {
         project: 'pipeline-test/pipeline'
       },

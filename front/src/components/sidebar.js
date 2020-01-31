@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { Button, Accordion, Card } from 'react-bootstrap'
-
+import config from './../config/config.json'
 
 export default class Sidebar extends React.Component {
   state = {
@@ -21,7 +21,7 @@ export default class Sidebar extends React.Component {
       axios.defaults.withCredentials = true
       axios({
         method: 'get',
-        url: 'http://210.117.211.208:36002/directory',
+        url: config.backend + '/directory',
         params: {
           project: 'pipeline-test/pipeline',
           menu: this.props.clickedNav
@@ -42,7 +42,7 @@ export default class Sidebar extends React.Component {
     axios.defaults.withCredentials = true
     axios({
       method: 'get',
-      url: 'http://210.117.211.208:36002/directory',
+      url: config.backend + '/directory',
       params: {
         project: 'pipeline-test/pipeline',
         menu: this.props.clickedNav
@@ -60,8 +60,7 @@ export default class Sidebar extends React.Component {
 
 
   handleOnClick = (e) => {
-    let clicked = 'http://210.117.211.208:36002/static' + '/pipeline-test/pipeline' + e.target.value
-    if (e.target.value === "tempPath") clicked = './sampleFiles/logo512.png'
+    let clicked = config.backend + '/static/pipeline-test/pipeline' + e.target.value
     this.props.getStaticFile(clicked)
   }
 

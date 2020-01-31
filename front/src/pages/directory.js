@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import Iframe from 'react-iframe'
 import { CsvViewer, Navbar, Sidebar, Home, Download } from './../components'
+import config from './../config/config.json'
 
 export default class Directory extends React.Component {
   state = {
@@ -15,10 +16,11 @@ export default class Directory extends React.Component {
   }
 
   componentDidMount = () => {
+    console.log(config.backend)
     axios.defaults.withCredentials = true
     axios({
       method: 'GET',
-      url: 'http://210.117.211.208:36002/info',
+      url: config.backend + '/info',
       params: {
         project: 'pipeline-test/pipeline'
       }
