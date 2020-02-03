@@ -21,14 +21,16 @@ router.get('/', (req, res) => {
 
     utility.print(`GET /info ${project}`);
 
-    if(projectConfig.project.includes(project)) {
+    if(projectConfig.project.includes(project)) { // project is in list
 
-        // check authorization
+        // check session authorization
         if(!authController.checkAuth(project, req, res)) return;
 
+        // get project info from config json
         const projectInfo = projectConfig.info[project];
         result = Object.assign({}, projectInfo);
 
+        // read case from file
         const caseFile = serverConfig.path + projectInfo['casePath'];
         result['case'] = fs.readFileSync(caseFile, 'utf8');
         delete result['casePath'];

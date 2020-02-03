@@ -23,10 +23,10 @@ router.get('/', (req, res) => {
 
     if(project === 'pipeline-test/pipeline') {
 
-        // check authorization
+        // check session authorization
         if(!authController.checkAuth(project, req, res)) return;
 
-        if(projectConfig.api[menu] !== undefined) {
+        if(projectConfig.api[menu] !== undefined) { // menu is in list
 
             result = dirController.pipelineDirectory(menu);
             res.json(result);

@@ -19,15 +19,16 @@ const pipelineDirectory = (menu) => {
 
     // match menu with function
     const dirFunction = {
-        'Raw_fastQC' : getFastqc,
-        'Filtered_fastQC' : getFastqc,
-        'RSEM_UCSC' : getRsemUcsc,
-        'Qualimap_UCSC' : getQualimapUcsc,
-        'Sample_Correlation' : getCorrelation,
-        'DEG' : getDeg,
-        'GSA' : getGsa
+        'Raw_fastQC': getFastqc,
+        'Filtered_fastQC': getFastqc,
+        'RSEM_UCSC': getRsemUcsc,
+        'Qualimap_UCSC': getQualimapUcsc,
+        'Sample_Correlation': getCorrelation,
+        'DEG': getDeg,
+        'GSA': getGsa
     };
 
+    // combine each directory results
     for(let directory of dirs) {
 
         const fullDirectory = rootDirectory + directory;
@@ -51,42 +52,43 @@ const getFastqc = (directory, dirName) => {
     const files = tree.children;
 
     let result = [];
-    let captionedResult = {};
+    let captionOrganize = {}; // file names organized by caption
 
     // parse file names
     for(let i = 0; i < files.length; i++) {
 
-        const name = files[i].name;
+        const fileName = files[i].name;
 
-        const regexResult = regex.exec(name);
+        const regexResult = regex.exec(fileName);
 
         // wrong file name
         if(regexResult === null) continue;
 
         const caption = regexResult[0];
 
-        // if this is first file of this caption
-        if(captionedResult[caption] === undefined) captionedResult[caption] = [];
+        // if this is first file of this caption, create empty list
+        if(captionOrganize[caption] === undefined) captionOrganize[caption] = [];
 
-        captionedResult[caption].push(name);
+        captionOrganize[caption].push(fileName);
 
     }
 
-    const captionList = Object.keys(captionedResult);
+    const captionList = Object.keys(captionOrganize); // list of captions from organized file names
 
     // create result json
     for(let i = 0; i < captionList.length; i++) {
 
         let resultChildren = [];
 
-        const fileNames = captionedResult[captionList[i]];
+        // file names belonging to a caption
+        const captionFiles = captionOrganize[captionList[i]];
 
-        for(let j = 0; j < fileNames.length; j++) {
+        for(let j = 0; j < captionFiles.length; j++) {
 
             resultChildren.push({
                 'type' : 'file',
                 'label' : `result${j+1}`,
-                'value' : `/${dirName}/${fileNames[j]}`
+                'value' : `/${dirName}/${captionFiles[j]}`
             });
 
         }
@@ -115,26 +117,26 @@ const getRsemUcsc = (directory, dirName) => {
     const files = tree.children;
 
     let result = [];
-    let captionedResult = {};
+    let captionOrganize = {}; // file names organized by caption
 
     // parse file names
     for(let i = 0; i < files.length; i++) {
 
-        const name = files[i].name;
+        const fileName = files[i].name;
 
         // only pdf files
-        if(!name.endsWith('.pdf')) continue;
+        if(!fileName.endsWith('.pdf')) continue;
 
-        const caption = name.substring(0, name.indexOf('.'));
+        const caption = fileName.substring(0, fileName.indexOf('.'));
 
-        // if this is first file of this caption
-        if(captionedResult[caption] === undefined) captionedResult[caption] = [];
+        // if this is first file of this caption, create empty list
+        if(captionOrganize[caption] === undefined) captionOrganize[caption] = [];
 
-        captionedResult[caption].push(name);
+        captionOrganize[caption].push(fileName);
 
     }
 
-    const captionList = Object.keys(captionedResult);
+    const captionList = Object.keys(captionOrganize); // list of captions from organized file names
 
     // create result json
     for(let i = 0; i < captionList.length; i++) {
@@ -142,7 +144,7 @@ const getRsemUcsc = (directory, dirName) => {
         result.push({
             'type' : 'file',
             'label' : captionList[i],
-            'value' : `/${dirName}/${captionedResult[captionList[i]][0]}`
+            'value' : `/${dirName}/${captionOrganize[captionList[i]][0]}`
         });
 
     }
@@ -195,43 +197,44 @@ const getCorrelation = (directory, dirName) => {
     const files = tree.children;
 
     let result = [];
-    let captionedResult = {};
+    let captionOrganize = {}; // file names organized by caption
 
     // parse file names
     for(let i = 0; i < files.length; i++) {
 
-        const name = files[i].name;
+        const fileName = files[i].name;
 
-        const caption = name.substring(0, name.indexOf('.'));
+        const caption = fileName.substring(0, fileName.indexOf('.'));
 
-        // if this is first file of this caption
-        if(captionedResult[caption] === undefined) captionedResult[caption] = [];
+        // if this is first file of this caption, create empty list
+        if(captionOrganize[caption] === undefined) captionOrganize[caption] = [];
 
-        captionedResult[caption].push(name);
+        captionOrganize[caption].push(fileName);
 
     }
 
-    const captionList = Object.keys(captionedResult);
+    const captionList = Object.keys(captionOrganize); // list of captions from organized file names
 
     // create result json
     for(let i = 0; i < captionList.length; i++) {
 
         let resultChildren = [];
 
-        const fileNames = captionedResult[captionList[i]];
+        // file names belonging to a caption
+        const captionFiles = captionOrganize[captionList[i]];
 
-        for(let j = 0; j < fileNames.length; j++) {
+        for(let j = 0; j < captionFiles.length; j++) {
 
             let label = 'UNKNOWN';
 
-            if(fileNames[j].includes('graph')) label = 'Correlataon Matrix';
-            else if(fileNames[j].includes('heatmap')) label = 'Correlataon Heatmap';
-            else if(fileNames[j].includes('pca')) label = 'PCA';
+            if(captionFiles[j].includes('graph')) label = 'Correlataon Matrix';
+            else if(captionFiles[j].includes('heatmap')) label = 'Correlataon Heatmap';
+            else if(captionFiles[j].includes('pca')) label = 'PCA';
 
             resultChildren.push({
                 'type' : 'file',
                 'label' : label,
-                'value' : `/${dirName}/${fileNames[j]}`
+                'value' : `/${dirName}/${captionFiles[j]}`
             });
 
         }
@@ -263,26 +266,26 @@ const getDeg = (directory, dirName) => {
 
     for(let i = 0; i < files.length; i++) {
 
-        const name = files[i].name;
+        const fileName = files[i].name;
 
         // only all & rawp & csv files
-        if(!(name.startsWith('all_DEGs_') && name.endsWith('.csv')) && !((name.includes('all') || name.includes('sig')) && name.endsWith('.txt'))) continue;
+        if(!(fileName.startsWith('all_DEGs_') && fileName.endsWith('.csv')) && !((fileName.includes('all') || fileName.includes('sig')) && fileName.endsWith('.txt'))) continue;
 
         let label = 'UNKNOWN';
 
-        if(name.includes('count')) {
+        if(fileName.includes('count')) {
 
-            if(name.includes('sig')) label = 'Count Display';
+            if(fileName.includes('sig')) label = 'Count Display';
             else label = 'Count Download';
 
-        } else if(name.includes('fpkm')) {
+        } else if(fileName.includes('fpkm')) {
 
-            if(name.includes('rawp')) label = 'FPKM Display';
+            if(fileName.includes('rawp')) label = 'FPKM Display';
             else label = 'FPKM Download';
 
-        } else if(name.includes('tpm')) {
+        } else if(fileName.includes('tpm')) {
 
-            if(name.includes('rawp')) label = 'TPM Display';
+            if(fileName.includes('rawp')) label = 'TPM Display';
             else label = 'TPM Download';
 
         }
@@ -290,7 +293,7 @@ const getDeg = (directory, dirName) => {
         resultChildren.push({
             'type' : 'file',
             'label' : label,
-            'value' : `/${dirName}/${name}`
+            'value' : `/${dirName}/${fileName}`
         });
 
     }
@@ -335,14 +338,14 @@ const getGsa = (directory, dirName) => {
 
             for(let j = 0; j < files.length; j++) {
 
-                const name = files[j].name;
+                const fileName = files[j].name;
 
-                const label = name.substring(name.lastIndexOf('_')+1, name.lastIndexOf('.'));
+                const label = fileName.substring(fileName.lastIndexOf('_')+1, fileName.lastIndexOf('.'));
 
                 resultChildren.push({
                     'type' : 'file',
                     'label' : label,
-                    'value' : `/${dirName}/${folders[i].name}/${name}`
+                    'value' : `/${dirName}/${folders[i].name}/${fileName}`
                 });
 
             }
@@ -369,14 +372,14 @@ const getGsa = (directory, dirName) => {
 
             for(let j = 0; j < innerFolders.length; j++) {
 
-                const name = innerFolders[j].name;
+                const folderName = innerFolders[j].name;
 
-                const label = name.substring(name.lastIndexOf('_')+1, name.indexOf('.'));
+                const label = folderName.substring(folderName.lastIndexOf('_')+1, folderName.indexOf('.'));
 
                 resultChildren.push({
                     'type' : 'file',
                     'label' : label,
-                    'value' : `/${dirName}/${folders[i].name}/${name}/index.html`
+                    'value' : `/${dirName}/${folders[i].name}/${folderName}/index.html`
                 });
 
             }

@@ -20,6 +20,7 @@ router.post('/', (req, res) => {
 
     if(authController.checkPassword(project, password)) {
 
+        // save project name to session
         req.session.project = project;
 
         req.session.save(() => {
