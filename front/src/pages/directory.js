@@ -3,6 +3,7 @@ import axios from 'axios';
 import Iframe from 'react-iframe'
 import { CsvViewer, Navbar, Sidebar, Home, Download } from './../components'
 import config from './../config/config.json'
+import { Spinner } from 'react-bootstrap';
 
 export default class Directory extends React.Component {
   state = {
@@ -12,11 +13,11 @@ export default class Directory extends React.Component {
     frameDataURL: '',
     frameAddress: '',
     permissionOK: true,
-    infoData: {}
+    infoData: {},
+    loading: false
   }
 
   componentDidMount = () => {
-    console.log(config.backend)
     axios.defaults.withCredentials = true
     axios({
       method: 'GET',
@@ -41,6 +42,7 @@ export default class Directory extends React.Component {
   }
 
   getStaticFile = (address) => {
+    this.setState({ loading: true })
     fetch(address)
       .then((response) => response.clone().blob())
       .then(blob => {
@@ -48,7 +50,8 @@ export default class Directory extends React.Component {
           frameAddress: address,
           frameDataType: blob.type,
           frameData: blob,
-          frameDataURL: URL.createObjectURL(blob)
+          frameDataURL: URL.createObjectURL(blob),
+          loading: false
         })
       })
       .catch((error) => { console.log(error) })
@@ -59,6 +62,7 @@ export default class Directory extends React.Component {
   }
 
   screen = () => {
+    if(this.state.loading) return <Spinner animation='border' style={{margin: '5vh 5vw'}} />
     const frameData = this.state.frameData
     const frameDataType = this.state.frameDataType
     const frameDataURL = this.state.frameDataURL

@@ -5,7 +5,8 @@ import config from './../config/config.json'
 
 export default class Sidebar extends React.Component {
   state = {
-    response: []
+    response: [],
+    clicked: ''
   }
 
   static defaultProps = {
@@ -60,6 +61,7 @@ export default class Sidebar extends React.Component {
 
 
   handleOnClick = (e) => {
+    this.setState({ clicked: e.target.value })
     let clicked = config.backend + '/static/pipeline-test/pipeline' + e.target.value
     this.props.getStaticFile(clicked)
   }
@@ -105,6 +107,7 @@ export default class Sidebar extends React.Component {
                         style={{ width: '140px', textAlign: 'center' }}
                         key={key}
                         variant='link'
+                        disabled={this.state.clicked === index.value}
                         value={index.value}>
                         {index.label}
                       </Button>

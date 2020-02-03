@@ -3,8 +3,10 @@ import { ButtonGroup, Button } from 'react-bootstrap'
 
 
 export default class Navbar extends React.Component {
+  state = { clicked: 'Home'}
   handleOnClick = (e,v) => {
     e.preventDefault()
+    this.setState({clicked: v})
     this.props.handleOnClick(v)
   }
 
@@ -12,7 +14,7 @@ export default class Navbar extends React.Component {
     return (
       <ButtonGroup style={{height: '5vh'}}>
         {mainButtonList.map((v, i) => {
-          return (<Button variant="outline-info" onClick={e => this.handleOnClick(e, v)} key={i}>{v}</Button>)
+          return (<Button variant={(this.state.clicked!==v ? "outline-info" : 'primary')} onClick={e => this.handleOnClick(e, v)} key={i}>{v}</Button>)
         })}
       </ButtonGroup>
     )
