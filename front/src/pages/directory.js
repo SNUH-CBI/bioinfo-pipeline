@@ -1,18 +1,14 @@
 import React from 'react';
 import axios from 'axios';
-import Iframe from 'react-iframe'
-import { CsvViewer, Navbar, Sidebar, Home, Download } from './../components'
+import { Navbar, Sidebar, Home, Download, Screen } from './../components'
 import config from './../config/config.json'
-import { Spinner } from 'react-bootstrap';
 
 export default class Directory extends React.Component {
   state = {
     clickedNav: 'Home',
     frameData: '',
-    frameDataType: '',
     frameDataURL: '',
     frameAddress: '',
-    permissionOK: true,
     infoData: {},
     loading: false
   }
@@ -48,7 +44,6 @@ export default class Directory extends React.Component {
       .then(blob => {
         this.setState({
           frameAddress: address,
-          frameDataType: blob.type,
           frameData: blob,
           frameDataURL: URL.createObjectURL(blob),
           loading: false
@@ -61,28 +56,6 @@ export default class Directory extends React.Component {
     this.setState({ clickedNav: e })
   }
 
-  screen = () => {
-    if(this.state.loading) return <Spinner animation='border' style={{margin: '5vh 5vw'}} />
-    const frameData = this.state.frameData
-    const frameDataType = this.state.frameDataType
-    const frameDataURL = this.state.frameDataURL
-
-    if (frameDataType === 'text/csv' || frameDataType === 'text/plain' || frameDataType === 'application/octet-stream') {
-      return <CsvViewer file={frameData} delimiter={frameDataType === 'text/plain' ? String.fromCharCode(9) : String.fromCharCode(44)} />
-    }
-    if (frameDataType === 'text/html') {
-      return <Iframe src={this.state.frameAddress} width="100%" height="100%" />
-    }
-    if (frameDataType === 'image/png') {
-      return (
-        <div width="100%" height="100%">
-          <img src={frameDataURL} style={{ height: '95vh' }} alt="nothing" />
-        </div>
-      )
-    }
-    return <Iframe src={frameDataURL} width="100%" height="100%" />
-  }
-
   render() {
     const others = (
       <div className="mainwindow" >
@@ -91,7 +64,11 @@ export default class Directory extends React.Component {
         </div>
         <div className="fileView" >
           <div className="fileViewDetail" >
-            <this.screen />
+            <Screen
+              frameAddress={this.state.frameAddress}
+              frameData={this.state.frameData}
+              frameDataURL={this.state.frameDataURL}
+              loading={this.state.loading} />
           </div>
         </div>
       </div>

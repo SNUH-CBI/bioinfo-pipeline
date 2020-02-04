@@ -48,6 +48,7 @@ class CsvViewer extends React.Component {
   }
 
   handleDataChange = file => {
+    console.log(file.data)
     this.setState({ data: file.data })
     this.setState({ columns: this.makeColumns(file.meta.fields) })
   }

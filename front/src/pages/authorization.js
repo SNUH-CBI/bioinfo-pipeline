@@ -6,7 +6,7 @@ import config from './../config/config.json'
 
 export default class Authorization extends React.Component {
 
-  state = { success: false, password: '' }
+  state = { password: '' }
 
   handleChange = (e) => {
     e.preventDefault();
@@ -29,7 +29,6 @@ export default class Authorization extends React.Component {
       .then((response) => {
         if (response.data.success) {
           alert("session created");
-          this.setState({ success: true })
           this.props.history.push("/" + this.props.match.params.path)
         }
         else {

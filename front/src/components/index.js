@@ -1,7 +1,7 @@
-import CsvViewer from './csvViewer'
 import Download from './download'
 import Home from './home'
 import Navbar from './navbar'
 import Sidebar from './sidebar'
+import Screen from './screen'
 
-export { CsvViewer, Download, Home, Navbar, Sidebar }
+export { Download, Home, Navbar, Sidebar, Screen }
