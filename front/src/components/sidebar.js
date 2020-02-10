@@ -6,92 +6,84 @@ import config from './../config/config.json'
 export default class Sidebar extends React.Component {
   state = {
     response: [],
-    clicked: ''
+    clickedValue: ''
   }
 
   static defaultProps = {
     clickedNav: 'Home'
   }
 
-  componentDidUpdate = (prevProps, prevState) => {
+  componentDidUpdate = (prevProps) => {
     if (prevProps.clickedNav !== this.props.clickedNav) {
-      if (this.props.clickedNav === 'Home') {
+      if (this.props.clickedNav === 'Home' || this.props.clickedNav === 'Download') {
         this.setState({ response: [] })
         return 0;
       }
-      axios.defaults.withCredentials = true
-      axios({
-        method: 'get',
-        url: config.backend + '/directory',
-        params: {
-          project: 'pipeline-test/pipeline',
-          menu: this.props.clickedNav
-        }
-      })
-        .then((response) => {
-          this.setState({ response: response.data })
-        }
-        )
-        .catch((error) => {
-          console.log(error)
-          alert("error occured. check console log");
+      else {
+        axios.defaults.withCredentials = true
+        axios({
+          method: 'get',
+          url: config.backend + '/directory',
+          params: {
+            project: config.project_path,
+            menu: this.props.clickedNav
+          }
         })
+          .then((response) => {
+            this.setState({ response: response.data })
+          }
+          )
+          .catch((error) => {
+            if (error.response === undefined) {
+              alert('No response. Redirect to auth page')
+              this.props.history.push(this.props.match.params.path + '/auth')
+            }
+            else if (error.response.status === 401) {
+              alert('No session. Redirect to auth page(401)')
+              this.props.history.push(this.props.match.params.path + '/auth')
+            }
+            else if (error.response.status === 400) {
+              alert('Wrong project name. Redirect to auth page(400)')
+              this.props.history.push(this.props.match.params.path + '/auth')
+            }
+          })
+      }
     }
   }
 
-  componentDidMount = () => {
-    axios.defaults.withCredentials = true
-    axios({
-      method: 'get',
-      url: config.backend + '/directory',
-      params: {
-        project: 'pipeline-test/pipeline',
-        menu: this.props.clickedNav
-      }
-    })
-      .then((response) => {
-        this.setState({ response: response.data })
-      }
-      )
-      .catch((error) => {
-        console.log(error)
-        alert("error occured. check console log");
-      })
-  }
-
-
   handleOnClick = (e) => {
-    this.setState({ clicked: e.target.value })
-    let clicked = config.backend + '/static/pipeline-test/pipeline' + e.target.value
-    this.props.getStaticFile(clicked)
+    const clickedValue = config.backend + '/static/' + config.project_path + e.target.value
+    this.setState({ clickedValue: e.target.value })
+    this.props.handleSidebarClick(clickedValue)
   }
 
   render() {
-    return (
-      <div className="d-flex flex-column" >
-        <Accordion style={{ width: '200px', textAlign: 'center' }}>
+    if (this.props.clickedNav === 'Home' || this.props.clickedNav === 'etc') {
+      return (<div></div>)
+    }
+    else return (
+      <div className="sidebar" >
+        <Accordion style={{ textAlign: 'center' }}>
           {this.state.response.map((index, key) => {
             if (index.type === 'category')
               return <Button
-                style={{ width: '200px' }}
                 key={key}
                 variant="Light">
                 {index.label}
               </Button>
-            if (index.type === 'file')
+            else if (index.type === 'file')
               return <Button
                 onClick={this.handleOnClick}
-                style={{ width: '200px' }}
                 key={key}
                 variant='link'
+                disabled={this.state.clickedValue === index.value}
                 value={index.value} >
                 {index.label}
               </Button>
-            return (
+            else return (
               <Card key={key}>
-                <Card.Header>
+                <Card.Header style={{ padding: '0' }}>
                   <Accordion.Toggle
-                    style={{ textAlign: 'center' }}
                     as={Button}
                     eventKey={key}
                     variant='link'
@@ -99,15 +91,14 @@ export default class Sidebar extends React.Component {
                     {index.label}
                   </Accordion.Toggle>
                 </Card.Header>
-                <Accordion.Collapse eventKey={key}>
-                  <Card.Body className='d-flex flex-column'>
+                <Accordion.Collapse eventKey={key} >
+                  <Card.Body style={{ padding: '0' }}>
                     {index.children.map((index, key) => {
                       return <Button
                         onClick={this.handleOnClick}
-                        style={{ width: '140px', textAlign: 'center' }}
                         key={key}
                         variant='link'
-                        disabled={this.state.clicked === index.value}
+                        disabled={this.state.clickedValue === index.value}
                         value={index.value}>
                         {index.label}
                       </Button>

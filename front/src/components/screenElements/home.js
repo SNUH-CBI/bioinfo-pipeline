@@ -1,8 +1,10 @@
 import React from 'react';
+import axios from 'axios';
+import config from './../../config/config.json'
 
 export default class Home extends React.Component {
 
-  static defaultProps = {
+  state = {
     infoData: {
       project: '',
       manager: '',
@@ -11,27 +13,40 @@ export default class Home extends React.Component {
     }
   }
 
-  state = {
-    case: []
-  }
-
   getInfoData = () => {
-    const acase = this.props.infoData.case
-    this.setState({ case: acase.split(String.fromCharCode(10)).filter(index => index !== '') })
-  }
-
-  componentDidUpdate = (prevProps, prevState) => {
-    if (prevProps.infoData !== this.props.infoData) {
-      this.getInfoData()
-    }
+    axios.defaults.withCredentials = true
+    axios({
+      method: 'GET',
+      url: config.backend + '/info',
+      params: {
+        project: 'pipeline-test/pipeline'
+      }
+    })
+      .then((response) => {
+        this.setState({ infoData: response.data })
+      })
+      .catch((error) => {
+        if (error.response === undefined) {
+          alert('No response. Redirect to auth page')
+          this.props.history.push(this.props.match.params.path + '/auth')
+        }
+        else if (error.response.status === 401) {
+          alert('No session. Redirect to auth page(401)')
+          this.props.history.push(this.props.match.params.path + '/auth')
+        }
+        else if (error.response.status === 400) {
+          alert('Wrong project name. Redirect to auth page(400)')
+          this.props.history.push(this.props.match.params.path + '/auth')
+        }
+      })
   }
 
   componentDidMount = () => {
-    if(this.props.infoData.case !== undefined) this.getInfoData()
+    this.getInfoData()
   }
 
   render() {
-    const infoData = this.props.infoData
+    const infoData = this.state.infoData
     return (
       <table className="type06">
         <thead>
@@ -52,9 +67,16 @@ export default class Home extends React.Component {
           <tr>
             <th scope="row" className='even' rowSpan="4">Control case</th>
           </tr>
-          {this.state.case.map((index, key) => {
-            return <tr key={key}><td className='even'>{index}</td></tr>
-          })}
+          {this.state.infoData.case
+            .split(String.fromCharCode(10))
+            .filter(index => index !== '')
+            .map((index, key) => {
+              return (
+                <tr key={key}>
+                  <td className='even'>{index}</td>
+                </tr>
+              )
+            })}
         </tbody>
       </table>
     )

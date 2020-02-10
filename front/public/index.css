@@ -12,8 +12,12 @@
 }
 
 .sidebar {
-  width: 100px;
-  background-color: black;
+  width: 140px;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  max-height: 95vh;
+  height: 95vh;
 }
 
 .directory {
@@ -38,17 +42,10 @@
 }
 
 .fileViewDetail {
-  display: flex;
-  flex-direction: column;
   width: 100%;
   height: 100%;
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
-  overflow-y: auto;
-}
-
-.sidebarCover {
-  max-height: 100vh;
   overflow-y: auto;
 }
 
