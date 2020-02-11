@@ -126,7 +126,6 @@ class CsvViewer extends React.Component {
                           })}
                         >
                           {Object.values(cell.row.original)[k]}
-                          {typeof (Object.values(cell.row.original)[k]) === 'boolean' && ((Object.values(cell.row.original)[k] === true) ? 'true' : 'false')}
                         </td>
                       )
                     })}
