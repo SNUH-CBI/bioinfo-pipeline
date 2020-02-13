@@ -1,3 +1,4 @@
+const fs            = require('fs');
 const dirTree       = require('directory-tree');
 const utility       = require('../../utility');
 const serverConfig  = require('../../config/server.json');
@@ -86,18 +87,18 @@ const getFastqc = (directory, dirName) => {
         for(let j = 0; j < captionFiles.length; j++) {
 
             resultChildren.push({
-                'type' : 'file',
-                'label' : `result${j+1}`,
-                'value' : `/${dirName}/${captionFiles[j]}`
+                'type': 'file',
+                'label': `result${j+1}`,
+                'value': `/${dirName}/${captionFiles[j]}`
             });
 
         }
 
         result.push({
-            'type' : 'caption',
-            'label' : captionList[i],
-            'value' : '',
-            'children' : resultChildren
+            'type': 'caption',
+            'label': captionList[i],
+            'value': '',
+            'children': resultChildren
         });
 
     }
@@ -142,9 +143,9 @@ const getRsemUcsc = (directory, dirName) => {
     for(let i = 0; i < captionList.length; i++) {
 
         result.push({
-            'type' : 'file',
-            'label' : captionList[i],
-            'value' : `/${dirName}/${captionOrganize[captionList[i]][0]}`
+            'type': 'file',
+            'label': captionList[i],
+            'value': `/${dirName}/${captionOrganize[captionList[i]][0]}`
         });
 
     }
@@ -175,9 +176,9 @@ const getQualimapUcsc = (directory, dirName) => {
         if(regex.exec(label) === null) continue;
 
         result.push({
-            'type' : 'file',
-            'label' : label,
-            'value' : `/${dirName}/${label}/qualimapReport.html`
+            'type': 'file',
+            'label': label,
+            'value': `/${dirName}/${label}/qualimapReport.html`
         })
 
     }
@@ -232,18 +233,18 @@ const getCorrelation = (directory, dirName) => {
             else if(captionFiles[j].includes('pca')) label = 'PCA';
 
             resultChildren.push({
-                'type' : 'file',
-                'label' : label,
-                'value' : `/${dirName}/${captionFiles[j]}`
+                'type': 'file',
+                'label': label,
+                'value': `/${dirName}/${captionFiles[j]}`
             });
 
         }
 
         result.push({
-            'type' : 'caption',
-            'label' : captionList[i],
-            'value' : '',
-            'children' : resultChildren
+            'type': 'caption',
+            'label': captionList[i],
+            'value': '',
+            'children': resultChildren
         });
 
     }
@@ -290,19 +291,24 @@ const getDeg = (directory, dirName) => {
 
         }
 
+        const metadataFile = `${directory}/${fileName}.metadata.json`;
+        const metadataString = fs.readFileSync(metadataFile, 'utf8');
+        const metadata = JSON.parse(metadataString);
+
         resultChildren.push({
-            'type' : 'file',
-            'label' : label,
-            'value' : `/${dirName}/${fileName}`
+            'type': 'file',
+            'label': label,
+            'value': `/${dirName}/${fileName}`,
+            'row': metadata.line
         });
 
     }
 
     const result = {
-        'type' : 'caption',
-        'label' :  dirName.replace('08_', ''),
-        'value' : '',
-        'children' : resultChildren
+        'type': 'caption',
+        'label':  dirName.replace('08_', ''),
+        'value': '',
+        'children': resultChildren
     };
 
     utility.print(JSON.stringify(result));
@@ -320,9 +326,9 @@ const getGsa = (directory, dirName) => {
     const folders = tree.children;
 
     const resultCategory = {
-        'type' : 'category',
-        'label' : dirName.replace('09_', ''),
-        'value' : ''
+        'type': 'category',
+        'label': dirName.replace('09_', ''),
+        'value': ''
     };
 
     let result = [];
@@ -343,18 +349,18 @@ const getGsa = (directory, dirName) => {
                 const label = fileName.substring(fileName.lastIndexOf('_')+1, fileName.lastIndexOf('.'));
 
                 resultChildren.push({
-                    'type' : 'file',
-                    'label' : label,
-                    'value' : `/${dirName}/${folders[i].name}/${fileName}`
+                    'type': 'file',
+                    'label': label,
+                    'value': `/${dirName}/${folders[i].name}/${fileName}`
                 });
 
             }
 
             result.push({
-                'type' : 'caption',
-                'label' : folders[i].name,
-                'value' : '',
-                'children' : resultChildren
+                'type': 'caption',
+                'label': folders[i].name,
+                'value': '',
+                'children': resultChildren
             });
 
         }
@@ -377,18 +383,18 @@ const getGsa = (directory, dirName) => {
                 const label = folderName.substring(folderName.lastIndexOf('_')+1, folderName.indexOf('.'));
 
                 resultChildren.push({
-                    'type' : 'file',
-                    'label' : label,
-                    'value' : `/${dirName}/${folders[i].name}/${folderName}/index.html`
+                    'type': 'file',
+                    'label': label,
+                    'value': `/${dirName}/${folders[i].name}/${folderName}/index.html`
                 });
 
             }
 
             result.push({
-                'type' : 'caption',
-                'label' : folders[i].name,
-                'value' : '',
-                'children' : resultChildren
+                'type': 'caption',
+                'label': folders[i].name,
+                'value': '',
+                'children': resultChildren
             });
 
         }
