@@ -32,12 +32,10 @@
   display: flex;
   flex-direction: row;
   flex-grow: 1;
-  background: whitesmoke;
 }
 
 .fileView {
   flex-grow: 1;
-  background: whitesmoke;
   position: relative;
 }
 

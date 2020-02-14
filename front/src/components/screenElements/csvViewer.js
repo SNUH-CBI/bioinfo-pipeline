@@ -48,7 +48,6 @@ class CsvViewer extends React.Component {
   }
 
   handleDataChange = file => {
-    console.log(file.data)
     this.setState({ data: file.data })
     this.setState({ columns: this.makeColumns(file.meta.fields) })
   }
@@ -78,7 +77,7 @@ class CsvViewer extends React.Component {
       {
         columns,
         data,
-        initialState: { pageIndex: 0, sortBy: [{ id: Object.keys(this.state.data[0])[0], inc: true }] },
+        initialState: { sortBy: [{ id: 'genes', inc: true }] },
       },
       useSortBy,
       usePagination,
@@ -111,8 +110,8 @@ class CsvViewer extends React.Component {
               ))}
             </thead>
             <tbody {...getTableBodyProps()} >
-              {page.filter((row)=> {
-                if(Object.values(row.original)[0] === null) return false
+              {page.filter((row) => {
+                if (Object.values(row.original)[0] === null) return false
                 else return true
               }).map((row, i) => {
                 prepareRow(row)
@@ -178,7 +177,7 @@ class CsvViewer extends React.Component {
 
   render() {
     return (
-      <div>
+      <div style={{border: 'black 1px solid', width: '40vw'}}>
         {!this.state.loading && (
           <this.Table columns={this.state.columns} data={this.state.data} />
         )}
@@ -198,7 +197,6 @@ const Styles = styled.div`
   .tableWrap {
     display: block;
     max-width: 100%;
-    overflow-x: scroll;
     border-bottom: 1px solid black;
     border-collapse: collapse;
   }
@@ -219,6 +217,7 @@ const Styles = styled.div`
     th,
     td {
       margin: 0;
+      white-space: nowrap;
       padding: 0.5rem;
       border-bottom: 1px solid black;
       border-right: 1px solid black;

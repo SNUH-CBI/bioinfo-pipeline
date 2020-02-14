@@ -14,7 +14,7 @@ export default class Navbar extends React.Component {
 
   render() {
     return (
-      <ButtonGroup style={{ height: '5vh' }}>
+      <ButtonGroup style={{ height: '5vh', minHeight: '35px' }}>
         {mainButtonList.map((v, i) => {
           return (
             <Button

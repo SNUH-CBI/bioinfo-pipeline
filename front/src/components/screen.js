@@ -37,10 +37,6 @@ export default class Screen extends React.Component {
 
   screenShow = () => {
     const frameData = this.state.frameData
-    console.log(frameData)
-    if (this.state.loading) return <Spinner animation='border' style={{ margin: '5vh 5vw' }} />
-    else return <DEGviewer file={frameData} delimiter={frameData.type === 'text/plain' ? String.fromCharCode(9) : String.fromCharCode(44)}/>
-
     const frameDataType = frameData.type
     const frameDataURL = this.state.frameDataURL
     if (this.state.loading) return <Spinner animation='border' style={{ margin: '5vh 5vw' }} />
@@ -61,7 +57,8 @@ export default class Screen extends React.Component {
       )
     }
     else if (frameDataType === 'text/csv' || frameDataType === 'text/plain' || frameDataType === 'application/octet-stream') {
-      return <DEGviewer file={frameData} />
+      if (this.props.clickedNav === 'DEG') return <DEGviewer file={frameData} />
+      else if(this.props.clickedNav === 'GSA') return <GSAviewer />
     }
     else return <Iframe src={frameDataURL} width="100%" height="100%" />
   }
