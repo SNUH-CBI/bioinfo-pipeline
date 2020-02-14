@@ -1,5 +1,6 @@
 bioinfo.config.js
 node_modules/
+config
 
 .idea
 .DS_Store
