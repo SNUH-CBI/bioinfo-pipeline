@@ -1,32 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ButtonGroup, Button } from 'react-bootstrap'
 
+const Navbar = (props) => {
+  const mainButtonList = ["Home", "Raw_fastQC", "Filtered_fastQC", "RSEM_UCSC", "Qualimap_UCSC", "Sample_Correlation", "DEG", "GSA", "Download"]
+  const [clicked, setClicked] = useState('Home')
 
-export default class Navbar extends React.Component {
-  
-  state = { clicked: 'Home' }
-  
-  handleOnClick = (e, v) => {
+  const handleOnClick = (e, v) => {
     e.preventDefault()
-    this.setState({ clicked: v })
-    this.props.handleOnClick(v)
+    setClicked(v)
+    props.handleOnClick(v)
   }
 
-  render() {
-    return (
-      <ButtonGroup style={{ height: '5vh', minHeight: '35px' }}>
-        {mainButtonList.map((v, i) => {
-          return (
-            <Button
-              variant={(this.state.clicked !== v ? "outline-info" : 'primary')}
-              onClick={e => this.handleOnClick(e, v)}
-              key={i}>
-              {v}
-            </Button>)
-        })}
-      </ButtonGroup>
-    )
-  }
+  return (
+    <ButtonGroup style={{ height: '5vh', minHeight: '35px' }}>
+      {mainButtonList.map((v, i) => {
+        return (
+          <Button
+            variant={(clicked !== v ? "outline-info" : 'primary')}
+            onClick={e => handleOnClick(e, v)}
+            key={i}>
+            {v}
+          </Button>)
+      })}
+    </ButtonGroup>
+  )
 }
 
-const mainButtonList = ["Home", "Raw_fastQC", "Filtered_fastQC", "RSEM_UCSC", "Qualimap_UCSC", "Sample_Correlation", "DEG", "GSA", "Download"]
+export default Navbar
