@@ -1,46 +1,40 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Navbar, Sidebar, Screen } from './../components'
 
-export default class Directory extends React.Component {
-  state = {
-    clickedNav: 'Home',
-    clickedValue: ''
+const Directory = (props) => {
+  const [clickedNav, setClickedNav] = useState('Home')
+  const [clickedValue, setClickedValue] = useState('')
+  const handleNavbarClick = (v) => {
+    setClickedNav(v)
   }
-
-  handleNavbarClick = (v) => {
-    this.setState({ clickedNav: v })
+  const handleSidebarClick = (v) => {
+    setClickedValue(v)
   }
-
-  handleSidebarClick = (v) => {
-    this.setState({ clickedValue: v })
-  }
-
-  render() {
-    return (
-      <div className="directory">
-        <Navbar handleOnClick={this.handleNavbarClick} />
-        <div className="mainwindow" >
-          <Sidebar
-            clickedNav={this.state.clickedNav}
-            handleSidebarClick={this.handleSidebarClick}
-            //use for redirecting auth page
-            history={this.props.history}
-            match={this.props.match}
-          />
-          <div className="fileView" >
-              <div className='fileViewDetail'>
+  return (
+    <div className="directory">
+      <Navbar handleOnClick={handleNavbarClick} />
+      <div className="mainwindow" >
+        <Sidebar
+          clickedNav={clickedNav}
+          handleSidebarClick={handleSidebarClick}
+          //use for redirecting auth page
+          history={props.history}
+          match={props.match}
+        />
+        <div className="fileView" >
+          <div className='fileViewDetail'>
             <Screen
-              clickedNav={this.state.clickedNav}
-              loading={this.state.loading}
-              clickedValue={this.state.clickedValue}
+              clickedNav={clickedNav}
+              clickedValue={clickedValue}
               //use for redirecting auth page
-              history={this.props.history}
-              match={this.props.match}
+              history={props.history}
+              match={props.match}
             />
-            </div>
           </div>
         </div>
       </div>
-    );
-  }
+    </div>
+  )
 }
+
+export default Directory
