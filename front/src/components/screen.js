@@ -1,79 +1,53 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Spinner } from 'react-bootstrap'
 import { Home, Download, DEGviewer, GSAviewer } from './screenElements'
+import config from './../config/config.json'
 import Iframe from 'react-iframe'
 
-export default class Screen extends React.Component {
-  static defaultProps = {
-    clickedValue: '',
-    clickedNav: 'Home',
-    loading: false
-  }
+const Screen = props => {
+  const [frameData, setFrameData] = useState('')
+  const [frameDataURL, setFrameDataURL] = useState('')
+  const [loading, setLoading] = useState(false)
 
-  state = {
-    frameData: '',
-    frameDataURL: '',
-    loading: false
-  }
-
-  componentDidUpdate = (prevProps, prevState) => {
-    if (prevProps.clickedValue !== this.props.clickedValue) {
-      this.setState({ loading: true })
-      fetch(this.props.clickedValue)
-        .then((response) => response.clone().blob())
+  useEffect(() => {
+    console.log(props.clickedElement)
+    if (props.clickedElement !== '') {
+      setLoading(true)
+      fetch(config.backend + '/static/' + config.project_path + props.clickedElement)
+        .then((response) => {console.log(response);return response.clone().blob()})
         .then(blob => {
-          this.setState({
-            frameData: blob,
-            frameDataURL: URL.createObjectURL(blob),
-            loading: false
-          })
-        })
-        .catch((error) => {
-          alert('error occured in getStaticFile')
-          console.log(error)
+          setFrameData(blob)
+          setFrameDataURL(URL.createObjectURL(blob))
+          setLoading(false)
         })
     }
+    return () => { }
+  }, [props.clickedElement])
+
+  const frameDataType = frameData.type
+
+  if (loading) return <Spinner animation='border' style={{ margin: '5vh 5vw' }} />
+  else if (props.clickedNav === 'Home')
+    return <Home
+      history={props.history}
+      match={props.match} />
+  else if (props.clickedNav === 'Download')
+    return <Download />
+  else if (frameDataType === 'text/html') {
+    return <Iframe src={config.backend + '/static/' + config.project_path + props.clickedElement} width="100%" height="100%" />
   }
-
-  screenShow = () => {
-    const frameData = this.state.frameData
-    const frameDataType = frameData.type
-    const frameDataURL = this.state.frameDataURL
-    if (this.state.loading) return <Spinner animation='border' style={{ margin: '5vh 5vw' }} />
-    else if (this.props.clickedNav === 'Home')
-      return <Home
-        history={this.props.history}
-        match={this.props.match} />
-    else if (this.props.clickedNav === 'Download')
-      return <Download />
-    else if (frameDataType === 'text/html') {
-      return <Iframe src={this.props.clickedValue} width="100%" height="100%" />
-    }
-    else if (frameDataType === 'image/png') {
-      return (
-        <div width="100%" height="100%">
-          <img src={frameDataURL} style={{ height: '95vh' }} alt="nothing" />
-        </div>
-      )
-    }
-    else if (frameDataType === 'text/csv' || frameDataType === 'text/plain' || frameDataType === 'application/octet-stream') {
-      if (this.props.clickedNav === 'DEG') return <DEGviewer file={frameData} />
-      else if(this.props.clickedNav === 'GSA') return <GSAviewer />
-    }
-    else return <Iframe src={frameDataURL} width="100%" height="100%" />
+  else if (frameDataType === 'image/png') {
+    return (
+      <div width="100%" height="100%">
+        <img src={frameDataURL} style={{ height: '95vh' }} alt="nothing" />
+      </div>
+    )
   }
-
-
-
-  render() {
-    return this.screenShow()
-
-
-
-
-    // gsa, degviewer에서 재사용할수도있음
-    // return <CsvViewer file={frameData} delimiter={frameDataType === 'text/plain' ? String.fromCharCode(9) : String.fromCharCode(44)} />
-    // const frameData = this.state.frameData
-
+  else if (frameDataType === 'text/csv' || frameDataType === 'text/plain' || frameDataType === 'application/octet-stream') {
+    return <DEGviewer file={frameData} />
   }
+  else return <Iframe src={frameDataURL} width="100%" height="100%" />
+  // return <CsvViewer file={frameData} delimiter={frameDataType === 'text/plain' ? String.fromCharCode(9) : String.fromCharCode(44)} />
 }
+
+export default Screen

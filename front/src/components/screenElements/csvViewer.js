@@ -77,10 +77,11 @@ class CsvViewer extends React.Component {
       {
         columns,
         data,
-        initialState: { sortBy: [{ id: 'genes', inc: true }] },
+        initialState: { sortBy: [{ id: 'genes', inc: true }], pageSize: 17 },
       },
       useSortBy,
       usePagination,
+      
     )
 
     // Render the UI for your table
@@ -99,11 +100,7 @@ class CsvViewer extends React.Component {
                     >
                       <span>{column.render('Header')}
                         {/* Add a sort direction indicator */}
-                        {column.isSorted
-                          ? column.isSortedDesc
-                            ? '🔽'
-                            : '🔼'
-                          : ''}</span>
+                        {column.isSorted ? (column.isSortedDesc ? '🔽' : '🔼') : ''}</span>
                     </th>
                   ))}
                 </tr>
@@ -124,7 +121,12 @@ class CsvViewer extends React.Component {
                             className: cell.column.collapse ? 'collapse' : '',
                           })}
                         >
-                          {Object.values(cell.row.original)[k]}
+                          {
+                            (typeof Object.values(cell.row.original)[k] === 'number') ?
+                              Object.keys(cell.row.original)[k] === 'PValue' || Object.keys(cell.row.original)[k] === 'pvalue' ?
+                                Object.values(cell.row.original)[k].toExponential(3)
+                                : Object.values(cell.row.original)[k].toFixed(3)
+                              : Object.values(cell.row.original)[k]}
                         </td>
                       )
                     })}
@@ -177,7 +179,7 @@ class CsvViewer extends React.Component {
 
   render() {
     return (
-      <div style={{border: 'black 1px solid', width: '40vw'}}>
+      <div >
         {!this.state.loading && (
           <this.Table columns={this.state.columns} data={this.state.data} />
         )}
