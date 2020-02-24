@@ -40,14 +40,31 @@ const Directory = (props) => {
           }
         })
     }
-    return ()=>{}
+    return () => { }
   }, [clickedNav]);
+
+  useEffect(() => {
+    let firstElement=''
+    sidebar.some((i) => {
+      if(i.children === undefined && i.type === 'file') {
+        firstElement = i.value
+        return true
+      }
+      if(i.children !== undefined && i.children !== []) {
+        firstElement = i.children[0].value
+        return true
+      }
+    })
+
+    setClickedElement(firstElement)
+  }, [sidebar]);
+
   return (
     <div className="directory">
-      <Navbar 
-      setClickedNav={setClickedNav}
-      clickedNav={clickedNav}
-       />
+      <Navbar
+        setClickedNav={setClickedNav}
+        clickedNav={clickedNav}
+      />
       <div className="mainwindow" >
         <Sidebar
           sidebar={sidebar}

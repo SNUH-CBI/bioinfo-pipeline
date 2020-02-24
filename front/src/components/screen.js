@@ -10,11 +10,10 @@ const Screen = props => {
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-    console.log(props.clickedElement)
     if (props.clickedElement !== '') {
       setLoading(true)
       fetch(config.backend + '/static/' + config.project_path + props.clickedElement)
-        .then((response) => {console.log(response);return response.clone().blob()})
+        .then((response) => {return response.clone().blob()})
         .then(blob => {
           setFrameData(blob)
           setFrameDataURL(URL.createObjectURL(blob))
