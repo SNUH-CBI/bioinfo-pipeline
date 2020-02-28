@@ -1,107 +1,96 @@
-import React from 'react';
-import axios from 'axios';
-import Iframe from 'react-iframe'
-import { CsvViewer, Navbar, Sidebar, Home, Download } from './../components'
+import React, { useState, useEffect } from 'react';
+import { Navbar, Sidebar, Screen } from './../components'
+import axios from 'axios'
 import config from './../config/config.json'
 
-export default class Directory extends React.Component {
-  state = {
-    clickedNav: 'Home',
-    frameData: '',
-    frameDataType: '',
-    frameDataURL: '',
-    frameAddress: '',
-    permissionOK: true,
-    infoData: {}
-  }
+const Directory = (props) => {
+  const [clickedNav, setClickedNav] = useState('Home') // temp
+  const [sidebar, setSidebar] = useState([])
+  const [clickedElement, setClickedElement] = useState('')
 
-  componentDidMount = () => {
-    console.log(config.backend)
-    axios.defaults.withCredentials = true
-    axios({
-      method: 'GET',
-      url: config.backend + '/info',
-      params: {
-        project: 'pipeline-test/pipeline'
-      }
-    })
-      .then((response) => {
-        this.setState({ infoData: response.data })
-      })
-      .catch((error) => {
-        if(error.response.status === 401) {
-          alert('No session. Redirect to auth page(401)')
-          this.props.history.push(this.props.match.params.path + '/auth')
-        }
-        else if(error.response.status === 400) {
-          alert('Wrong project name. Redirect to auth page(400)')
-          this.props.history.push(this.props.match.params.path + '/auth')
+  useEffect(() => {
+    if (clickedNav === 'Home' || clickedNav === 'Download') {
+      setSidebar([])
+    }
+    else {
+      axios.defaults.withCredentials = true
+      axios({
+        method: 'get',
+        url: config.backend + '/directory',
+        params: {
+          project: config.project_path,
+          menu: clickedNav
         }
       })
-  }
+        .then((response) => {
+          setSidebar(response.data)
+          let firstElement = ''
+          response.data.some((i) => {
+            if (i.children === undefined && i.type === 'file') {
+              firstElement = i.value
+              return true
+            }
+            if (i.children !== undefined && i.children !== []) {
+              if (i.children[0].label.includes('Download')) firstElement = i.children[1].value
+              else firstElement = i.children[0].value
 
-  getStaticFile = (address) => {
-    fetch(address)
-      .then((response) => response.clone().blob())
-      .then(blob => {
-        this.setState({
-          frameAddress: address,
-          frameDataType: blob.type,
-          frameData: blob,
-          frameDataURL: URL.createObjectURL(blob)
+              return true
+            }
+            return false
+          })
+          setClickedElement(firstElement)
         })
-      })
-      .catch((error) => { console.log(error) })
-  }
-
-  handleNavbarClick = (e) => {
-    this.setState({ clickedNav: e })
-  }
-
-  screen = () => {
-    const frameData = this.state.frameData
-    const frameDataType = this.state.frameDataType
-    const frameDataURL = this.state.frameDataURL
-
-    if (frameDataType === 'text/csv' || frameDataType === 'text/plain' || frameDataType === 'application/octet-stream') {
-      return <CsvViewer file={frameData} delimiter={frameDataType === 'text/plain' ? String.fromCharCode(9) : String.fromCharCode(44)} />
+        .catch((error) => {
+          if (error.response === undefined) {
+            alert('No response. Redirect to auth page')
+            props.history.push(props.match.params.path + '/auth')
+          }
+          else if (error.response.status === 401) {
+            alert('No session. Redirect to auth page(401)')
+            props.history.push(props.match.params.path + '/auth')
+          }
+          else if (error.response.status === 400) {
+            alert('Wrong project name. Redirect to auth page(400)')
+            props.history.push(props.match.params.path + '/auth')
+          }
+        })
     }
-    if (frameDataType === 'text/html') {
-      return <Iframe src={this.state.frameAddress} width="100%" height="100%" />
-    }
-    if (frameDataType === 'image/png') {
-      return (
-        <div width="100%" height="100%">
-          <img src={frameDataURL} style={{ height: '95vh' }} alt="nothing" />
-        </div>
-      )
-    }
-    return <Iframe src={frameDataURL} width="100%" height="100%" />
-  }
+    return () => { }
+  }, [clickedNav]);
 
-  render() {
-    const others = (
+
+
+  return (
+    <div className="directory">
+      <Navbar
+        setClickedNav={setClickedNav}
+        clickedNav={clickedNav}
+      />
       <div className="mainwindow" >
-        <div style={{ overflowY: 'auto', maxHeight: '95vh', height: '95vh' }}>
-          <Sidebar clickedNav={this.state.clickedNav} getStaticFile={this.getStaticFile} />
-        </div>
+        <Sidebar
+          sidebar={sidebar}
+          clickedNav={clickedNav}
+          setClickedElement={setClickedElement}
+          clickedElement={clickedElement}
+          //use for redirecting auth page
+          history={props.history}
+          match={props.match}
+        />
         <div className="fileView" >
-          <div className="fileViewDetail" >
-            <this.screen />
+          <div className='fileViewDetail'>
+            <Screen
+              sidebar={sidebar}
+              clickedNav={clickedNav}
+              clickedElement={clickedElement}
+              //use for redirecting auth page
+              history={props.history}
+              match={props.match}
+            />
           </div>
         </div>
       </div>
-    )
-    
-    return (
-      <div className="directory">
-        <Navbar handleOnClick={this.handleNavbarClick} />
-        {(this.state.clickedNav === 'Home' || this.state.clickedNav === 'etc') ?
-          (this.state.clickedNav === 'Home' ?
-            <div><Home infoData={this.state.infoData}/></div> :
-            <Download />) :
-          others}
-      </div>
-    );
-  }
+    </div>
+  )
 }
+
+export default Directory

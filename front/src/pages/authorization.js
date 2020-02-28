@@ -6,7 +6,7 @@ import config from './../config/config.json'
 
 export default class Authorization extends React.Component {
 
-  state = { success: false, password: '' }
+  state = { password: '' }
 
   handleChange = (e) => {
     e.preventDefault();
@@ -20,7 +20,7 @@ export default class Authorization extends React.Component {
       method: 'post',
       url: config.backend + '/auth',
       params: {
-        project: 'pipeline-test/pipeline'
+        project: config.project_path
       },
       data: {
         password: this.state.password
@@ -29,7 +29,6 @@ export default class Authorization extends React.Component {
       .then((response) => {
         if (response.data.success) {
           alert("session created");
-          this.setState({ success: true })
           this.props.history.push("/" + this.props.match.params.path)
         }
         else {
@@ -39,7 +38,7 @@ export default class Authorization extends React.Component {
       })
       .catch((error) => {
         console.log(error);
-        alert("error");
+        alert("error occured");
         this.setState({password: ''})
       })
   }

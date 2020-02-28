@@ -35,7 +35,6 @@ class CsvViewer extends React.Component {
   handleFileChange = file => {
     Papa.parse(file, {
       header: true,
-      delimiter: this.props.delimiter,
       dynamicTyping: true,
       complete: this.handleDataChange
     })
@@ -77,10 +76,11 @@ class CsvViewer extends React.Component {
       {
         columns,
         data,
-        initialState: { pageIndex: 0, sortBy: [{ id: Object.keys(this.state.data[0])[0], inc: true }] },
+        initialState: { sortBy: [{ id: 'genes', inc: true }], pageSize: 25 },
       },
       useSortBy,
       usePagination,
+      
     )
 
     // Render the UI for your table
@@ -99,19 +99,15 @@ class CsvViewer extends React.Component {
                     >
                       <span>{column.render('Header')}
                         {/* Add a sort direction indicator */}
-                        {column.isSorted
-                          ? column.isSortedDesc
-                            ? '🔽'
-                            : '🔼'
-                          : ''}</span>
+                        {column.isSorted ? (column.isSortedDesc ? '🔽' : '🔼') : ''}</span>
                     </th>
                   ))}
                 </tr>
               ))}
             </thead>
             <tbody {...getTableBodyProps()} >
-              {page.filter((row)=> {
-                if(Object.values(row.original)[0] === null) return false
+              {page.filter((row) => {
+                if (Object.values(row.original)[0] === null) return false
                 else return true
               }).map((row, i) => {
                 prepareRow(row)
@@ -124,8 +120,12 @@ class CsvViewer extends React.Component {
                             className: cell.column.collapse ? 'collapse' : '',
                           })}
                         >
-                          {Object.values(cell.row.original)[k]}
-                          {typeof (Object.values(cell.row.original)[k]) === 'boolean' && ((Object.values(cell.row.original)[k] === true) ? 'true' : 'false')}
+                          {
+                            (typeof Object.values(cell.row.original)[k] === 'number') ?
+                              Object.keys(cell.row.original)[k] === 'PValue' || Object.keys(cell.row.original)[k] === 'pvalue' ?
+                                Object.values(cell.row.original)[k].toExponential(3)
+                                : Object.values(cell.row.original)[k].toFixed(3)
+                              : Object.values(cell.row.original)[k]}
                         </td>
                       )
                     })}
@@ -152,13 +152,13 @@ class CsvViewer extends React.Component {
           <Button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
             {'>>'}
           </Button>{' '}
-          <span>
+          <span style={{whiteSpace:'nowrap'}}>
             Page{' '}
             <strong>
               {pageIndex + 1} of {pageOptions.length}
             </strong>{' '}
           </span>
-          <span>
+          <span style={{whiteSpace:'nowrap'}}>
             | Go to page:{' '}
             <input
               type="number"
@@ -178,7 +178,7 @@ class CsvViewer extends React.Component {
 
   render() {
     return (
-      <div>
+      <div >
         {!this.state.loading && (
           <this.Table columns={this.state.columns} data={this.state.data} />
         )}
@@ -198,7 +198,6 @@ const Styles = styled.div`
   .tableWrap {
     display: block;
     max-width: 100%;
-    overflow-x: scroll;
     border-bottom: 1px solid black;
     border-collapse: collapse;
   }
@@ -219,7 +218,7 @@ const Styles = styled.div`
     th,
     td {
       margin: 0;
-      padding: 0.5rem;
+      white-space: nowrap;
       border-bottom: 1px solid black;
       border-right: 1px solid black;
 
