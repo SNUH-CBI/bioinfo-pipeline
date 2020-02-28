@@ -35,7 +35,6 @@ class CsvViewer extends React.Component {
   handleFileChange = file => {
     Papa.parse(file, {
       header: true,
-      delimiter: this.props.delimiter,
       dynamicTyping: true,
       complete: this.handleDataChange
     })
@@ -77,7 +76,7 @@ class CsvViewer extends React.Component {
       {
         columns,
         data,
-        initialState: { sortBy: [{ id: 'genes', inc: true }], pageSize: 17 },
+        initialState: { sortBy: [{ id: 'genes', inc: true }], pageSize: 25 },
       },
       useSortBy,
       usePagination,
@@ -153,13 +152,13 @@ class CsvViewer extends React.Component {
           <Button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
             {'>>'}
           </Button>{' '}
-          <span>
+          <span style={{whiteSpace:'nowrap'}}>
             Page{' '}
             <strong>
               {pageIndex + 1} of {pageOptions.length}
             </strong>{' '}
           </span>
-          <span>
+          <span style={{whiteSpace:'nowrap'}}>
             | Go to page:{' '}
             <input
               type="number"
@@ -220,7 +219,6 @@ const Styles = styled.div`
     td {
       margin: 0;
       white-space: nowrap;
-      padding: 0.5rem;
       border-bottom: 1px solid black;
       border-right: 1px solid black;
 

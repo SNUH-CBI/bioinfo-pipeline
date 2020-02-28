@@ -5,11 +5,11 @@ import config from './../config/config.json'
 import Iframe from 'react-iframe'
 
 const Screen = props => {
-  const elementURL = config.backend + '/static/' + config.project_path + props.clickedElement
   const [frameData, setFrameData] = useState('')
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
+    const elementURL = config.backend + '/static/' + config.project_path + props.clickedElement
     if (props.clickedElement !== '') {
       setLoading(true)
       fetch(elementURL)
@@ -22,6 +22,13 @@ const Screen = props => {
     return () => { }
   }, [props.clickedElement])
 
+  useEffect(() => {
+    if (props.clickedNav === 'Home' || props.clickedNav === 'Download') setLoading(false)
+    else setLoading(true)
+
+    return (() => { })
+  }, [props.clickedNav]);
+
   if (loading) return <Spinner animation='border' style={{ margin: '5vh 5vw' }} />
   else switch (props.clickedNav) {
     case 'Home':
@@ -30,19 +37,30 @@ const Screen = props => {
     case 'Filtered_fastQC':
     case 'RSEM_UCSC':
     case 'Qualimap_UCSC':
-      return <Iframe src={elementURL} width="100%" height="100%" />
+      return <Iframe src={config.backend + '/static/' + config.project_path + props.clickedElement} width="100%" height="100%" />
     case 'Sample_Correlation':
       return <SampleCorrViewer />
     case 'DEG':
-      return <DEGviewer file={frameData} />
+      let allCountDataURL = ''
+      props.sidebar.some((category) => {
+        category.children.some((v, i) => {
+          if (category.children[i - 1] !== undefined && v['value'] === props.clickedElement) {
+            allCountDataURL = config.backend + '/static/' + config.project_path + category.children[i - 1]['value']
+            return true
+          }
+        })
+        if (allCountDataURL !== '') return true
+      })
+      return <DEGviewer file={frameData} allCountDataURL={allCountDataURL} />
     case 'GSA':
-      return <GSAviewer />
+      return <GSAviewer file={frameData} />
     case 'Download':
       return <Download />
     default:
       return <div>nothing</div>
   }
-  // return <CsvViewer file={frameData} delimiter={frameDataType === 'text/plain' ? String.fromCharCode(9) : String.fromCharCode(44)} />
 }
+
+Screen.defaultProps = { sidebar: [] }
 
 export default Screen

@@ -2,12 +2,13 @@ import React from 'react';
 import { Button, Accordion, Card } from 'react-bootstrap'
 
 const Sidebar = (props) => {
+
   if (props.clickedNav === 'Home' || props.clickedNav === 'Download') {
     return (<div></div>)
   }
   else return (
     <div className="sidebar" >
-      <Accordion style={{ textAlign: 'center' }}>
+      <Accordion style={{ textAlign: 'center' }} defaultActiveKey={0} >
         {props.sidebar.map((index, key) => {
           if (index.type === 'category')
             return <Button
@@ -17,7 +18,7 @@ const Sidebar = (props) => {
             </Button>
           else if (index.type === 'file')
             return <Button
-              onClick={(e)=>props.setClickedElement(e.target.value)}
+              onClick={(e) => props.setClickedElement(e.target.value)}
               key={key}
               variant='link'
               disabled={props.clickedElement === index.value}
@@ -25,7 +26,7 @@ const Sidebar = (props) => {
               {index.label}
             </Button>
           else return (
-            <Card key={key}>
+            <Card key={key} >
               <Card.Header style={{ padding: '0' }}>
                 <Accordion.Toggle
                   as={Button}
@@ -37,9 +38,9 @@ const Sidebar = (props) => {
               </Card.Header>
               <Accordion.Collapse eventKey={key} >
                 <Card.Body style={{ padding: '0' }}>
-                  {index.children.map((index, key) => {
+                  {index.children.filter((v)=>!v.label.includes('Download')).map((index, key) => {
                     return <Button
-                      onClick={e=>props.setClickedElement(e.target.value)}
+                      onClick={e => props.setClickedElement(e.target.value)}
                       key={key}
                       variant='link'
                       disabled={props.clickedElement === index.value}

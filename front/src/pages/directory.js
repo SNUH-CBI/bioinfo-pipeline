@@ -4,7 +4,7 @@ import axios from 'axios'
 import config from './../config/config.json'
 
 const Directory = (props) => {
-  const [clickedNav, setClickedNav] = useState('Home')
+  const [clickedNav, setClickedNav] = useState('Home') // temp
   const [sidebar, setSidebar] = useState([])
   const [clickedElement, setClickedElement] = useState('')
 
@@ -24,6 +24,21 @@ const Directory = (props) => {
       })
         .then((response) => {
           setSidebar(response.data)
+          let firstElement = ''
+          response.data.some((i) => {
+            if (i.children === undefined && i.type === 'file') {
+              firstElement = i.value
+              return true
+            }
+            if (i.children !== undefined && i.children !== []) {
+              if (i.children[0].label.includes('Download')) firstElement = i.children[1].value
+              else firstElement = i.children[0].value
+
+              return true
+            }
+            return false
+          })
+          setClickedElement(firstElement)
         })
         .catch((error) => {
           if (error.response === undefined) {
@@ -43,21 +58,7 @@ const Directory = (props) => {
     return () => { }
   }, [clickedNav]);
 
-  useEffect(() => {
-    let firstElement=''
-    sidebar.some((i) => {
-      if(i.children === undefined && i.type === 'file') {
-        firstElement = i.value
-        return true
-      }
-      if(i.children !== undefined && i.children !== []) {
-        firstElement = i.children[0].value
-        return true
-      }
-    })
 
-    setClickedElement(firstElement)
-  }, [sidebar]);
 
   return (
     <div className="directory">
@@ -78,6 +79,7 @@ const Directory = (props) => {
         <div className="fileView" >
           <div className='fileViewDetail'>
             <Screen
+              sidebar={sidebar}
               clickedNav={clickedNav}
               clickedElement={clickedElement}
               //use for redirecting auth page

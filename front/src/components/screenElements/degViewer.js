@@ -1,9 +1,14 @@
 import React from 'react';
 import { Button } from 'react-bootstrap'
 import { CsvViewer } from '../screenElements'
+import config from './../../config/config.json'
 
 export default class DEGviewer extends React.Component {
-  static defaultProps = { frameData: '' }
+  static defaultProps = { frameData: '', allCountDataURL: '' }
+
+  getAllCountData = () => {
+
+  }
 
   render() {
     return (
