@@ -20,7 +20,7 @@ const Sidebar = (props) => {
         onClick={decoratedOnClick}
         variant='link'
         value={index.value}
-        style={eventKey === activeKey ? { color: 'black' } : { color: 'blue' }}
+        style={eventKey === activeKey ? { color: 'blue' } : { color: 'black' }}
       >
         {index.label}
       </Button>
@@ -46,7 +46,7 @@ const Sidebar = (props) => {
               onClick={(e) => props.setClickedElement(e.target.value)}
               key={key}
               variant='link'
-              style={props.clickedElement === index.value ? { color: 'black' } : { color: 'blue' }}
+              style={props.clickedElement === index.value ? { color: 'blue' } : { color: 'black' }}
               value={index.value} >
               {index.label}
             </Button>
@@ -62,7 +62,7 @@ const Sidebar = (props) => {
                       onClick={e => props.setClickedElement(e.target.value)}
                       key={key}
                       variant='link'
-                      style={props.clickedElement === index.value ? { color: 'black' } : { color: 'blue' }}
+                      style={props.clickedElement === index.value ? { color: 'blue' } : { color: 'black' }}
                       value={index.value}>
                       {index.label}
                     </Button>
