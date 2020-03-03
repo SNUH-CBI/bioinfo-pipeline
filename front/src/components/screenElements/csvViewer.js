@@ -36,6 +36,7 @@ class CsvViewer extends React.Component {
     Papa.parse(file, {
       header: true,
       dynamicTyping: true,
+      skipEmptyLines: true,
       complete: this.handleDataChange
     })
   }
@@ -71,16 +72,16 @@ class CsvViewer extends React.Component {
       gotoPage,
       nextPage,
       previousPage,
-      state: { pageIndex },
+      setPageSize,
+      state: { pageIndex, pageSize },
     } = useTable(
       {
         columns,
         data,
-        initialState: { sortBy: [{ id: 'genes', inc: true }], pageSize: 25 },
+        initialState: { sortBy: [{ id: 'genes', inc: true }], pageSize: 20 },
       },
       useSortBy,
-      usePagination,
-      
+      usePagination
     )
 
     // Render the UI for your table
@@ -106,10 +107,7 @@ class CsvViewer extends React.Component {
               ))}
             </thead>
             <tbody {...getTableBodyProps()} >
-              {page.filter((row) => {
-                if (Object.values(row.original)[0] === null) return false
-                else return true
-              }).map((row, i) => {
+              {page.map((row, i) => {
                 prepareRow(row)
                 return (
                   <tr {...row.getRowProps()}>
@@ -122,7 +120,7 @@ class CsvViewer extends React.Component {
                         >
                           {
                             (typeof Object.values(cell.row.original)[k] === 'number') ?
-                              Object.keys(cell.row.original)[k] === 'PValue' || Object.keys(cell.row.original)[k] === 'pvalue' ?
+                              toExponential.includes(Object.keys(cell.row.original)[k]) ?
                                 Object.values(cell.row.original)[k].toExponential(3)
                                 : Object.values(cell.row.original)[k].toFixed(3)
                               : Object.values(cell.row.original)[k]}
@@ -152,13 +150,13 @@ class CsvViewer extends React.Component {
           <Button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
             {'>>'}
           </Button>{' '}
-          <span style={{whiteSpace:'nowrap'}}>
+          <span style={{ whiteSpace: 'nowrap' }}>
             Page{' '}
             <strong>
               {pageIndex + 1} of {pageOptions.length}
             </strong>{' '}
           </span>
-          <span style={{whiteSpace:'nowrap'}}>
+          <span style={{ whiteSpace: 'nowrap' }}>
             | Go to page:{' '}
             <input
               type="number"
@@ -170,7 +168,18 @@ class CsvViewer extends React.Component {
               style={{ width: '100px' }}
             />
           </span>{' '}
-
+          <select
+            value={pageSize}
+            onChange={e => {
+              setPageSize(Number(e.target.value))
+            }}
+          >
+            {[20, 30, 40, 50].map(pageSize => (
+              <option key={pageSize} value={pageSize}>
+                Show {pageSize}
+              </option>
+            ))}
+          </select>
         </div>
       </Styles>
     )
@@ -188,6 +197,7 @@ class CsvViewer extends React.Component {
 
 }
 
+const toExponential = ['PValue', 'pvalue', 'ttest_tpm', 'padj', 'ttest_fpkm']
 
 const Styles = styled.div`
   /* This is required to make the table full-width */
