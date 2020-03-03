@@ -22,13 +22,6 @@ const Screen = props => {
     return () => { }
   }, [props.clickedElement])
 
-  useEffect(() => {
-    if (props.clickedNav === 'Home' || props.clickedNav === 'Download') setLoading(false)
-    else setLoading(true)
-
-    return (() => { })
-  }, [props.clickedNav]);
-
   try {
     if (loading) return <Spinner animation='border' style={{ margin: '5vh 5vw' }} />
     else {
