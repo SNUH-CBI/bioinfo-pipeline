@@ -116,7 +116,7 @@ class CsvViewer extends React.Component {
                         <td
                           {...cell.getCellProps({
                             className: cell.column.collapse ? 'collapse' : '',
-                          })}
+                          })} style={typeof Object.values(cell.row.original)[k] === 'number' ? {textAlign: 'right'}: {textAlign: 'left'}}
                         >
                           {
                             (typeof Object.values(cell.row.original)[k] === 'number') ?

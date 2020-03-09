@@ -16,7 +16,6 @@ const Sidebar = (props) => {
     })
     return (
       <Button
-        //onClick={(e) => props.setClickedElement(e.target.value)}
         onClick={decoratedOnClick}
         variant='link'
         value={index.value}
@@ -26,8 +25,8 @@ const Sidebar = (props) => {
       </Button>
     )
   }
-
-  if (props.clickedNav === 'Home' || props.clickedNav === 'Download') {
+  
+  if (noSidebarNav.includes(props.clickedNav)) {
     return (<div></div>)
   }
   else return (
@@ -77,6 +76,8 @@ const Sidebar = (props) => {
   )
 
 }
+
+const noSidebarNav = ['Home', 'Download', 'Sample_Correlation']
 
 Sidebar.defaultProps = { clickedNav: 'Home' }
 

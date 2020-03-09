@@ -11,6 +11,7 @@ const Directory = (props) => {
   useEffect(() => {
     if (clickedNav === 'Home' || clickedNav === 'Download') {
       setSidebar([])
+      setClickedElement('')
     }
     else {
       axios.defaults.withCredentials = true
