@@ -28,12 +28,30 @@ router.get('/', (req, res) => {
 
         // get project info from config json
         const projectInfo = projectConfig.info[project];
-        result = Object.assign({}, projectInfo);
 
-        // read case from file
-        const caseFile = serverConfig.path + projectInfo['casePath'];
-        result['case'] = fs.readFileSync(caseFile, 'utf8');
-        delete result['casePath'];
+        // read from file
+        const caseFile = serverConfig.path + projectInfo['sampleInfo'];
+        const infoText = fs.readFileSync(caseFile, 'utf8');
+        const infoTextSplit = infoText.split('\n');
+
+        let infoList = {};
+
+        infoTextSplit.forEach(text => {
+            if(!text.includes('\t')) return;
+
+            const textSplit = text.split('\t');
+            const sampleCategory = textSplit[1];
+            const sampleName = textSplit[0];
+
+            if(!(sampleCategory in infoList)) infoList[sampleCategory] = [];
+
+            infoList[sampleCategory].push(sampleName);
+        });
+
+        // create result object
+        result = Object.assign({}, projectInfo);
+        delete result['sampleInfo'];
+        result['info'] = infoList;
 
         res.json(result);
 
