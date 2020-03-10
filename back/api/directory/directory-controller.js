@@ -265,6 +265,16 @@ const getDeg = (directory, dirName) => {
 
     let resultChildren = [];
 
+    let imgFile = "IMAGE NOT FOUND";
+
+    for(let i = 0; i < files.length; i++) {
+        const fileName = files[i].name;
+        if(fileName.includes('_count_vcPlot')) {
+            imgFile = fileName;
+            break;
+        }
+    }
+
     for(let i = 0; i < files.length; i++) {
 
         const fileName = files[i].name;
@@ -299,6 +309,7 @@ const getDeg = (directory, dirName) => {
             'type': 'file',
             'label': label,
             'value': `/${dirName}/${fileName}`,
+            'graph': `/${dirName}/${imgFile}`,
             'row': metadata.line
         });
 
