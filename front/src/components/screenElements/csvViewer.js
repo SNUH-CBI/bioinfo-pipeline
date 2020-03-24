@@ -89,7 +89,7 @@ class CsvViewer extends React.Component {
       <Styles>
         <div className="tableWrap">
           <table {...getTableProps()}>
-            <thead>
+            <thead style={{backgroundColor: 'whitesmoke'}}>
               {headerGroups.map(headerGroup => (
                 <tr {...headerGroup.getHeaderGroupProps()}>
                   {headerGroup.headers.map(column => (

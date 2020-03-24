@@ -8,6 +8,7 @@ export default class Screen extends React.Component {
   state = { frameData: '', loading: false }
 
   shouldComponentUpdate = (nextProps, nextState) => {
+    const frameData = this.state.frameData
     const clickedElement = this.props.clickedElement
     if (clickedElement !== nextProps.clickedElement && nextProps.clickedElement !== '') {
       const elementURL = config.backend + '/static/' + config.project_path + nextProps.clickedElement
@@ -20,8 +21,14 @@ export default class Screen extends React.Component {
     else return true
   }
 
+  getFrameURL = (element) => {
+    return config.backend + '/static/' + config.project_path + element
+  }
+
   makeScreen = (props) => {
+    if (props.sidebar[1] !== undefined) console.log(props.sidebar)
     const frameData = this.state.frameData
+    const frameURL = config.backend + '/static/' + config.project_path + props.clickedElement
     switch (props.clickedNav) {
       case 'Home':
         return <Home history={props.history} match={props.match} />
@@ -29,7 +36,7 @@ export default class Screen extends React.Component {
       case 'Filtered_fastQC':
       case 'RSEM_UCSC':
       case 'Qualimap_UCSC':
-        return <Iframe src={config.backend + '/static/' + config.project_path + props.clickedElement} width="100%" height="100%" />
+        return <Iframe src={frameURL} width="100%" height="100%" />
       case 'Sample_Correlation':
         return <SampleCorrViewer sidebar={props.sidebar} />
       case 'DEG':
@@ -37,7 +44,7 @@ export default class Screen extends React.Component {
         props.sidebar.some((category) => {
           category.children.some((v, i) => {
             if (category.children[i - 1] !== undefined && v['value'] === props.clickedElement) {
-              allCountDataURL = config.backend + '/static/' + config.project_path + category.children[i - 1]['value']
+              allCountDataURL = category.children[i - 1]['value']
               return true
             }
           })
@@ -45,7 +52,16 @@ export default class Screen extends React.Component {
         })
         return <DEGviewer file={frameData} allCountDataURL={allCountDataURL} />
       case 'GSA':
-        return <GSAviewer file={frameData} />
+        return (<div className='d-flex flex-column' style={{ marginLeft: '50px' }}>
+          <div className='d-flex flex-row'>
+            <GSAviewer file={frameData} />
+            <GSAviewer file={frameData} />
+          </div>
+          <div className='d-flex flex-row'>
+            <GSAviewer file={frameData} />
+            <GSAviewer file={frameData} />
+          </div>
+        </div>)
       case 'Download':
         return <Download />
       default:

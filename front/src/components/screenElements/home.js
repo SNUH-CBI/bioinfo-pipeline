@@ -9,7 +9,7 @@ export default class Home extends React.Component {
       project: '',
       manager: '',
       date: '',
-      case: ''
+      info: {}
     }
   }
 
@@ -66,17 +66,26 @@ export default class Home extends React.Component {
           </tr>
           <tr>
             <th scope="row" className='even' rowSpan="4">Control case</th>
+            <td>
+              {Object.keys(infoData.info).length !== 0 &&
+                <table>
+                  <thead>
+                    <tr>
+                      <th>{Object.keys(infoData.info)[0]}</th>
+                      <th>{Object.keys(infoData.info)[1]}</th>
+                    </tr>
+                    <tr>
+                      <td style={{ whiteSpace: 'pre' }}>{Object.values(infoData.info)[0].map((v) => {
+                        return v + '\n'
+                      })}</td>
+                      <td style={{ whiteSpace: 'pre' }}>{Object.values(infoData.info)[1].map((v) => {
+                        return v + '\n'
+                      })}</td>
+                    </tr>
+                  </thead>
+                </table>}
+            </td>
           </tr>
-          {this.state.infoData.case
-            .split(String.fromCharCode(10))
-            .filter(index => index !== '')
-            .map((index, key) => {
-              return (
-                <tr key={key}>
-                  <td className='even'>{index}</td>
-                </tr>
-              )
-            })}
         </tbody>
       </table>
     )

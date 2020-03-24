@@ -20,14 +20,20 @@ const SampleCorrViewer = (props) => {
       })
     })
     return (
-      <div className="d-flex flex-column" style={{marginLeft:'30vw'}}>
-        <p>count</p>
-        <Gallery images={images[0]} />
-        <p>fpkm</p>
-        <Gallery images={images[1]} />
-        <p>tpm</p>
-        <Gallery images={images[2]} />
-      </div>
+      <div className="d-flex flex-column" style={{ marginLeft: '30vw' }}>
+        <div>
+          <p style={{ marginTop: '0px', marginBottom: '-30px', zIndex: '1' }}>COUNT</p>
+          <Gallery images={images[0]} margin={30} />
+        </div>
+        <div>
+          <p style={{ marginTop: '-10px', marginBottom: '-30px', zIndex: '1' }}>FPKM</p>
+          <Gallery images={images[1]} margin={30} />
+        </div>
+        <div>
+          <p style={{ marginTop: '-10px', marginBottom: '-30px', zIndex: '1' }}>TPM</p>
+          <Gallery images={images[2]} margin={30} />
+        </div >
+      </div >
     )
   }
   else return (<div></div>)
