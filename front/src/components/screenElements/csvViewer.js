@@ -1,7 +1,7 @@
 import React from 'react';
 import Papa from 'papaparse'
 import styled from 'styled-components'
-import { useTable, usePagination, useSortBy } from 'react-table'
+import { useTable, usePagination, useSortBy, useGlobalFilter, useFilters } from 'react-table'
 import { Button } from 'react-bootstrap'
 
 
@@ -73,6 +73,9 @@ class CsvViewer extends React.Component {
       nextPage,
       previousPage,
       setPageSize,
+      visibleColumns,
+      preGlobalFilterdRows,
+      setGlobalFilter,
       state: { pageIndex, pageSize },
     } = useTable(
       {
@@ -80,8 +83,10 @@ class CsvViewer extends React.Component {
         data,
         initialState: { sortBy: [{ id: 'genes', inc: true }], pageSize: 20 },
       },
+      useGlobalFilter,
+      useFilters,
       useSortBy,
-      usePagination
+      usePagination,
     )
 
     // Render the UI for your table
@@ -89,7 +94,7 @@ class CsvViewer extends React.Component {
       <Styles>
         <div className="tableWrap">
           <table {...getTableProps()}>
-            <thead style={{backgroundColor: 'whitesmoke'}}>
+            <thead style={{ backgroundColor: 'whitesmoke' }}>
               {headerGroups.map(headerGroup => (
                 <tr {...headerGroup.getHeaderGroupProps()}>
                   {headerGroup.headers.map(column => (
@@ -116,7 +121,7 @@ class CsvViewer extends React.Component {
                         <td
                           {...cell.getCellProps({
                             className: cell.column.collapse ? 'collapse' : '',
-                          })} style={typeof Object.values(cell.row.original)[k] === 'number' ? {textAlign: 'right'}: {textAlign: 'left'}}
+                          })} style={typeof Object.values(cell.row.original)[k] === 'number' ? { textAlign: 'right' } : { textAlign: 'left' }}
                         >
                           {
                             (typeof Object.values(cell.row.original)[k] === 'number') ?

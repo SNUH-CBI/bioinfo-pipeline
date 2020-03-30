@@ -26,7 +26,7 @@ export default class Screen extends React.Component {
   }
 
   makeScreen = (props) => {
-    if (props.sidebar[1] !== undefined) console.log(props.sidebar)
+    console.log(props)
     const frameData = this.state.frameData
     const frameURL = config.backend + '/static/' + config.project_path + props.clickedElement
     switch (props.clickedNav) {
@@ -52,16 +52,26 @@ export default class Screen extends React.Component {
         })
         return <DEGviewer file={frameData} allCountDataURL={allCountDataURL} />
       case 'GSA':
-        return (<div className='d-flex flex-column' style={{ marginLeft: '50px' }}>
-          <div className='d-flex flex-row'>
-            <GSAviewer file={frameData} />
-            <GSAviewer file={frameData} />
-          </div>
-          <div className='d-flex flex-row'>
-            <GSAviewer file={frameData} />
-            <GSAviewer file={frameData} />
-          </div>
-        </div>)
+        if (props.sidebar[1] !== undefined) console.log(props.sidebar[1].children)
+        if (this.state.frameData.type !== 'text/html') {
+          return (
+            <div className='d-flex flex-column' style={{ marginLeft: '50px' }}>
+              {/*
+              <div className='d-flex flex-row'>
+                <GSAviewer file={frameData} />
+                <GSAviewer file={frameData} />
+              </div>
+              <div className='d-flex flex-row'>
+                <GSAviewer file={frameData} />
+                <GSAviewer file={frameData} />
+              </div>*/}
+              <GSAviewer file={frameData} clickedElement={props.clickedElement} />
+            </div>
+          )
+        }
+        else {
+          return <Iframe src={frameURL} width="100%" height="100%" />
+        }
       case 'Download':
         return <Download />
       default:
