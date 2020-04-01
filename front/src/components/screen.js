@@ -8,10 +8,10 @@ export default class Screen extends React.Component {
   state = { frameData: '', loading: false }
 
   shouldComponentUpdate = (nextProps, nextState) => {
-    const frameData = this.state.frameData
-    const clickedElement = this.props.clickedElement
-    if (clickedElement !== nextProps.clickedElement && nextProps.clickedElement !== '') {
-      const elementURL = config.backend + '/static/' + config.project_path + nextProps.clickedElement
+    const clickedElement = this.props.clickedElement.value
+
+    if (clickedElement !== nextProps.clickedElement.value && nextProps.clickedElement.value !== '') {
+      const elementURL = config.backend + '/static/' + config.project_path + nextProps.clickedElement.value
       fetch(elementURL)
         .then((response) => response.clone().blob())
         .then(blob => { this.setState({ frameData: blob }) })
@@ -26,9 +26,8 @@ export default class Screen extends React.Component {
   }
 
   makeScreen = (props) => {
-    console.log(props)
     const frameData = this.state.frameData
-    const frameURL = config.backend + '/static/' + config.project_path + props.clickedElement
+    const frameURL = config.backend + '/static/' + config.project_path + props.clickedElement.value
     switch (props.clickedNav) {
       case 'Home':
         return <Home history={props.history} match={props.match} />
@@ -43,14 +42,14 @@ export default class Screen extends React.Component {
         let allCountDataURL = ''
         props.sidebar.some((category) => {
           category.children.some((v, i) => {
-            if (category.children[i - 1] !== undefined && v['value'] === props.clickedElement) {
+            if (category.children[i - 1] !== undefined && v['value'] === props.clickedElement.value) {
               allCountDataURL = category.children[i - 1]['value']
               return true
             }
           })
           if (allCountDataURL !== '') return true
         })
-        return <DEGviewer file={frameData} allCountDataURL={allCountDataURL} />
+        return <DEGviewer file={frameData} allCountDataURL={allCountDataURL} elemData={props.clickedElement} />
       case 'GSA':
         if (props.sidebar[1] !== undefined) console.log(props.sidebar[1].children)
         if (this.state.frameData.type !== 'text/html') {
@@ -65,7 +64,7 @@ export default class Screen extends React.Component {
                 <GSAviewer file={frameData} />
                 <GSAviewer file={frameData} />
               </div>*/}
-              <GSAviewer file={frameData} clickedElement={props.clickedElement} />
+              <GSAviewer file={frameData} clickedElement={props.clickedElement.value} />
             </div>
           )
         }

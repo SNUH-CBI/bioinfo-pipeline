@@ -42,11 +42,11 @@ const Sidebar = (props) => {
             </Button>
           else if (index.type === 'file')
             return <Button
-              onClick={(e) => props.setClickedElement(e.target.value)}
+              onClick={(e) => {props.setClickedElement(index)}}
               key={key}
               variant='link'
-              style={props.clickedElement === index.value ? { color: 'blue' } : { color: 'black' }}
-              value={index.value} >
+              style={props.clickedElement === index ? { color: 'blue' } : { color: 'black' }}
+              value={index} >
               {index.label}
             </Button>
           else return (
@@ -58,11 +58,11 @@ const Sidebar = (props) => {
                 <Card.Body style={{ padding: '0' }}>
                   {index.children.filter((v) => !v.label.includes('Download')).map((index, key) => {
                     return <Button
-                      onClick={e => props.setClickedElement(e.target.value)}
+                      onClick={e => props.setClickedElement(index)}
                       key={key}
                       variant='link'
-                      style={props.clickedElement === index.value ? { color: 'blue' } : { color: 'black' }}
-                      value={index.value}>
+                      style={props.clickedElement === index ? { color: 'blue' } : { color: 'black' }}
+                      value={index}>
                       {index.label}
                     </Button>
                   })}

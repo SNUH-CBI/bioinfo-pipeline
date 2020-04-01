@@ -13,28 +13,32 @@ export default class DEGviewer extends React.Component {
       window.open(response.file)
     }, 100)
   }
-  
+
   static defaultProps = { frameData: '', allCountDataURL: '' }
 
   render() {
-    console.log(this.props)
+    let label = ''
+    if (typeof this.props.elemData.label === 'string')
+      label = (this.props.elemData.label.split(" ")[0])
     return (
-      <div className='d-flex flex-column' style={{margin: '20px 20px'}}>
+      <div className='d-flex flex-column' style={{ margin: '20px 20px' }}>
         <div className='d-flex flex-row'>
-          <div className='d-flex flex-column' style={{alignItems: 'center'}}>
+
+          <div className='d-flex flex-column' style={{ alignItems: 'center' }}>
             <h1>Result of DESeq2</h1>
-            <br />
-            <Button onClick={this.download} style={{width: '300px'}}>download<br/>{this.props.allCountDataURL}</Button>
+            <CsvViewer file={this.props.file} />
+          </div>
+
+          <div className='d-flex flex-column'>
+            <Button onClick={this.download} style={{ width: '150px', height: 'fit-content', padding: '10px' }}>download<br />All {label} data</Button>
             <br />
             <div style={{ border: '1px solid black', whiteSpace: 'nowrap', margin: '10px 10px', padding: '10px 10px' }}>
               <h5>significant deg box</h5>
               <h2>00 out of 00</h2>
               <h3>satisfied cutoff Benjamini &lt; 0.05</h3>
             </div>
-            <br/>
-          <img src='DESeq2_count_vcPlot.png' alt="nothing" style={{ width: 'auto', height: '50vh' }}/>
+            <img src='DESeq2_count_vcPlot.png' alt="nothing" style={{ width: 'auto', height: '50vh' }} />
           </div>
-            <CsvViewer file={this.props.file} />
         </div>
       </div>
     )

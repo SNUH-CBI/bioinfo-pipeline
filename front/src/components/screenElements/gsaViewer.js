@@ -7,7 +7,6 @@ const GSAviewer = (props) => {
   let a = []
   const [data, setData] = useState({})
   useEffect(() => {
-    console.log(props.file)
     Papa.parse(props.file, {
       download: true,
       header: true,
@@ -19,7 +18,6 @@ const GSAviewer = (props) => {
   }, [props.file]);
 
   const handleDataChange = file => {
-    console.log(props)
     let delimiter = ''
     if (typeof props.clickedElement === 'string') {
       if (props.clickedElement.includes('KEGG')) delimiter = ':'
@@ -41,7 +39,6 @@ const GSAviewer = (props) => {
         })
         const b = file.meta.fields.filter((v, i) => filterNum.includes(i))
         b.push(role)
-        console.log(b)
         a.unshift(b)
         setData(a)
       }
@@ -62,7 +59,7 @@ const GSAviewer = (props) => {
         </Spinner>}
         data={data}
         options={{
-          title: props.clickedElement,
+          title: props.clickedElement.slice(-8,-4),
           vAxis: {
             textStyle: {
               fontSize: 11
