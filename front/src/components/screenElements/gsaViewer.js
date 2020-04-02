@@ -4,6 +4,7 @@ import Papa from 'papaparse'
 import { Spinner } from 'react-bootstrap'
 
 const GSAviewer = (props) => {
+  console.log(props)
   let a = []
   const [data, setData] = useState({})
   useEffect(() => {
@@ -18,6 +19,7 @@ const GSAviewer = (props) => {
   }, [props.file]);
 
   const handleDataChange = file => {
+    console.log(file)
     let delimiter = ''
     if (typeof props.clickedElement === 'string') {
       if (props.clickedElement.includes('KEGG')) delimiter = ':'
@@ -35,10 +37,12 @@ const GSAviewer = (props) => {
           const term = v[0].split(delimiter)[0]
           const PValue = -Math.log10(v[1]).toFixed(3)
           const Genes = v[2].split(",").length
-          return [term, PValue, Genes, String(v[0] + '\n Genes: ' + Genes + '\n PValue(-log10): ' + PValue)]
+          const tooltip = String(v[0] + '\n Genes: ' + Genes + '\n PValue(-log10): ' + PValue)
+          return [term, PValue, tooltip, Genes, tooltip]
         })
         const b = file.meta.fields.filter((v, i) => filterNum.includes(i))
         b.push(role)
+        b.splice(2, 0, role)
         a.unshift(b)
         setData(a)
       }
@@ -59,7 +63,7 @@ const GSAviewer = (props) => {
         </Spinner>}
         data={data}
         options={{
-          title: props.clickedElement.slice(-8,-4),
+          title: props.clickedElement.slice(-8, -4),
           vAxis: {
             textStyle: {
               fontSize: 11
@@ -72,13 +76,11 @@ const GSAviewer = (props) => {
           series: { 0: { type: 'bars', targetAxisIndex: 0, color: 'skyblue' }, 1: { type: 'line', targetAxisIndex: 1 } },
           orientation: 'vertical',
         }}
-        rootProps={{ 'data-testid': '1' }}
       />
     </>
   )
 }
 
-GSAviewer.defaultProps = { file: [] }
+GSAviewer.defaultProps = { file: [], clickedElement: 'aa' }
 
 export default GSAviewer
-

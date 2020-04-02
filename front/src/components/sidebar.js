@@ -32,6 +32,7 @@ const Sidebar = (props) => {
   else return (
     <div className="sidebar" >
       <Accordion style={{ textAlign: 'center' }} defaultActiveKey={0} activeKey={activeKey} >
+        {props.clickedNav.includes('fastQC') && <Button variant='link' style={{color: 'green'}}>Summary</Button>}
         {props.sidebar.map((index, key) => {
           if (index.type === 'category')
             return <Button

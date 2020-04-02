@@ -7,7 +7,7 @@ import Iframe from 'react-iframe'
 export default class Screen extends React.Component {
   state = { frameData: '', loading: false }
 
-  shouldComponentUpdate = (nextProps, nextState) => {
+  shouldComponentUpdate = (                                                                                                                                                                                                                                                                                                           nextProps, nextState) => {
     const clickedElement = this.props.clickedElement.value
 
     if (clickedElement !== nextProps.clickedElement.value && nextProps.clickedElement.value !== '') {
@@ -51,10 +51,10 @@ export default class Screen extends React.Component {
         })
         return <DEGviewer file={frameData} allCountDataURL={allCountDataURL} elemData={props.clickedElement} />
       case 'GSA':
-        if (props.sidebar[1] !== undefined) console.log(props.sidebar[1].children)
+        // if (props.sidebar[1] !== undefined) console.log(props.sidebar[1].children)
         if (this.state.frameData.type !== 'text/html') {
           return (
-            <div className='d-flex flex-column' style={{ marginLeft: '50px' }}>
+            <div className='d-flex flex-column' style={{ marginLeft: '50px' }} >
               {/*
               <div className='d-flex flex-row'>
                 <GSAviewer file={frameData} />
@@ -64,7 +64,7 @@ export default class Screen extends React.Component {
                 <GSAviewer file={frameData} />
                 <GSAviewer file={frameData} />
               </div>*/}
-              <GSAviewer file={frameData} clickedElement={props.clickedElement.value} />
+              <GSAviewer file={frameData} clickedElement={props.clickedElement.value}  />
             </div>
           )
         }
