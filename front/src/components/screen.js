@@ -5,6 +5,11 @@ import config from './../config/config.json'
 import Iframe from 'react-iframe'
 
 export default class Screen extends React.Component {
+
+  static defaultProps = {
+    clickedElement: {value: 'aa'}
+  }
+
   state = { frameData: '', loading: false }
 
   shouldComponentUpdate = (                                                                                                                                                                                                                                                                                                           nextProps, nextState) => {
@@ -12,6 +17,7 @@ export default class Screen extends React.Component {
 
     if (clickedElement !== nextProps.clickedElement.value && nextProps.clickedElement.value !== '') {
       const elementURL = config.backend + '/static/' + config.project_path + nextProps.clickedElement.value
+      console.log(elementURL)
       fetch(elementURL)
         .then((response) => response.clone().blob())
         .then(blob => { this.setState({ frameData: blob }) })
@@ -64,7 +70,7 @@ export default class Screen extends React.Component {
                 <GSAviewer file={frameData} />
                 <GSAviewer file={frameData} />
               </div>*/}
-              <GSAviewer file={frameData} clickedElement={props.clickedElement.value}  />
+              <GSAviewer file={frameData} clickedElement={props.clickedElement}  />
             </div>
           )
         }

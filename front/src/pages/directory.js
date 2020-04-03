@@ -6,12 +6,12 @@ import config from './../config/config.json'
 const Directory = (props) => {
   const [clickedNav, setClickedNav] = useState('Home')
   const [sidebar, setSidebar] = useState([])
-  const [clickedElement, setClickedElement] = useState('')
+  const [clickedElement, setClickedElement] = useState({value: 'aa'})
 
   useEffect(() => {
     if (clickedNav === 'Home' || clickedNav === 'Download') {
       setSidebar([])
-      setClickedElement('')
+      setClickedElement({value:'aa'})
     }
     else {
       axios.defaults.withCredentials = true

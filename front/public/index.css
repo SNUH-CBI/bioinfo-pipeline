@@ -23,8 +23,10 @@
 .directory {
   display: flex;
   flex-direction: column;
-  width: 100vw;
+  align-content: center;
+  width: 1080px;
   height: 100vh;
+  margin: 0px auto;
   overflow: hidden;
 }
 
@@ -98,4 +100,8 @@ table.type06 .even {
   padding: 50px 10px 50px 10px;
   width: 50vw;
   height: 50vh;
+}
+
+.asdf {
+  color: rgba(92, 92, 92, 0.247)
 }

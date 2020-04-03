@@ -42,6 +42,7 @@ class CsvViewer extends React.Component {
   }
 
   makeColumns = rawColumns => {
+    console.log(rawColumns)
     return rawColumns.map(column => {
       return { Header: column, accessor: column };
     })
@@ -94,7 +95,7 @@ class CsvViewer extends React.Component {
       <Styles>
         <div className="tableWrap">
           <table {...getTableProps()}>
-            <thead style={{ backgroundColor: 'whitesmoke' }}>
+            <thead style={{ backgroundColor: 'rgba(92, 92, 92, 0.247)' }}>
               {headerGroups.map(headerGroup => (
                 <tr {...headerGroup.getHeaderGroupProps()}>
                   {headerGroup.headers.map(column => (
