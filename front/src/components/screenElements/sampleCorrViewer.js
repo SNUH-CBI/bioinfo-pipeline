@@ -21,15 +21,15 @@ const SampleCorrViewer = (props) => {
     })
     return (
       <div className="d-flex flex-column">
-        <div>
+        <div style={{margin:'0px auto'}}>
           <p style={{ marginTop: '0px', marginBottom: '-30px', zIndex: '1' }}>COUNT</p>
           <Gallery images={images[0]} margin={30} />
         </div>
-        <div>
+        <div style={{margin:'0px auto'}}>
           <p style={{ marginTop: '-10px', marginBottom: '-30px', zIndex: '1' }}>FPKM</p>
           <Gallery images={images[1]} margin={30} />
         </div>
-        <div>
+        <div style={{margin:'0px auto'}}>
           <p style={{ marginTop: '-10px', marginBottom: '-30px', zIndex: '1' }}>TPM</p>
           <Gallery images={images[2]} margin={30} />
         </div >

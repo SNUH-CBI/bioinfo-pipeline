@@ -93,7 +93,8 @@ const GSAviewer = (props) => {
             2: {
               type: 'line',
               targetAxisIndex: 0,
-              color: 'black'
+              color: 'black',
+              titlePosition: 'none'
             }
           },
           orientation: 'vertical',

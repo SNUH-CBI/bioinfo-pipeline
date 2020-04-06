@@ -81,28 +81,29 @@ const Sidebar = (props) => {
         return (
           <Accordion style={{ textAlign: 'center' }} defaultActiveKey={0} activeKey={activeKey} className='sidebar' >
             <Button variant='link' style={{ color: 'green' }}>Summary</Button>
-            {props.sidebar.map((index, key) => {
-              return (
-                <Card key={key} >
-                  <Card.Header style={{ padding: '0' }}>
-                    <CustomToggle index={index} eventKey={key} />
-                  </Card.Header>
-                  <Accordion.Collapse eventKey={key} >
-                    <Card.Body style={{ padding: '0' }}>
-                      {index.children.map((index, key) => {
-                        return <Button
-                          onClick={e => props.setClickedElement(index)}
-                          key={key}
-                          variant='link'
-                          style={props.clickedElement === index ? { color: 'blue' } : { color: 'black' }}
-                          value={index}>
-                          {index.label}
-                        </Button>
-                      })}
-                    </Card.Body>
-                  </Accordion.Collapse>
-                </Card>)
-            })}
+            {
+              props.sidebar.map((index, key) => {
+                return (
+                  <Card key={key} >
+                    <Card.Header style={{ padding: '0' }}>
+                      <CustomToggle index={index} eventKey={key} />
+                    </Card.Header>
+                    <Accordion.Collapse eventKey={key} >
+                      <Card.Body style={{ padding: '0' }}>
+                        {index.children.filter(v=>v.label.includes('Display')).map((index, key) => {
+                          return <Button
+                            onClick={e => props.setClickedElement(index)}
+                            key={key}
+                            variant='link'
+                            style={props.clickedElement === index ? { color: 'blue' } : { color: 'black' }}
+                            value={index}>
+                            {index.label}
+                          </Button>
+                        })}
+                      </Card.Body>
+                    </Accordion.Collapse>
+                  </Card>)
+              })}
           </Accordion>
         )
       case 'GSA':
