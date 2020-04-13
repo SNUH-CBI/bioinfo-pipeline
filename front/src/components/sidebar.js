@@ -7,7 +7,7 @@ const Sidebar = (props) => {
 
   useEffect(() => {
     setActiveKey(0)
-    return ()=>{}
+    return () => { }
   }, [props.clickedNav]);
 
   const CustomToggle = ({ eventKey, index }) => {
@@ -25,59 +25,133 @@ const Sidebar = (props) => {
       </Button>
     )
   }
-  
-  if (noSidebarNav.includes(props.clickedNav)) {
-    return (<div></div>)
+
+  try {
+
+    switch (props.clickedNav) {
+      case 'Raw_fastQC':
+      case 'Filtered_fastQC':
+        return (
+          <Accordion style={{ textAlign: 'center' }} defaultActiveKey={0} activeKey={activeKey} className="sidebar" >
+            <Button variant='link' style={{ color: 'green' }} onClick={()=>props.setClickedElement({value: 'summary'})}>Summary</Button>
+            {props.sidebar.map((index, key) => {
+              return (
+                <Card key={key} >
+                  <Card.Header style={{ padding: '0' }}>
+                    <CustomToggle index={index} eventKey={key} />
+                  </Card.Header>
+                  <Accordion.Collapse eventKey={key} >
+                    <Card.Body style={{ padding: '0' }}>
+                      {index.children.map((index, key) => {
+                        return <Button
+                          onClick={e => props.setClickedElement(index)}
+                          key={key}
+                          variant='link'
+                          style={props.clickedElement === index ? { color: 'blue' } : { color: 'black' }}
+                          value={index}>
+                          {index.label}
+                        </Button>
+                      })}
+                    </Card.Body>
+                  </Accordion.Collapse>
+                </Card>
+              )
+            })}
+          </Accordion>
+        )
+      case 'RSEM_UCSC':
+      case 'Qualimap_UCSC':
+        return (
+          <div className='sidebar'>
+            {props.clickedNav === 'Qualimap_UCSC' &&
+              <Button variant='link' style={{ color: 'green' }}>Summary</Button>}
+            {props.sidebar.map((index, key) => {
+              return <Button
+                onClick={(e) => { props.setClickedElement(index) }}
+                key={key}
+                variant='link'
+                style={props.clickedElement === index ? { color: 'blue' } : { color: 'black' }}
+                value={index} >
+                {index.label}
+              </Button>
+            })}
+          </div>
+        )
+      case 'DEG':
+        return (
+          <Accordion style={{ textAlign: 'center' }} defaultActiveKey={0} activeKey={activeKey} className='sidebar' >
+            <Button variant='link' style={{ color: 'green' }}>Summary</Button>
+            {
+              props.sidebar.map((index, key) => {
+                return (
+                  <Card key={key} >
+                    <Card.Header style={{ padding: '0' }}>
+                      <CustomToggle index={index} eventKey={key} />
+                    </Card.Header>
+                    <Accordion.Collapse eventKey={key} >
+                      <Card.Body style={{ padding: '0' }}>
+                        {index.children.filter(v => v.label.includes('Display')).map((index, key) => {
+                          return <Button
+                            onClick={e => props.setClickedElement(index)}
+                            key={key}
+                            variant='link'
+                            style={props.clickedElement === index ? { color: 'blue' } : { color: 'black' }}
+                            value={index}>
+                            {index.label}
+                          </Button>
+                        })}
+                      </Card.Body>
+                    </Accordion.Collapse>
+                  </Card>)
+              })}
+          </Accordion>
+        )
+      case 'GSA':
+        console.log(props)
+        return (
+          <div className='sidebar'>
+            <Accordion style={{ textAlign: 'center' }} defaultActiveKey={0} activeKey={activeKey} className="sidebar" >
+              {props.sidebar.map((index, key) => {
+                if (index.type === 'category')
+                  return <Button
+                    key={key}
+                    style={{ color: 'grey' }}
+                    variant="Light">
+                    {index.label}
+                  </Button>
+                else return (
+                  <Card key={key} >
+                    <Card.Header style={{ padding: '0' }}>
+                      <CustomToggle index={index} eventKey={key} />
+                    </Card.Header>
+                    <Accordion.Collapse eventKey={key} >
+                      <Card.Body style={{ padding: '0' }}>
+                        {index.children.map((index, key) => {
+                          return <Button
+                            onClick={e => props.setClickedElement(index)}
+                            key={key}
+                            variant='link'
+                            style={props.clickedElement === index ? { color: 'blue' } : { color: 'black' }}
+                            value={index}>
+                            {index.label}
+                          </Button>
+                        })}
+                      </Card.Body>
+                    </Accordion.Collapse>
+                  </Card>
+                )
+              })}
+            </Accordion>
+          </div>
+        )
+      default: //includes 'Home', 'Sample_Correlation', 'Download'
+        return <div></div>
+    }
+  } catch (error) {
+    return 0
   }
-  else return (
-    <div className="sidebar" >
-      <Accordion style={{ textAlign: 'center' }} defaultActiveKey={0} activeKey={activeKey} >
-        {props.sidebar.map((index, key) => {
-          if (index.type === 'category')
-            return <Button
-              key={key}
-              style={{color: 'grey'}}
-              variant="Light">
-              {index.label}
-            </Button>
-          else if (index.type === 'file')
-            return <Button
-              onClick={(e) => props.setClickedElement(e.target.value)}
-              key={key}
-              variant='link'
-              style={props.clickedElement === index.value ? { color: 'blue' } : { color: 'black' }}
-              value={index.value} >
-              {index.label}
-            </Button>
-          else return (
-            <Card key={key} >
-              <Card.Header style={{ padding: '0' }}>
-                <CustomToggle index={index} eventKey={key} />
-              </Card.Header>
-              <Accordion.Collapse eventKey={key} >
-                <Card.Body style={{ padding: '0' }}>
-                  {index.children.filter((v) => !v.label.includes('Download')).map((index, key) => {
-                    return <Button
-                      onClick={e => props.setClickedElement(e.target.value)}
-                      key={key}
-                      variant='link'
-                      style={props.clickedElement === index.value ? { color: 'blue' } : { color: 'black' }}
-                      value={index.value}>
-                      {index.label}
-                    </Button>
-                  })}
-                </Card.Body>
-              </Accordion.Collapse>
-            </Card>
-          )
-        })}
-      </Accordion>
-    </div>
-  )
 
 }
-
-const noSidebarNav = ['Home', 'Download', 'Sample_Correlation']
 
 Sidebar.defaultProps = { clickedNav: 'Home' }
 

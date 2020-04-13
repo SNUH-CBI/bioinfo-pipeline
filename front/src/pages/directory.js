@@ -4,14 +4,14 @@ import axios from 'axios'
 import config from './../config/config.json'
 
 const Directory = (props) => {
-  const [clickedNav, setClickedNav] = useState('Home') // temp
+  const [clickedNav, setClickedNav] = useState('Home')
   const [sidebar, setSidebar] = useState([])
-  const [clickedElement, setClickedElement] = useState('')
+  const [clickedElement, setClickedElement] = useState({value: 'aa'})
 
   useEffect(() => {
     if (clickedNav === 'Home' || clickedNav === 'Download') {
       setSidebar([])
-      setClickedElement('')
+      setClickedElement({value:'aa'})
     }
     else {
       axios.defaults.withCredentials = true
@@ -28,12 +28,12 @@ const Directory = (props) => {
           let firstElement = ''
           response.data.some((i) => {
             if (i.children === undefined && i.type === 'file') {
-              firstElement = i.value
+              firstElement = i
               return true
             }
             if (i.children !== undefined && i.children !== []) {
-              if (i.children[0].label.includes('Download')) firstElement = i.children[1].value
-              else firstElement = i.children[0].value
+              if (i.children[0].label.includes('Download')) firstElement = i.children[1]
+              else firstElement = i.children[0]
 
               return true
             }
@@ -58,7 +58,6 @@ const Directory = (props) => {
     }
     return () => { }
   }, [clickedNav]);
-
 
 
   return (

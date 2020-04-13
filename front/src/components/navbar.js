@@ -3,7 +3,7 @@ import { ButtonGroup, Button } from 'react-bootstrap'
 
 const Navbar = (props) => {
   return (
-    <ButtonGroup style={{ height: '5vh', minHeight: '35px' }}>
+    <ButtonGroup style={{ height: '35px' }}>
       {mainButtonList.map((v, i) => {
         return (
           <Button
