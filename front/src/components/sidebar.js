@@ -33,7 +33,7 @@ const Sidebar = (props) => {
       case 'Filtered_fastQC':
         return (
           <Accordion style={{ textAlign: 'center' }} defaultActiveKey={0} activeKey={activeKey} className="sidebar" >
-            <Button variant='link' style={{ color: 'green' }}>Summary</Button>
+            <Button variant='link' style={{ color: 'green' }} onClick={()=>props.setClickedElement({value: 'summary'})}>Summary</Button>
             {props.sidebar.map((index, key) => {
               return (
                 <Card key={key} >
@@ -90,7 +90,7 @@ const Sidebar = (props) => {
                     </Card.Header>
                     <Accordion.Collapse eventKey={key} >
                       <Card.Body style={{ padding: '0' }}>
-                        {index.children.filter(v=>v.label.includes('Display')).map((index, key) => {
+                        {index.children.filter(v => v.label.includes('Display')).map((index, key) => {
                           return <Button
                             onClick={e => props.setClickedElement(index)}
                             key={key}
@@ -107,9 +107,41 @@ const Sidebar = (props) => {
           </Accordion>
         )
       case 'GSA':
+        console.log(props)
         return (
           <div className='sidebar'>
-            <Button>Summary</Button>
+            <Accordion style={{ textAlign: 'center' }} defaultActiveKey={0} activeKey={activeKey} className="sidebar" >
+              {props.sidebar.map((index, key) => {
+                if (index.type === 'category')
+                  return <Button
+                    key={key}
+                    style={{ color: 'grey' }}
+                    variant="Light">
+                    {index.label}
+                  </Button>
+                else return (
+                  <Card key={key} >
+                    <Card.Header style={{ padding: '0' }}>
+                      <CustomToggle index={index} eventKey={key} />
+                    </Card.Header>
+                    <Accordion.Collapse eventKey={key} >
+                      <Card.Body style={{ padding: '0' }}>
+                        {index.children.map((index, key) => {
+                          return <Button
+                            onClick={e => props.setClickedElement(index)}
+                            key={key}
+                            variant='link'
+                            style={props.clickedElement === index ? { color: 'blue' } : { color: 'black' }}
+                            value={index}>
+                            {index.label}
+                          </Button>
+                        })}
+                      </Card.Body>
+                    </Accordion.Collapse>
+                  </Card>
+                )
+              })}
+            </Accordion>
           </div>
         )
       default: //includes 'Home', 'Sample_Correlation', 'Download'

@@ -1,20 +1,20 @@
 import React from 'react';
 import { Spinner } from 'react-bootstrap'
-import { Home, Download, DEGviewer, GSAviewer, SampleCorrViewer } from './screenElements'
+import { Home, Download, DEGviewer, GSAviewer, SampleCorrViewer, Raw_fastQC_summary } from './screenElements'
 import config from './../config/config.json'
 import Iframe from 'react-iframe'
 
 export default class Screen extends React.Component {
 
   static defaultProps = {
-    clickedElement: {value: 'aa'}
+    clickedElement: { value: 'aa' }
   }
 
   state = { frameData: '', loading: false }
 
-  shouldComponentUpdate = (                                                                                                                                                                                                                                                                                                           nextProps, nextState) => {
+  shouldComponentUpdate = (nextProps, nextState) => {
     const clickedElement = this.props.clickedElement.value
-
+    if (clickedElement === 'summary') return true
     if (clickedElement !== nextProps.clickedElement.value && nextProps.clickedElement.value !== '') {
       const elementURL = config.backend + '/static/' + config.project_path + nextProps.clickedElement.value
       console.log(elementURL)
@@ -38,6 +38,8 @@ export default class Screen extends React.Component {
       case 'Home':
         return <Home history={props.history} match={props.match} />
       case 'Raw_fastQC':
+        if (props.clickedElement.value === 'summary') return <Raw_fastQC_summary />
+        else return <Iframe src={frameURL} width="100%" height="100%" />
       case 'Filtered_fastQC':
       case 'RSEM_UCSC':
       case 'Qualimap_UCSC':
@@ -61,16 +63,8 @@ export default class Screen extends React.Component {
         if (this.state.frameData.type !== 'text/html') {
           return (
             <div className='d-flex flex-column' style={{ marginLeft: '50px' }} >
-              {/*
-              <div className='d-flex flex-row'>
-                <GSAviewer file={frameData} />
-                <GSAviewer file={frameData} />
-              </div>
-              <div className='d-flex flex-row'>
-                <GSAviewer file={frameData} />
-                <GSAviewer file={frameData} />
-              </div>*/}
-              <GSAviewer file={frameData} clickedElement={props.clickedElement}  />
+
+              <GSAviewer file={frameData} clickedElement={props.clickedElement} />
             </div>
           )
         }
@@ -85,6 +79,7 @@ export default class Screen extends React.Component {
   }
 
   render() {
-    return (this.makeScreen(this.props))
+    try { return (this.makeScreen(this.props)) }
+    catch{ return <div></div> }
   }
 }

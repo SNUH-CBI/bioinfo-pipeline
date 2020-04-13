@@ -44,7 +44,7 @@ const GSAviewer = (props) => {
         b.push(role)
         b.splice(2, 0, role)
         b.splice(1, 1, '-log10(PValue)')
-        b.push('')
+        b.push('-log10(PValue)=0.5')
         b.push(role)
         a.unshift(b)
         setData(a)
@@ -58,7 +58,7 @@ const GSAviewer = (props) => {
   return (
     <>
       <Chart
-        width={'100%'}
+        width={'90vh'}
         height={'94vh'}
         chartType="ComboChart"
         loader={<Spinner animation="border" role="status">
@@ -94,7 +94,6 @@ const GSAviewer = (props) => {
               type: 'line',
               targetAxisIndex: 0,
               color: 'black',
-              titlePosition: 'none'
             }
           },
           orientation: 'vertical',
