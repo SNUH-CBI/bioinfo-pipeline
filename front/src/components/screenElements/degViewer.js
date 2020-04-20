@@ -34,7 +34,7 @@ export default class DEGviewer extends React.Component {
         </div>
         <div className='d-flex flex-row' style={{ alignItems: 'center' }}>
         </div>
-        <img src='DESeq2_count_vcPlot.png' alt="nothing" style={{ width: '1080px', height: 'auto', margin: '0 auto' }} />
+        <img src='./sampleFiles/DESeq2_count_vcPlot.png' alt="nothing" style={{ width: '1080px', height: 'auto', margin: '0 auto' }} />
         <CsvViewer file={this.props.file} setGenes={this.setGenes} />
 
       </div>

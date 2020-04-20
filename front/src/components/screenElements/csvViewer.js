@@ -206,7 +206,7 @@ class CsvViewer extends React.Component {
 const toExponential = ['PValue', 'pvalue', 'ttest_tpm', 'padj', 'ttest_fpkm']
 
 const Styles = styled.div`
-  width: 1280px;
+  width: 1080px;
   margin: 0 auto;
   /* This is required to make the table full-width */
   display: block;
