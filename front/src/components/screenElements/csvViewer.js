@@ -42,13 +42,13 @@ class CsvViewer extends React.Component {
   }
 
   makeColumns = rawColumns => {
-    console.log(rawColumns)
     return rawColumns.map(column => {
       return { Header: column, accessor: column };
     })
   }
 
   handleDataChange = file => {
+    this.props.setGenes(file.data.length)
     this.setState({ data: file.data })
     this.setState({ columns: this.makeColumns(file.meta.fields) })
   }
@@ -206,6 +206,8 @@ class CsvViewer extends React.Component {
 const toExponential = ['PValue', 'pvalue', 'ttest_tpm', 'padj', 'ttest_fpkm']
 
 const Styles = styled.div`
+  width: 1280px;
+  margin: 0 auto;
   /* This is required to make the table full-width */
   display: block;
   max-width: 100%;
