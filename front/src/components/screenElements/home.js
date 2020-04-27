@@ -51,21 +51,21 @@ export default class Home extends React.Component {
       <table className="type06">
         <thead>
           <tr>
-            <th scope="row">project</th>
+            <th scope="row">Project</th>
             <td>{infoData.project}</td>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <th scope="row" className="even">manager</th>
+            <th scope="row" className="even">Manager</th>
             <td className="even">{infoData.manager}</td>
           </tr>
           <tr>
-            <th scope="row">date</th>
+            <th scope="row">Date</th>
             <td>{infoData.date}</td>
           </tr>
           <tr>
-            <th scope="row" className='even' rowSpan="4">Control case</th>
+            <th scope="row" className='even' rowSpan="4">Control / Case</th>
             <td>
               {Object.keys(infoData.info).length !== 0 &&
                 <table>
