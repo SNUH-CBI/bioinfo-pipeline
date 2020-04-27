@@ -38,13 +38,13 @@ const GSAviewer = (props) => {
           const PValue = -Math.log10(v[1]).toFixed(3)
           const Genes = v[2].split(",").length
           const tooltip = String(v[0] + '\n Genes: ' + Genes + '\n -log10(PValue): ' + PValue)
-          return [term, PValue, tooltip, Genes, tooltip, 0.5, '-log10(PValue) = 0.5']
+          return [term, PValue, tooltip, Genes, tooltip, 0.5, '-log10(0.05)']
         })
         const b = file.meta.fields.filter((v, i) => filterNum.includes(i))
         b.push(role)
         b.splice(2, 0, role)
         b.splice(1, 1, '-log10(PValue)')
-        b.push('-log10(PValue)=0.5')
+        b.push('-log10(0.05)')
         b.push(role)
         a.unshift(b)
         setData(a)
