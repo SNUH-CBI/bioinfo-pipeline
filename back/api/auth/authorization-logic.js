@@ -34,6 +34,6 @@ const post = (req, res) => {
 
 };
 
-export default {
+module.exports = {
     post
 };

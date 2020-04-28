@@ -5,4 +5,4 @@ const router = express.Router();
 
 router.get('/', infoLogic.get);
 
-export default router;
+module.exports = router;

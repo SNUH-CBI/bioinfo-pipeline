@@ -12,4 +12,4 @@ router.use('/directory', require('./directory/directory-router'));
 
 router.use('/info', require('./info/info-router'));
 
-export default router;
+module.exports = router;

@@ -59,6 +59,6 @@ const get = (req, res) => {
 
 };
 
-export default {
+module.exports = {
     get
 };
