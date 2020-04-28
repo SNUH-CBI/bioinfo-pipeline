@@ -20,8 +20,8 @@ const pipelineDirectory = (menu) => {
 
     // match menu with function
     const dirFunction = {
-        'Raw_fastQC': getFastqc,
-        'Filtered_fastQC': getFastqc,
+        'Raw_FastQC': getFastqc,
+        'Filtered_FastQC': getFastqc,
         'RSEM_UCSC': getRsemUcsc,
         'Qualimap_UCSC': getQualimapUcsc,
         'Sample_Correlation': getCorrelation,
@@ -93,9 +93,8 @@ const getFastqc = (directory, dirName) => {
         for(let j = 0; j < captionFiles.length; j++) {
 
             resultChildren.push({
-                'id': `${captionList[i]}_${j+1}_fastqc`,
-                'name': `result${j+1}`,
-                'value': `/${dirName}/${captionFiles[j]}`
+                'id': `/${dirName}/${captionFiles[j]}`,
+                'name': `result${j+1}`
             });
 
         }
@@ -123,6 +122,12 @@ const getRsemUcsc = (directory, dirName) => {
     const files = tree.children;
 
     let result = [];
+
+    result.push({
+        id: 'Summary',
+        name: 'Summary'
+    });
+
     let captionOrganize = {}; // file names organized by caption
 
     // parse file names
@@ -148,8 +153,8 @@ const getRsemUcsc = (directory, dirName) => {
     for(let i = 0; i < captionList.length; i++) {
 
         result.push({
-            'id': 'leaf_' + captionList[i],
-            'name': `/${dirName}/${captionOrganize[captionList[i]][0]}`
+            'id': `/${dirName}/${captionOrganize[captionList[i]][0]}`,
+            'name': captionList[i]
         });
 
     }
@@ -172,6 +177,11 @@ const getQualimapUcsc = (directory, dirName) => {
 
     let result = [];
 
+    result.push({
+        id: 'Summary',
+        name: 'Summary'
+    });
+
     for(let i = 0; i < folders.length; i++) {
 
         const label = folders[i].name;
@@ -180,8 +190,8 @@ const getQualimapUcsc = (directory, dirName) => {
         if(regex.exec(label) === null) continue;
 
         result.push({
-            'id': 'leaf_' + label,
-            'name': `/${dirName}/${label}/qualimapReport.html`
+            'id': `/${dirName}/${label}/qualimapReport.html`,
+            'name': label
         })
 
     }
