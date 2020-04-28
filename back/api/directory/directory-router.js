@@ -3,6 +3,6 @@ const dirLogic  = require('./directory-logic');
 
 const router = express.Router();
 
-router.get('/', dirLogic.get);
+router.post('/', dirLogic.post);
 
 module.exports = router;

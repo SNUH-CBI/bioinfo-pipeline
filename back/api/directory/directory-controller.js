@@ -123,11 +123,6 @@ const getRsemUcsc = (directory, dirName) => {
 
     let result = [];
 
-    result.push({
-        id: 'Summary',
-        name: 'Summary'
-    });
-
     let captionOrganize = {}; // file names organized by caption
 
     // parse file names
