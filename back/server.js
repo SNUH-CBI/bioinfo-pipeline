@@ -2,6 +2,7 @@ const express       = require('express');
 const session       = require('express-session');
 const bodyParser    = require('body-parser');
 const cors          = require('cors');
+const api           = require('./api/api');
 const utility       = require('./utility');
 const serverConfig  = require('./config/server.json');
 
@@ -22,14 +23,7 @@ app.use(session({
 }));
 
 // API
-app.get('/', (req, res) => {
-    res.json({
-        title: 'bioinfo-pipeline-back'
-    })
-});
-app.use('/auth', require('./api/auth/authorization-router'));
-app.use('/directory', require('./api/directory/directory-router'));
-app.use('/info', require('./api/info/info-router'));
+app.use('/', api);
 
 // Server
 app.listen(serverConfig.port, () => utility.print(`listening on port: ${serverConfig.port}`));
