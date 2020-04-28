@@ -8,7 +8,7 @@ router.get('/', (req, res) => {
 
 router.use('/auth', require('./auth/authorization-router'));
 
-router.use('/directory', require('./directory/directory-router'));
+router.use('/filelist', require('./directory/directory-router'));
 
 router.use('/info', require('./info/info-router'));
 

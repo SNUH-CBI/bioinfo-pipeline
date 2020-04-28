@@ -3,10 +3,10 @@ const authController    = require('../auth/authorization-controller');
 const utility           = require('../../utility');
 const projectConfig     = require('../../config/project.json');
 
-const get = (req, res) => {
+const post = (req, res) => {
 
-    const project = req.query.project;
-    const menu = req.query.menu;
+    const project = req.body.project;
+    const menu = req.body.category;
     let result;
 
     // check parameters
@@ -45,5 +45,5 @@ const get = (req, res) => {
 };
 
 module.exports = {
-    get
+    post
 };
