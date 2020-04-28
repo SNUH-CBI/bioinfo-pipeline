@@ -53,6 +53,12 @@ const getFastqc = (directory, dirName) => {
     const files = tree.children;
 
     let result = [];
+
+    result.push({
+        id: 'Summary',
+        name: 'Summary'
+    });
+
     let captionOrganize = {}; // file names organized by caption
 
     // parse file names
@@ -87,17 +93,16 @@ const getFastqc = (directory, dirName) => {
         for(let j = 0; j < captionFiles.length; j++) {
 
             resultChildren.push({
-                'type': 'file',
-                'label': `result${j+1}`,
+                'id': `${captionList[i]}_${j+1}_fastqc`,
+                'name': `result${j+1}`,
                 'value': `/${dirName}/${captionFiles[j]}`
             });
 
         }
 
         result.push({
-            'type': 'caption',
-            'label': captionList[i],
-            'value': '',
+            'id': 'noLeaf_' + captionList[i],
+            'name': captionList[i],
             'children': resultChildren
         });
 
@@ -143,9 +148,8 @@ const getRsemUcsc = (directory, dirName) => {
     for(let i = 0; i < captionList.length; i++) {
 
         result.push({
-            'type': 'file',
-            'label': captionList[i],
-            'value': `/${dirName}/${captionOrganize[captionList[i]][0]}`
+            'id': 'leaf_' + captionList[i],
+            'name': `/${dirName}/${captionOrganize[captionList[i]][0]}`
         });
 
     }
@@ -176,9 +180,8 @@ const getQualimapUcsc = (directory, dirName) => {
         if(regex.exec(label) === null) continue;
 
         result.push({
-            'type': 'file',
-            'label': label,
-            'value': `/${dirName}/${label}/qualimapReport.html`
+            'id': 'leaf_' + label,
+            'name': `/${dirName}/${label}/qualimapReport.html`
         })
 
     }
@@ -232,20 +235,11 @@ const getCorrelation = (directory, dirName) => {
             else if(captionFiles[j].includes('heatmap')) label = 'Correlataon Heatmap';
             else if(captionFiles[j].includes('pca')) label = 'PCA';
 
-            resultChildren.push({
-                'type': 'file',
-                'label': label,
-                'value': `/${dirName}/${captionFiles[j]}`
-            });
+            resultChildren.push(`/${dirName}/${captionFiles[j]}`);
 
         }
 
-        result.push({
-            'type': 'caption',
-            'label': captionList[i],
-            'value': '',
-            'children': resultChildren
-        });
+        result.push(resultChildren);
 
     }
 
